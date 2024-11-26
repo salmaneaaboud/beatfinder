@@ -1,0 +1,41 @@
+/* Formulario.css */
+.formulario {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 0.7rem;
+    margin-bottom: 100px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #7F7F8B;
+  }
+  
+  .form-input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    
+  }
+
+  .form-input::placeholder{
+    font-size: 0.9rem;
+  }
+  
+  .form-input:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
