@@ -5,8 +5,8 @@ function App() {
   return (
     <>
       <ClientHeader
-        clientName="Juan Pérez"
-        clientAvatar="/path/to/avatar.jpg"
+        clientName="Cliente"
+        //clientAvatar="/path/to/avatar.jpg"
       />
     </>
   );
