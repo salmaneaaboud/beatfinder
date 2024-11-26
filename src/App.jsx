@@ -1,15 +1,13 @@
-import "./App.css";
-import { ClientHeader } from "./components/ClientHeader/ClientHeader.jsx";
+import './App.css'
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
-      <ClientHeader
-        clientName="Cliente"
-        //clientAvatar="/path/to/avatar.jpg"
-      />
+      
     </>
-  );
+  )
 }
 
-export default App;
+export default App
