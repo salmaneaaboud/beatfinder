@@ -1,11 +1,11 @@
 import './App.css'
+import { LoggedHeader } from './components/LoggedHeader/LoggedHeader'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      
+      <LoggedHeader />
     </>
   )
 }
