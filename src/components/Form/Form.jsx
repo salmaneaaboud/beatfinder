@@ -32,7 +32,7 @@ function Form({ title,campos, onSubmit, botonTexto }) {
 
 // Validación de props con PropTypes
 Form.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   campos: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,     // El nombre del campo debe ser una cadena y es obligatorio
