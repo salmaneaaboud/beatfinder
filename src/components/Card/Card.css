@@ -1,5 +1,5 @@
 .custom-card {
-    width: 380px;
+    max-width: 380px;
     height: 180px;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
@@ -48,6 +48,13 @@
     font-size: 1rem;
     color: gray;
     margin: 0;
+    overflow-y: hidden;
+    overflow-wrap:break-word;
+    max-height: 175px;
+    
+    
+    
+    
 }
 
 a, a:hover {
