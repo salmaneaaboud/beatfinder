@@ -1,10 +1,10 @@
 .btn-primary {
-    background-color: #8C52FF;
-    border-color: #8C52FF;
+    background-color: #8C52FF !important;
+    border-color: #8C52FF !important;
     color: white;
 }
 
-.btn-primary:hover, .btn-light-grey:active {
+.btn-primary:hover, .btn-primary:active {
     background-color: white !important;
     color: #7834ff !important;
     outline: none !important; 
@@ -12,12 +12,26 @@
 }
 
 .btn-light-grey {
+    background-color: white !important;
     color: gray;
 }
 
 .btn-light-grey:hover, .btn-light-grey:active {
     background-color: white !important;
     color: #7834ff !important;
+    outline: none !important; 
+    box-shadow: none !important;
+}
+
+.btn-outline-light {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+    color: white;
+}
+
+.btn-outline-light:hover, .btn-outline-light:active {
+    background-color: white !important;
+    color: black !important;
     outline: none !important; 
     box-shadow: none !important;
 }
