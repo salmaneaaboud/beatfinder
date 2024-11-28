@@ -1,0 +1,48 @@
+.trending-producers-list {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.producer-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.producer-item:last-child {
+    border-bottom: none;
+}
+
+.producer-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.producer-text {
+    flex-grow: 1;
+}
+
+.producer-title {
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.producer-subtitle {
+    font-size: 14px;
+    margin: 0;
+    color: #777;
+}
+
+.producer-arrow {
+    font-size: 20px;
+    color: #777;
+}
