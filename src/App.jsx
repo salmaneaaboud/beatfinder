@@ -1,5 +1,5 @@
 import './App.css'
-import { ClientDashboard } from './pages/Client/ClientDashboard/ClientDashboard';
+import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 
 function App() {
 

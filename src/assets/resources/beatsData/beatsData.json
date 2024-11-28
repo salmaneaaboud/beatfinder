@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Chill Vibes",
+    "subtitle": "Lo-fi Beat - 90 BPM",
+    "imageURL": "https://cdn-images.dzcdn.net/images/cover/affca21a4970d439eed876e2ae7a8b7c/0x1900-000000-80-0-0.jpg",
+    "detailsURL": "https://example.com/beats/chill-vibes"
+  },
+  {
+    "title": "Trap Energy",
+    "subtitle": "Hard Trap - 140 BPM",
+    "imageURL": "https://pics.craiyon.com/2024-05-30/L6v4S_UxQ8e-wnpKWAGlYg.webp",
+    "detailsURL": "https://example.com/beats/trap-energy"
+  },
+  {
+    "title": "Smooth Jazz Hop",
+    "subtitle": "Jazz Hip-Hop - 85 BPM",
+    "imageURL": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/10009583962273.5d4c65cc8a46e.png",
+    "detailsURL": "https://example.com/beats/smooth-jazz-hop"
+  },
+  {
+    "title": "Dark Synthwave",
+    "subtitle": "Retro Synth - 120 BPM",
+    "imageURL": "https://ms.bestservice.com/jpg/img_500x500/00012029.jpg",
+    "detailsURL": "https://example.com/beats/dark-synthwave"
+  },
+  {
+    "title": "Sunny Day Jam",
+    "subtitle": "Feel-Good Pop - 100 BPM",
+    "imageURL": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/27acbf72111557.5bdc24cb1d1a6.jpg",
+    "detailsURL": "https://example.com/beats/sunny-day-jam"
+  }
+]
