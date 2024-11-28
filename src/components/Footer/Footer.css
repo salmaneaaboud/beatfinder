@@ -1,0 +1,22 @@
+.footer {
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .footer-brand {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .footer-copy {
+    font-size: 0.9rem;
+  }
+  
