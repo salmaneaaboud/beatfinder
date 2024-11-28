@@ -1,0 +1,60 @@
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #bfbfbf;
+  }
+  
+  .form-input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .form-input::placeholder{
+    font-size: 0.7rem;
+  }
+  
+  .form-input:focus {
+    border-color: #007bff;
+  }
+  
+  .form-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #8c52ff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form-button:hover {
+    background-color: #6b23fb;
+  }
+  
+  .formulario-title {
+    color: white;
+    text-align: center;
+    margin: 0;
+}
