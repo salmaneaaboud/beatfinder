@@ -20,3 +20,7 @@
     font-size: 0.9rem;
   }
   
+  .footer-copy img {
+    width: 100px;
+    margin-right: 6px;
+  }
