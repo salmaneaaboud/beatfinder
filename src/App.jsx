@@ -1,11 +1,11 @@
 import './App.css'
+import { ClientDashboard } from './pages/Client/ClientDashboard/ClientDashboard';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-
+      <ClientDashboard />
     </>
   )
 }

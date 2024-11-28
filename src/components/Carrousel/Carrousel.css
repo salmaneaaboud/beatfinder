@@ -69,8 +69,8 @@
   }
   
   .carousel-buttons .btn:hover {
-    background-color: #8C52FF;
-    color: white;
+    background-color: white;
+    color: black;
     transform: scale(1.05);
   }
   

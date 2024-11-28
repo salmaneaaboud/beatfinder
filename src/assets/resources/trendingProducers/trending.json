@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "Diplo",
+    "producer": "Diplo",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Diplo_2014_Press_Photo_%28cropped%29.jpg/640px-Diplo_2014_Press_Photo_%28cropped%29.jpg",
+    "link": "/details/1"
+  },
+  {
+    "id": 2,
+    "title": "Calvin Harris",
+    "producer": "Calvin Harris",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Calvin_Harris.jpg/640px-Calvin_Harris.jpg",
+    "link": "/details/2"
+  },
+  {
+    "id": 3,
+    "title": "Zedd",
+    "producer": "Zedd",
+    "image": "https://images.unsplash.com/photo-1509824075376-97677a0b95a5?q=80&w=1915&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/details/3"
+  },
+  {
+    "id": 4,
+    "title": "Skrillex",
+    "producer": "Skrillex",
+    "image": "https://images.sk-static.com/images/media/img/col4/20240527-175951-344828.jpg",
+    "link": "/details/4"
+  },
+  {
+    "id": 5,
+    "title": "Martin Garrix",
+    "producer": "Martin Garrix",
+    "image": "https://cdn.teleticket.com.pe/especiales/martin-garrix-lima-2024/images/disco-imagen.jpg",
+    "link": "/details/5"
+  },
+  {
+    "id": 6,
+    "title": "David Guetta",
+    "producer": "David Guetta",
+    "image": "https://dynamicmedia.livenationinternational.com/q/t/r/86794710-85fe-43ea-ba94-e503c2443927.jpg?auto=webp&width=1507.2",
+    "link": "/details/6"
+  },
+  {
+    "id": 7,
+    "title": "midudev",
+    "producer": "Miguel Ángel Durán",
+    "image": "https://avatars.githubusercontent.com/u/1561955?v=4",
+    "link": "/details/6"
+  }
+]
