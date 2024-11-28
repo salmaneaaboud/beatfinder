@@ -1,11 +1,11 @@
 import './App.css'
-import { Carrousel } from './components/Carrousel/Carrousel'
 
 function App() {
+  const [count, setCount] = useState(0)
 
   return (
     <>
-      <Carrousel />
+
     </>
   )
 }
