@@ -1,0 +1,30 @@
+.navbar {
+    height: 100vh;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.7rem;
+    height: 100%;
+  }
+  
+  .top-nav {
+    flex-grow: 1;
+    margin-top: 130px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .bottom-nav {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  
+  #id{
+    background-color: black;
+  }
