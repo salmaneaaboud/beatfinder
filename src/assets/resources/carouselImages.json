@@ -1,0 +1,20 @@
+[
+  {
+    "src": "https://images.unsplash.com/photo-1527952613700-fb1aec7f01c9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "alt": "Beat Marketplace",
+    "label": "Explora beats exclusivos",
+    "caption": "Encuentra los mejores beats de productores reconocidos en todo el mundo."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1518694514131-55c0faa1a198?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "alt": "Premium Beats",
+    "label": "Actualiza a Premium",
+    "caption": "Descarga beats sin límites, sin tags y con licencias exclusivas."
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "alt": "Join the Community",
+    "label": "Únete a la comunidad",
+    "caption": "Conecta con otros productores y artistas para llevar tu música al siguiente nivel."
+  }
+]
