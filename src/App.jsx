@@ -1,11 +1,11 @@
 import './App.css'
-import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
+import Login from './pages/Guest/Login/Login';
 
 function App() {
 
   return (
     <>
-      <ClientDashboard />
+      <Login />
     </>
   )
 }

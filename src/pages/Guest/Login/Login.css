@@ -1,0 +1,40 @@
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff !important
+  }
+  
+  .login-toggle-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 50%;
+  }
+  
+.login-center{
+  display: flex;
+  justify-content: center;
+}
+
+  .toggle-button {
+    width: 45%;
+    margin: 0 5px;
+  }
+  
+  .social-login {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .register-text {
+    text-align: center;
+    color: #fff;
+  }
+  
+  .register-text a {
+    color: #d5a1ff;
+  }
