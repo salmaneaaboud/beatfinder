@@ -3,6 +3,7 @@ import { Header } from '/src/components/Header/Header.jsx';
 import { Container, Row, Col } from "react-bootstrap";
 import Form from '/src/components/Form/Form';
 import SocialButton from '/src/components/SocialButton/SocialButton';
+import { useNavigate } from 'react-router-dom';
 
 const campos = [
   {
@@ -35,12 +36,15 @@ const campos = [
   },
 ];
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log('Formulario enviado');
-};
-
 function Register() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Formulario enviado');
+    navigate('/login');
+  };
+
   return (
     <>
       <Header />
@@ -59,9 +63,9 @@ function Register() {
               </div>
               <p className="login-text">¿Ya tienes una cuenta Beatfinder? <a href="/login">Inicia sesión</a></p>
               <div className="social-register">
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#'/>
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#'/>
-                <SocialButton icon='https://www.svgrepo.com/show/442910/brand-apple.svg' url='#'/>
+                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
+                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
+                <SocialButton icon='https://www.svgrepo.com/show/442910/brand-apple.svg' url='#' />
               </div>
             </div>
           </Col>
