@@ -20,7 +20,7 @@ function ClientDashboard() {
 
             <div className="buttons-container container d-flex gap-3 my-4">
               <CustomButton type="primary"  value="Para ti"/>
-              <CustomButton type="btn-light-grey"  value="Para ti"/>
+              <CustomButton type="btn-light-grey"  value="Shuffle"/>
               <CustomButton type="btn-light-grey"  value="Siguiendo"/>
             </div>
 
