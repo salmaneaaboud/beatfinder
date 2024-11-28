@@ -9,5 +9,19 @@
     color: #cacaca;
   }
   
+  .custom-card {
+    width: 45%;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+  }
   
+  .welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #cacaca;
+  }
   
+  .welcome-text span {
+    color: #d17f21;
+  }
