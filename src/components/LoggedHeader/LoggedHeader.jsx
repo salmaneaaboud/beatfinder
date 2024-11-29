@@ -1,58 +1,37 @@
-import React, { useState } from "react";
-import { Navbar, Container, Form, Dropdown, Badge, Button } from "react-bootstrap";
-import { FaSearch, FaRegCommentDots, FaRegHeart, FaBars } from "react-icons/fa";
-import logo from "/src/assets/logo.png";
+import React from "react";
+import { Nav, Navbar, Container, Form, Dropdown, Badge } from "react-bootstrap";
+import { FaSearch, FaRegCommentDots, FaRegHeart } from "react-icons/fa";
+import { BiMenuAltRight } from "react-icons/bi";
 import clientAvatar from "/src/assets/avatar_temp.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LoggedHeader.css";
+import logo from "/src/assets/logo.png";
 
 export function LoggedHeader({ clientName = "Cliente" }) {
-  const [showSidebar, setShowSidebar] = useState(false);
-
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
-
   return (
-    <div className="d-flex">
-      {/* Sidebar (Navbar vertical a la izquierda) */}
-      <div className={`sidebar ${showSidebar ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <img src={logo} alt="logo" className="logo" />
-        </div>
-        <div className="sidebar-links">
-          <Dropdown.Item href="#home">Inicio</Dropdown.Item>
-          <Dropdown.Item href="#explore">Explorar</Dropdown.Item>
-          <Dropdown.Item href="#playlists">Mis Playlists</Dropdown.Item>
-          <Dropdown.Item href="#favourites">Mis favoritos</Dropdown.Item>
-          <Dropdown.Item href="#settings">Ajustes</Dropdown.Item>
-          <Dropdown.Item href="#logout">Cerrar sesión</Dropdown.Item>
-        </div>
-      </div>
+    <Navbar expand="lg" className="custom-navbar w-100">
+      <Container fluid className="px-3">
+        <Navbar.Brand href="#home">
+          <img src={logo} alt="Logo" className="logo" />
+        </Navbar.Brand>
 
-      {/* Contenido principal */}
-      <div className="content">
-        {/* Navbar superior */}
-        <Navbar expand="lg" className="custom-navbar">
-          <Container fluid className="d-flex justify-content-between align-items-center">
-            {/* Botón para abrir/cerrar sidebar */}
-            <Button variant="link" onClick={toggleSidebar} className="sidebar-toggle">
-              <FaBars size={30} color="#fff" />
-            </Button>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggler border-0">
+          <BiMenuAltRight color="white" size={35}/>
+        </Navbar.Toggle>
 
-            {/* Barra de búsqueda */}
-            <Form className="d-flex search-container">
-              <div className="search-bar-container">
-                <FaSearch className="search-icon" />
-                <input
-                  type="search"
-                  placeholder="Buscar productor, artista..."
-                  className="search-bar"
-                  aria-label="Search"
-                />
-              </div>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="w-100 flex-column flex-lg-row">
+            <Form className="search-bar-container col-12 col-lg-6 ms-lg-auto mx-0 my-lg-0 my-3">
+              <FaSearch className="search-icon" />
+              <input
+                type="search"
+                placeholder="Buscar productor, artista..."
+                className="search-bar w-100"
+                aria-label="Search"
+              />
             </Form>
 
-            {/* Notificaciones y avatar del cliente */}
-            <div className="d-flex align-items-center gap-4 notifications">
+            <div className="d-flex align-items-center gap-4 ms-auto notifications">
               <div className="notification-item">
                 <FaRegCommentDots className="notification-icon" />
                 <Badge pill bg="danger" className="notification-badge">
@@ -79,9 +58,9 @@ export function LoggedHeader({ clientName = "Cliente" }) {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-          </Container>
-        </Navbar>
-      </div>
-    </div>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
