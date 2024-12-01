@@ -1,0 +1,13 @@
+#sidebar-bg {
+    background: linear-gradient(
+        to right, 
+        rgba(0, 0, 0, 1) 0%,      
+        rgba(0, 0, 0, 0) 80%    
+    );
+}
+
+@media (max-width: 768px) {
+    .fa-bars {
+        display: none; 
+    }
+}
