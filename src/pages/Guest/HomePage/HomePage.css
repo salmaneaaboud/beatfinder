@@ -1,0 +1,12 @@
+.hero-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url("https://assets.soundgym.co/posts/P863D1.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 70vh;
+}
+
+.card {
+    background: linear-gradient(90deg, #231642 0%, #2f2c38 100%);
+    border: none;
+}
+
