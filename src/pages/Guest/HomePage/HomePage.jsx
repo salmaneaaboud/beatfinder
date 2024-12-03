@@ -208,7 +208,7 @@ function Homepage() {
       {/* Testimonials Section */}
       <div className="container my-5">
         <h3 className="text-center text-white mb-4">Testimonios</h3>
-        <div className="row">
+        <div className="row gy-4 gy-md-0">
           <div className="col-md-6">
             <blockquote className="blockquote text-white h-100 d-flex flex-column justify-content-center">
               <p className="w-100">
@@ -225,7 +225,7 @@ function Homepage() {
               <p className="w-100">
                 &quot;Una experiencia única que me ha permitido crecer como
                 artista al poder escuchar y colaborar con productores de todo el
-                mundo.quot;
+                mundo.&quot;
               </p>
               <footer className="blockquote-footer text-white-50">
                 Ana Gómez
