@@ -20,14 +20,13 @@ function Homepage() {
             <CustomButton
               value="Regístrate gratis"
               variant="primary"
-              size="lg"
             />
           </Link>
         </div>
       </div>
 
       {/* Card Section */}
-      <div className="container my-5">
+      <div className="container-fluid my-5">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-8">
             <div className="card rounded-4 p-4">
@@ -51,11 +50,51 @@ function Homepage() {
 
                 <div className="col-12 col-md-6 position-relative">
                   <div className="icon-container">
-                    
+                    <img className="img-fluid" src="https://cdn-images.dzcdn.net/images/misc/eb40c33a17808f047c69b5aedb6887f8/0x1800-000000-75-0-0.webp"/>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container d-flex flex-column align-items-center justify-content-center">
+        <h2 className="display-5 fw-normal mb-3 text-white">
+          Echa un vistazo a nuestro catálogo de productores.
+        </h2>
+        <div className="gallery col-12">
+          <div className="gallery-card">
+            <figure>
+              <img
+                src="https://media.gq.com.mx/photos/66158e1166548ab1bfa23176/3:2/w_2560%2Cc_limit/GQ_Creativity_Awards_Bizarrap.jpg"
+                alt="Preview"
+              />
+            </figure>
+          </div>
+          <div className="gallery-card">
+            <figure>
+              <img
+                src="https://www.vigoe.es/wp-content/uploads/2023/07/David-Guetta-2.jpg"
+                alt="Preview"
+              />
+            </figure>
+          </div>
+          <div className="gallery-card">
+            <figure>
+              <img
+                src="https://cdn.themedizine.com/2021/05/pharrell-williams-industria-the-medizine.jpg"
+                alt="Preview"
+              />
+            </figure>
+          </div>
+          <div className="gallery-card">
+            <figure>
+              <img
+                src="https://cms.afrotech.com/wp-content/uploads/2023/03/Metro-Boomin.jpg"
+                alt="Preview"
+              />
+            </figure>
           </div>
         </div>
       </div>
