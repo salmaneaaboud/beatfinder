@@ -4,6 +4,7 @@ import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 import Login from './pages/Guest/Login/Login';
 import Register from './pages/Guest/Register/Register';
 import Homepage from './pages/Guest/HomePage/HomePage';
+import Footer from './components/Footer/Footer';
 function App() {
 
   return (
@@ -16,7 +17,10 @@ function App() {
         <Route path="/" element={<Homepage />} />
 
       </Routes>
-    </BrowserRouter>    </>
+    </BrowserRouter>    
+    <Footer />
+    </>
+    
   )
 }
 

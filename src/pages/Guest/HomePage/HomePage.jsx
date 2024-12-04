@@ -94,55 +94,55 @@ function Homepage() {
 
       {/* Features Section */}
       <div className="container my-5">
-        <h3 className="text-center text-white mb-4">
+        <h3 className="text-center text-white mb-4 px-3">
           Características Destacadas
         </h3>
         <div className="row g-4 row-cols-1 row-cols-md-3 h-100">
-          <div className="col-md-4">
-            <div className="feature-card text-center p-4 h-100 d-flex flex-column">
+          <div className="col-12 col-md-4">
+            <div className="feature-card text-center p-3 p-md-4 h-100 d-flex flex-column">
               <div className="icon-wrapper mb-3">
-                <i className="fas fa-music fa-3x text-primary"></i>
+                <i className="fas fa-music fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white">Calidad de Sonido</h4>
-              <p className="text-white-50 flex-grow-1">
+              <h4 className="text-white fs-5 fs-md-4">Calidad de Sonido</h4>
+              <p className="text-white-50 flex-grow-1 small">
                 Disfruta de beats en alta definición. Exporta en múltiples
                 formatos y frecuencias de muestreo para adaptarse a tus
                 necesidades.
               </p>
-              <div className="feature-footer mt-auto">
+              <div className="feature-footer mt-auto d-flex flex-wrap justify-content-center gap-2">
                 <span className="badge bg-primary">WAV</span>
-                <span className="badge bg-primary ms-2">MP3</span>
+                <span className="badge bg-primary">MP3</span>
               </div>
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="feature-card text-center p-4 h-100 d-flex flex-column">
+          <div className="col-12 col-md-4">
+            <div className="feature-card text-center p-3 p-md-4 h-100 d-flex flex-column">
               <div className="icon-wrapper mb-3">
-                <i className="fas fa-sliders-h fa-3x text-primary"></i>
+                <i className="fas fa-sliders-h fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white">Fácil de Usar</h4>
-              <p className="text-white-50 flex-grow-1">
+              <h4 className="text-white fs-5 fs-md-4">Fácil de Usar</h4>
+              <p className="text-white-50 flex-grow-1 small">
                 Interfaz moderna e intuitiva. Encuentra el beat perfecto en
                 segundos con nuestro sistema de búsqueda avanzada.
               </p>
               <div className="feature-footer mt-auto">
-                <span className="badge bg-primary">Filtros de BPM, Tonalidad, Género...</span>
+                <span className="badge bg-primary d-inline-block text-wrap px-2">Filtros de BPM, Tonalidad, Género...</span>
               </div>
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="feature-card text-center p-4 h-100 d-flex flex-column">
+          <div className="col-12 col-md-4">
+            <div className="feature-card text-center p-3 p-md-4 h-100 d-flex flex-column">
               <div className="icon-wrapper mb-3">
-                <i className="fas fa-users fa-3x text-primary"></i>
+                <i className="fas fa-users fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white">Colaboraciones</h4>
-              <p className="text-white-50 flex-grow-1">
+              <h4 className="text-white fs-5 fs-md-4">Colaboraciones</h4>
+              <p className="text-white-50 flex-grow-1 small">
                 Conecta con productores de todo el mundo. Aporta tus ideas y
                 crea música juntos.
               </p>
-              <div className="feature-footer mt-auto">
+              <div className="feature-footer mt-auto d-flex flex-wrap justify-content-center gap-2">
                 <span className="badge bg-primary">Sistema de comentarios</span>
-                <span className="badge bg-primary ms-2">Contactos</span>
+                <span className="badge bg-primary">Contactos</span>
               </div>
             </div>
           </div>
