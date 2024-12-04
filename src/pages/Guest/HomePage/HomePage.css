@@ -1,0 +1,182 @@
+.hero-img {
+  object-fit: cover;
+  filter: brightness(0.4) blur(1px);
+  transition: all 0.5s ease;
+  opacity: 0.8;
+}
+
+.hero:hover .hero-img {
+  filter: brightness(0.45) blur(1px);
+  transform: scale(1.05);
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.2)
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(45deg, #6c5ce7, #c1bdfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero .btn-primary,
+.hero .btn-outline-light {
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.hero .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+}
+
+.hero .btn-outline-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
+}
+
+.card {
+  background: linear-gradient(90deg, #231642 0%, #2f2c38 100%);
+  border: none;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.icon-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.feature-footer {
+  margin-top: 1.5rem;
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+.gallery-card {
+  position: relative;
+  width: 5rem;
+  height: 24rem;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  flex: 0.25;
+}
+
+.gallery-card figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.gallery-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-card figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all 0.3s ease;
+}
+
+.gallery-card:hover figcaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-card:hover {
+  flex: 2;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  transform: translateY(-5px);
+}
+
+.gallery-card:hover::after {
+  opacity: 1;
+}
+
+[data-producer="Bizarrap"] img {
+  object-position: center;
+}
+
+[data-producer="David Guetta"] img {
+  object-position: left center;
+}
+
+[data-producer="Pharrell Williams"] img {
+  object-position: right center;
+}
+
+[data-producer="Metro Boomin"] img {
+  object-position: center center;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+.blockquote {
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  transition: transform 0.3s ease;
+}
+
+.blockquote:hover {
+  transform: translateY(-5px);
+}
+
+.blockquote p {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+}
