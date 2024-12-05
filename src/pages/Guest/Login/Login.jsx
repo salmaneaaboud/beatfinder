@@ -6,8 +6,10 @@ import SocialButton from '/src/components/SocialButton/SocialButton';
 import { CustomButton } from '/src/components/CustomButton/CustomButton';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 function Login() {
+  const { t } = useTranslation('login');
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -17,16 +19,16 @@ function Login() {
   const campos = [
     {
       name: 'emailOrUsername',
-      label: 'Correo electrónico o nombre de usuario',
+      label: t('login.form.fields.emailOrUsername.label'),
       type: 'text',
-      placeholder: 'Ingresa tu correo o usuario',
+      placeholder: t('login.form.fields.emailOrUsername.placeholder'),
       required: true,
     },
     {
       name: 'password',
-      label: 'Contraseña',
+      label: t('login.form.fields.password.label'),
       type: 'password',
-      placeholder: 'Ingresa tu contraseña',
+      placeholder: t('login.form.fields.password.placeholder'),
       required: true,
     },
   ];
@@ -38,11 +40,11 @@ function Login() {
         <Row className="justify-content-center">
           <Col lg={6} xl={5}>
             <div className="login-form">
-              <h2>Conectarse</h2>
+              <h2>{t('login.title')}</h2>
               <div className='login-center'>
                 <div className="login-toggle-buttons">
-                  <CustomButton type='' value='Cliente' />
-                  <CustomButton type='btn-outline-light' value='Productor' />
+                  <CustomButton type='' value={t('login.toggleButtons.client')} />
+                  <CustomButton type='btn-outline-light' value={t('login.toggleButtons.producer')} />
                 </div>
               </div>
 
@@ -50,14 +52,16 @@ function Login() {
                 title=""
                 campos={campos}
                 onSubmit={handleLogin}
-                botonTexto="Iniciar sesión"
+                botonTexto={t('login.form.submitButton')}
               />
               <div className="social-login">
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
-                <SocialButton icon='https://www.svgrepo.com/show/442910/brand-apple.svg' url='#' />
+                <SocialButton icon={t('login.socialLogin.google.icon')} url={t('login.socialLogin.google.url')} />
+                <SocialButton icon={t('login.socialLogin.facebook.icon')} url={t('login.socialLogin.facebook.url')} />
+                <SocialButton icon={t('login.socialLogin.apple.icon')} url={t('login.socialLogin.apple.url')} />
               </div>
-              <p className="register-text">¿Todavía no tienes una cuenta Beatfinder? <a href="/register">Regístrate</a></p>
+              <p className="register-text">
+                {t('login.registerText.text')} <a href="/register">{t('login.registerText.link')}</a>
+              </p>
             </div>
           </Col>
         </Row>

@@ -1,0 +1,41 @@
+{
+    "login": {
+      "title": "Conectarse",
+      "toggleButtons": {
+        "client": "Cliente",
+        "producer": "Productor"
+      },
+      "form": {
+        "fields": {
+          "emailOrUsername": {
+            "label": "Correo electrónico o nombre de usuario",
+            "placeholder": "Ingresa tu correo o usuario"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Ingresa tu contraseña"
+          }
+        },
+        "submitButton": "Iniciar sesión"
+      },
+      "socialLogin": {
+        "google": {
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png",
+          "url": "#"
+        },
+        "facebook": {
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+          "url": "#"
+        },
+        "apple": {
+          "icon": "https://www.svgrepo.com/show/442910/brand-apple.svg",
+          "url": "#"
+        }
+      },
+      "registerText": {
+        "text": "¿Todavía no tienes una cuenta Beatfinder?",
+        "link": "Regístrate"
+      }
+    }
+  }
+  

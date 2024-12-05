@@ -6,12 +6,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useTranslation } from "react-i18next";
 
 function Homepage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation('home');
+
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <>
       <Header />
-
       <div className="hero d-flex align-items-center justify-content-center position-relative overflow-hidden py-5">
         <img 
           src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745"
@@ -19,7 +22,6 @@ function Homepage() {
           alt={t("hero.alt")} 
         />
         <div className="hero-overlay position-absolute top-0 start-0 w-100 h-100" />
-        
         <div className="container position-relative text-white">
           <div className="row justify-content-center align-items-center min-vh-75">
             <div className="col-lg-10 text-center">
@@ -150,6 +152,15 @@ function Homepage() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="language-switcher d-flex justify-content-center mt-4">
+        <button onClick={() => handleLanguageChange("en")} className="btn btn-outline-light me-2">
+          English
+        </button>
+        <button onClick={() => handleLanguageChange("es")} className="btn btn-outline-light">
+          Español
+        </button>
       </div>
     </>
   );

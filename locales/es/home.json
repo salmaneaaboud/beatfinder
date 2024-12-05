@@ -1,0 +1,84 @@
+{
+  "hero": {
+    "alt": "Imagen de fondo de la página de inicio",
+    "badge": "La Nueva Plataforma Para Productores y Artistas",
+    "title": "Tu Visión.",
+    "subtitle": "Nuestra Pasión.",
+    "description": "La mejor biblioteca de beats profesionales a tu alcance. Encuentra la base perfecta para dar vida a tus letras.",
+    "buttons": {
+      "start": "Empezar Gratis",
+      "explore": "Explorar Beats"
+    }
+  },
+  "card": {
+    "title": "Comienza Hoy",
+    "description": "Crea tu cuenta y conecta con productores profesionales",
+    "button": "Registrarse",
+    "alt": "Imagen relacionada con la sección de registro"
+  },
+  "features": {
+    "title": "Características Destacadas",
+    "items": [
+      {
+        "icon": "fa-music",
+        "title": "Calidad de Sonido",
+        "description": "Disfruta de beats en alta definición. Exporta en múltiples formatos y frecuencias de muestreo para adaptarse a tus necesidades.",
+        "badges": ["WAV", "MP3"]
+      },
+      {
+        "icon": "fa-cogs",
+        "title": "Fácil de Usar",
+        "description": "Interfaz moderna e intuitiva. Encuentra el beat perfecto en segundos con nuestro sistema de búsqueda avanzada.",
+        "badges": ["Filtros de BPM", "Tonalidad", "Género..."]
+      },
+      {
+        "icon": "fa-users",
+        "title": "Colaboraciones",
+        "description": "Conecta con productores de todo el mundo. Aporta tus ideas y crea música juntos.",
+        "badges": ["Sistema de comentarios", "Contactos"]
+      }
+    ]
+  },
+  "catalog": {
+    "title": "Echa un vistazo a nuestro catálogo de productores.",
+    "items": [
+      {
+        "name": "Bizarrap",
+        "description": "Innovador en la escena musical",
+        "img": "https://media.gq.com.mx/photos/66158e1166548ab1bfa23176/3:2/w_2560%2Cc_limit/GQ_Creativity_Awards_Bizarrap.jpg",
+        "alt": "Imagen de Bizarrap"
+      },
+      {
+        "name": "David Guetta",
+        "description": "Maestro de la música electrónica",
+        "img": "https://www.vigoe.es/wp-content/uploads/2023/07/David-Guetta-2.jpg",
+        "alt": "Imagen de David Guetta"
+      },
+      {
+        "name": "Pharrell Williams",
+        "description": "Creatividad sin límites",
+        "img": "https://cdn.themedizine.com/2021/05/pharrell-williams-industria-the-medizine.jpg",
+        "alt": "Imagen de Pharrell Williams"
+      },
+      {
+        "name": "Metro Boomin",
+        "description": "El futuro del hip-hop",
+        "img": "https://cms.afrotech.com/wp-content/uploads/2023/03/Metro-Boomin.jpg",
+        "alt": "Imagen de Metro Boomin"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Testimonios",
+    "items": [
+      {
+        "quote": "\"La mejor plataforma para descubrir nuevos talentos. ¡Increíble!\"",
+        "author": "Juan Pérez"
+      },
+      {
+        "quote": "\"Una experiencia única que me ha permitido crecer como artista al poder escuchar y colaborar con productores de todo el mundo.\"",
+        "author": "Ana Gómez"
+      }
+    ]
+  }
+}
