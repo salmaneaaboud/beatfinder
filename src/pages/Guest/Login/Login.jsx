@@ -5,13 +5,21 @@ import Form from '/src/components/Form/Form';
 import SocialButton from '/src/components/SocialButton/SocialButton';
 import { CustomButton } from '/src/components/CustomButton/CustomButton';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
+import LoadingOverlay from '/src/components/LoadingOverlay/LoadingOverlay.jsx'; // Importa el componente
 
 function Login() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = () => {
-    navigate('/dashboard');
+  const handleLogin = (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate('/dashboard');
+    }, 1300);
   };
 
   const campos = [
@@ -33,6 +41,7 @@ function Login() {
 
   return (
     <>
+      <LoadingOverlay isLoading={isLoading} message="Iniciando sesión..." /> {/* Componente de carga */}
       <Header />
       <Container className="login-container">
         <Row className="justify-content-center">
@@ -51,6 +60,7 @@ function Login() {
                 campos={campos}
                 onSubmit={handleLogin}
                 botonTexto="Iniciar sesión"
+                disabled={isLoading}
               />
               <div className="social-login">
                 <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
