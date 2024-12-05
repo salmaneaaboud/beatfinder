@@ -1,0 +1,84 @@
+{
+  "hero": {
+    "alt": "Mesa de mezclas",
+    "badge": "La nueva plataforma para productores y artistas",
+    "title": "tu vision",
+    "subtitle": "nuestra pasion",
+    "description": "La mejor biblioteca de beats profesionales a tu alcance. Encuentra la base perfecta para dar vida a tus letras.",
+    "buttons": {
+      "start": "Empezar Gratis",
+      "explore": "Explorar Beats"
+    }
+  },
+  "card": {
+    "title": "Comenzar hoy",
+    "description": "Crea tu cuenta y conecta con productores profesionales",
+    "button": "Registrarse",
+    "alt": "Imagen de guitarras"
+  },
+  "features": {
+    "title": "Característica destacadas",
+    "items": [
+      {
+        "icon": "fa-heart",
+        "title": "Calidad de sonido",
+        "description": "Disfruta de beats en alta definicion, exporta en multiples formatos y frecuencias de muestreo para adaptarse a tus necesidades.",
+        "badges": ["WAV", "MP3"]
+      },
+      {
+        "icon": "fa-star",
+        "title": "Facil de usar",
+        "description": "Interfaz moderna e intuitiva. Encuentra el beat perfecto en segundos con nuestro sistema de busqueda avanzada.",
+        "badges": ["Filtros de BPM, Tonalidad, Genero..."]
+      },
+      {
+        "icon": "fa-check",
+        "title": "Colaboraciones",
+        "description": "Conecta con productores de todo el mundo. Aporta tus ideas y crea musica juntos.",
+        "badges": ["Sistema de comentarios", "Contactos"]
+      }
+    ]
+  },
+  "catalog": {
+    "title": "Echa un vistazo a nuestro catalogo de productores",
+    "items": [
+      {
+        "name": "Bizarrap",
+        "img": "https://via.placeholder.com/150",
+        "alt": "Product 1 image",
+        "description": "Description for product 1."
+      },
+      {
+        "name": "Product 2",
+        "img": "https://via.placeholder.com/150",
+        "alt": "Product 2 image",
+        "description": "Description for product 2."
+      },
+      {
+        "name": "Product 3",
+        "img": "https://via.placeholder.com/150",
+        "alt": "Product 3 image",
+        "description": "Description for product 3."
+      },
+      {
+        "name": "Product 3",
+        "img": "https://via.placeholder.com/150",
+        "alt": "Product 3 image",
+        "description": "Description for product 3."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What People Say",
+    "items": [
+      {
+        "quote": "This is amazing!",
+        "author": "John Doe"
+      },
+      {
+        "quote": "Highly recommended!",
+        "author": "Jane Smith"
+      }
+    ]
+  }
+}
