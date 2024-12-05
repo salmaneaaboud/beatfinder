@@ -4,6 +4,9 @@ import enHome from '/locales/en/home.json';
 import esHome from '/locales/es/home.json';
 import enLogin from '/locales/en/login.json';
 import esLogin from '/locales/es/login.json';
+import enRegister from '/locales/en/register.json';
+import esRegister from '/locales/es/register.json';
+
 
 
 
@@ -13,12 +16,14 @@ i18n
     resources: {
       en: {
         home: enHome,
-        login: enLogin
+        login: enLogin,
+        register: enRegister
 
       },
       es: {
         home: esHome,
-        login: esLogin
+        login: esLogin,
+        register: esRegister
       }
     },
     lng: 'es', // idioma por defecto

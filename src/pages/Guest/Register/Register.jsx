@@ -4,46 +4,48 @@ import { Container, Row, Col } from "react-bootstrap";
 import Form from '/src/components/Form/Form';
 import SocialButton from '/src/components/SocialButton/SocialButton';
 import { useNavigate } from 'react-router-dom';
-
-const campos = [
-  {
-    name: 'email',
-    label: 'Correo electrónico ',
-    type: 'text',
-    placeholder: 'Ingresa tu correo',
-    required: true,
-  },
-  {
-    name: 'username',
-    label: 'Nombre de usuario',
-    type: 'text',
-    placeholder: 'Ingresa tu nombre de usuario',
-    required: true,
-  },
-  {
-    name: 'password',
-    label: 'Contraseña',
-    type: 'password',
-    placeholder: 'Ingresa tu contraseña',
-    required: true,
-  },
-  {
-    name: 'confirmPassword',
-    label: 'Confirmar contraseña',
-    type: 'password',
-    placeholder: 'Confirma tu contraseña',
-    required: true,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 function Register() {
+  const { t } = useTranslation('register');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Formulario enviado');
+    console.log(t('register.form.submitMessage'));
     navigate('/login');
   };
+
+  const campos = [
+    {
+      name: 'email',
+      label: t('register.form.fields.email.label'),
+      type: 'text',
+      placeholder: t('register.form.fields.email.placeholder'),
+      required: true,
+    },
+    {
+      name: 'username',
+      label: t('register.form.fields.username.label'),
+      type: 'text',
+      placeholder: t('register.form.fields.username.placeholder'),
+      required: true,
+    },
+    {
+      name: 'password',
+      label: t('register.form.fields.password.label'),
+      type: 'password',
+      placeholder: t('register.form.fields.password.placeholder'),
+      required: true,
+    },
+    {
+      name: 'confirmPassword',
+      label: t('register.form.fields.confirmPassword.label'),
+      type: 'password',
+      placeholder: t('register.form.fields.confirmPassword.placeholder'),
+      required: true,
+    },
+  ];
 
   return (
     <>
@@ -52,20 +54,20 @@ function Register() {
         <Row className="justify-content-center">
           <Col lg={6} xl={5}>
             <div className="register-form">
-              <h2>Crear cuenta</h2>
+              <h2>{t('register.header')}</h2>
               <div className='register-center'>
                 <Form
                   title=""
                   campos={campos}
                   onSubmit={handleSubmit}
-                  botonTexto="Registrarse"
+                  botonTexto={t('register.form.buttonText')}
                 />
               </div>
-              <p className="login-text">¿Ya tienes una cuenta Beatfinder? <a href="/login">Inicia sesión</a></p>
+              <p className="login-text">{t('register.loginText')} <a href="/login">{t('register.loginLink')}</a></p>
               <div className="social-register">
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
-                <SocialButton icon='https://www.svgrepo.com/show/442910/brand-apple.svg' url='#' />
+                <SocialButton icon={t('register.socialButtons.google')} url='#' />
+                <SocialButton icon={t('register.socialButtons.facebook')} url='#' />
+                <SocialButton icon={t('register.socialButtons.apple')} url='#' />
               </div>
             </div>
           </Col>

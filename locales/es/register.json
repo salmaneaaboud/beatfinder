@@ -1,0 +1,34 @@
+{
+    "register": {
+      "header": "Crear cuenta",
+      "form": {
+        "fields": {
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "Ingresa tu correo"
+          },
+          "username": {
+            "label": "Nombre de usuario",
+            "placeholder": "Ingresa tu nombre de usuario"
+          },
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Ingresa tu contraseña"
+          },
+          "confirmPassword": {
+            "label": "Confirmar contraseña",
+            "placeholder": "Confirma tu contraseña"
+          }
+        },
+        "buttonText": "Registrarse"
+      },
+      "loginText": "¿Ya tienes una cuenta Beatfinder?",
+      "loginLink": "Inicia sesión",
+      "socialButtons": {
+        "google": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png",
+        "facebook": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        "apple": "https://www.svgrepo.com/show/442910/brand-apple.svg"
+      }
+    }
+  }
+  
