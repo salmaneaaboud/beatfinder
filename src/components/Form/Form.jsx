@@ -1,25 +1,26 @@
-import React from 'react';
 import PropTypes from 'prop-types'; // Importa PropTypes para la validación de props
 import './Form.css';
 
 // Componente Form que crea un formulario dinámico
-function Form({ title,campos, onSubmit, botonTexto }) {
+function Form({ title, fields, onSubmit, botonTexto, values, onChange }) {
   return (
     <form className="formulario" onSubmit={onSubmit}>
       <h2 className='formulario-title'>{title}</h2>
-      {campos.map((campo, index) => (
+      {fields.map((field, index) => (
         <div key={index} className="form-group">
-          <label className="form-label" htmlFor={campo.name}>
-            {campo.label}
-            {campo.required && '*'}
+          <label className="form-label" htmlFor={field.name}>
+            {field.label}
+            {field.required && '*'}
           </label>
           <input
-            type={campo.type}
-            name={campo.name}
-            placeholder={campo.placeholder}
-            required={campo.required}
+            type={field.type}
+            name={field.name}
+            placeholder={field.placeholder}
+            required={field.required}
             className="form-input"
-            id={campo.name}
+            id={field.name}
+            value={values[field.name]}
+            onChange={onChange}
           />
         </div>
       ))}
@@ -33,17 +34,19 @@ function Form({ title,campos, onSubmit, botonTexto }) {
 // Validación de props con PropTypes
 Form.propTypes = {
   title: PropTypes.string,
-  campos: PropTypes.arrayOf(
+  fields: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,     // El nombre del campo debe ser una cadena y es obligatorio
-      label: PropTypes.string.isRequired,    // La etiqueta del campo debe ser una cadena y es obligatoria
+      name: PropTypes.string.isRequired,     // El nombre del field debe ser una cadena y es obligatorio
+      label: PropTypes.string.isRequired,    // La etiqueta del field debe ser una cadena y es obligatoria
       type: PropTypes.string.isRequired,     // El tipo del input (text, email, etc.) es obligatorio
       placeholder: PropTypes.string,         // Placeholder es opcional, pero debe ser una cadena si se proporciona
-      required: PropTypes.bool               // Indica si el campo es obligatorio
+      required: PropTypes.bool               // Indica si el field es obligatorio
     })
-  ).isRequired, // 'campos' debe ser un array de objetos con las propiedades especificadas
+  ).isRequired, // 'fields' debe ser un array de objetos con las propiedades especificadas
   onSubmit: PropTypes.func.isRequired,       // onSubmit debe ser una función y es obligatorio
-  botonTexto: PropTypes.string.isRequired    // botonTexto debe ser una cadena y es obligatorio
+  botonTexto: PropTypes.string.isRequired,    // botonTexto debe ser una cadena y es obligatorio
+  values: PropTypes.object.isRequired,
+  onChange:PropTypes.func.isRequired
 };
 
 export default Form;

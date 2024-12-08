@@ -1,27 +1,31 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 import Login from './pages/Guest/Login/Login';
 import Register from './pages/Guest/Register/Register';
 import Homepage from './pages/Guest/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
-function App() {
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
+function App() {
   return (
-    <>
     <BrowserRouter>
       <Routes>
-        <Route path="/dashboard" element={<ClientDashboard />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Homepage />} />
-
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <ClientDashboard />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
+      <Footer />
     </BrowserRouter>    
-    <Footer />
-    </>
-    
-  )
+  );
 }
 
-export default App
+export default App;
