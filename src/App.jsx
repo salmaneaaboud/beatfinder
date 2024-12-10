@@ -6,6 +6,8 @@ import Register from './pages/Guest/Register/Register';
 import Homepage from './pages/Guest/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import EmailVerificationSuccess from './pages/Guest/EmailVerification/EmailVerificationSuccess';
+import EmailVerificationError from './pages/Guest/EmailVerification/EmailVerificationError';
 
 function App() {
   return (
@@ -14,17 +16,19 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Homepage />} />
-        <Route 
-          path="/dashboard" 
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <ClientDashboard />
             </ProtectedRoute>
-          } 
+          }
         />
+        <Route path="/email-verification/success" element={<EmailVerificationSuccess />} />
+        <Route path="/email-verification/error" element={<EmailVerificationError />} />
       </Routes>
       <Footer />
-    </BrowserRouter>    
+    </BrowserRouter>
   );
 }
 
