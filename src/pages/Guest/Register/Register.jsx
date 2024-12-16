@@ -6,8 +6,11 @@ import { Header }from "/src/components/Header/Header";
 import { Container, Row, Col } from "react-bootstrap";
 import SocialButton from "/src/components/SocialButton/SocialButton";
 import './Register.css';
+import { useTranslation } from "react-i18next";
 
 const Register = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -16,34 +19,33 @@ const Register = () => {
     password_confirmation: "",
   });
 
-  // Definición de los campos del formulario
   const campos = [
     {
       name: "name",
-      label: "Nombre",
+      label: t("register.name_label"),
       type: "text",
-      placeholder: "Ingrese su nombre",
+      placeholder: t("register.name_field"),
       required: true,
     },
     {
       name: "email",
-      label: "Correo electrónico",
+      label: t("register.email_label"),
       type: "email",
-      placeholder: "Ingrese su correo electrónico",
+      placeholder: t("register.email_field"),
       required: true,
     },
     {
       name: "password",
-      label: "Contraseña",
+      label: t("register.password_label"),
       type: "password",
-      placeholder: "Ingrese su contraseña",
+      placeholder: t("register.password_field"),
       required: true,
     },
     {
       name: "password_confirmation",
-      label: "Confirmar contraseña",
+      label: t("register.password_confirmation_label"),
       type: "password",
-      placeholder: "Confirme su contraseña",
+      placeholder: t("register.password_confirmation_field"),
       required: true,
     },
   ];
@@ -106,15 +108,15 @@ const Register = () => {
             <div className="register-form">
               <div className="register-center">
                 <Form
-                  title="Crear cuenta"
+                  title={t("register.title")}
                   fields={campos}
                   onSubmit={handleSubmit}
-                  botonTexto="Registrarse"
+                  botonTexto={t("register.register_button")}
                   values={formData}
                   onChange={handleChange}
                 />
               </div>
-              <p className="login-text">¿Ya tienes una cuenta Beatfinder? <a href="/login">Inicia sesión</a></p>
+              <p className="login-text">{t("register.already_have_account")} <a href="/login">{t("register.login")}</a></p>
               <div className="social-register">
                 <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
                 <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
