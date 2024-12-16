@@ -2,10 +2,10 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import "./CustomButton.css"; 
 
-export function CustomButton({ type, value }) {
+export function CustomButton({ type, value, onClick }) {
   const buttonClass = getButtonClass(type);
 
-  return <Button className={buttonClass}>{value}</Button>;
+  return <Button className={buttonClass} onClick={onClick}>{value}</Button>;
 }
 
 function getButtonClass(type) {

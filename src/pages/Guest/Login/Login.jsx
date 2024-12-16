@@ -1,69 +1,82 @@
-import './Login.css';
-import { Header } from '/src/components/Header/Header.jsx';
-import { Container, Row, Col } from "react-bootstrap";
-import Form from '/src/components/Form/Form';
-import SocialButton from '/src/components/SocialButton/SocialButton';
-import { CustomButton } from '/src/components/CustomButton/CustomButton';
-import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import "./Login.css";
+import { useState } from "react";
+import Form from "/src/components/Form/Form";
+import { useAuth } from '/src/hooks/useAuth';
+import { CustomButton } from "/src/components/CustomButton/CustomButton";
+import { Header } from "/src/components/Header/Header";
+import { useTranslation } from 'react-i18next';
 
-function Login() {
-  const navigate = useNavigate();
+const Login = () => {
+  const { t } = useTranslation(); 
 
-  const handleLogin = () => {
-    navigate('/dashboard');
+  const auth = useAuth();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [selectedRole, setSelectedRole] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await auth.login(formData.email, formData.password);
   };
 
   const campos = [
     {
-      name: 'emailOrUsername',
-      label: 'Correo electrónico o nombre de usuario',
-      type: 'text',
-      placeholder: 'Ingresa tu correo o usuario',
+      name: "email",
+      label: t("login.email_label"),
+      type: "text",
+      placeholder: t("login.email_field"),
       required: true,
     },
     {
-      name: 'password',
-      label: 'Contraseña',
-      type: 'password',
-      placeholder: 'Ingresa tu contraseña',
+      name: "password",
+      label: t("login.password_label"),
+      type: "password",
+      placeholder: t("login.password_field"),
       required: true,
     },
   ];
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleButtonClick = (role) => {
+    setSelectedRole(role); 
+  };
+
   return (
     <>
       <Header />
-      <Container className="login-container">
-        <Row className="justify-content-center">
-          <Col lg={6} xl={5}>
-            <div className="login-form">
-              <h2>Conectarse</h2>
-              <div className='login-center'>
-                <div className="login-toggle-buttons">
-                  <CustomButton type='' value='Cliente' />
-                  <CustomButton type='btn-outline-light' value='Productor' />
-                </div>
-              </div>
-
-              <Form
-                title=""
-                campos={campos}
-                onSubmit={handleLogin}
-                botonTexto="Iniciar sesión"
-              />
-              <div className="social-login">
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
-                <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
-                <SocialButton icon='https://www.svgrepo.com/show/442910/brand-apple.svg' url='#' />
-              </div>
-              <p className="register-text">¿Todavía no tienes una cuenta Beatfinder? <a href="/register">Regístrate</a></p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      <h2>{t("login.title")}</h2>
+      <div className='login-center'>
+        <div className="login-toggle-buttons">
+          <CustomButton
+            type={selectedRole === "cliente" ? 'btn-primary' : 'btn-outline-light'}
+            value={t("login.client_button")}
+            onClick={() => handleButtonClick("cliente")}
+          />
+          <CustomButton
+            type={selectedRole === "productor" ? 'btn-primary' : 'btn-outline-light'}
+            value={t("login.producer_button")}
+            onClick={() => handleButtonClick("productor")}
+          />
+        </div>
+      </div>
+      <Form
+        fields={campos}
+        onSubmit={handleLogin}
+        botonTexto={t("login.login_button")}
+        values={formData}
+        onChange={handleChange}
+      />
     </>
   );
-}
+};
 
 export default Login;

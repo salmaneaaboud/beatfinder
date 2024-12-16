@@ -1,48 +1,102 @@
-import './Register.css';
-import { Header } from '/src/components/Header/Header.jsx';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "/src/services/api";
+import Form from "/src/components/Form/Form";
+import { Header }from "/src/components/Header/Header";
 import { Container, Row, Col } from "react-bootstrap";
-import Form from '/src/components/Form/Form';
-import SocialButton from '/src/components/SocialButton/SocialButton';
-import { useNavigate } from 'react-router-dom';
+import SocialButton from "/src/components/SocialButton/SocialButton";
+import './Register.css';
+import { useTranslation } from "react-i18next";
 
-const campos = [
-  {
-    name: 'email',
-    label: 'Correo electrónico ',
-    type: 'text',
-    placeholder: 'Ingresa tu correo',
-    required: true,
-  },
-  {
-    name: 'username',
-    label: 'Nombre de usuario',
-    type: 'text',
-    placeholder: 'Ingresa tu nombre de usuario',
-    required: true,
-  },
-  {
-    name: 'password',
-    label: 'Contraseña',
-    type: 'password',
-    placeholder: 'Ingresa tu contraseña',
-    required: true,
-  },
-  {
-    name: 'confirmPassword',
-    label: 'Confirmar contraseña',
-    type: 'password',
-    placeholder: 'Confirma tu contraseña',
-    required: true,
-  },
-];
+const Register = () => {
+  const { t } = useTranslation();
 
-function Register() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
 
-  const handleSubmit = (e) => {
+  const campos = [
+    {
+      name: "name",
+      label: t("register.name_label"),
+      type: "text",
+      placeholder: t("register.name_field"),
+      required: true,
+    },
+    {
+      name: "email",
+      label: t("register.email_label"),
+      type: "email",
+      placeholder: t("register.email_field"),
+      required: true,
+    },
+    {
+      name: "password",
+      label: t("register.password_label"),
+      type: "password",
+      placeholder: t("register.password_field"),
+      required: true,
+    },
+    {
+      name: "password_confirmation",
+      label: t("register.password_confirmation_label"),
+      type: "password",
+      placeholder: t("register.password_confirmation_field"),
+      required: true,
+    },
+  ];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Formulario enviado');
-    navigate('/login');
+    try {
+      // Validaciones del lado del cliente
+      if (formData.password !== formData.password_confirmation) {
+        alert("Las contraseñas no coinciden");
+        return;
+      }
+
+      if (formData.password.length < 8) {
+        alert("La contraseña debe tener al menos 8 caracteres");
+        return;
+      }
+
+      // Enviar los datos al servidor
+      const response = await api.post("/register", formData);
+      localStorage.setItem("token", response.data.token);
+      alert("Usuario registrado con éxito");
+      navigate("/login");
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error);
+
+      // Obtener mensaje de error del servidor
+      let mensajeError = "Error al registrar el usuario";
+
+      if (error.response?.data) {
+        if (error.response.data.errors) {
+          const errores = Object.values(error.response.data.errors).flat();
+          mensajeError = errores.join("\n");
+        } 
+        else if (error.response.data.message || error.response.data.error) {
+          mensajeError = error.response.data.message || error.response.data.error;
+        }
+      }
+      else if (error.request) {
+        mensajeError = "No se pudo conectar con el servidor";
+      }
+
+      alert(mensajeError);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -52,16 +106,17 @@ function Register() {
         <Row className="justify-content-center">
           <Col lg={6} xl={5}>
             <div className="register-form">
-              <h2>Crear cuenta</h2>
-              <div className='register-center'>
+              <div className="register-center">
                 <Form
-                  title=""
-                  campos={campos}
+                  title={t("register.title")}
+                  fields={campos}
                   onSubmit={handleSubmit}
-                  botonTexto="Registrarse"
+                  botonTexto={t("register.register_button")}
+                  values={formData}
+                  onChange={handleChange}
                 />
               </div>
-              <p className="login-text">¿Ya tienes una cuenta Beatfinder? <a href="/login">Inicia sesión</a></p>
+              <p className="login-text">{t("register.already_have_account")} <a href="/login">{t("register.login")}</a></p>
               <div className="social-register">
                 <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/768px-Google_%22G%22_logo.svg.png' url='#' />
                 <SocialButton icon='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png' url='#' />
@@ -73,6 +128,6 @@ function Register() {
       </Container>
     </>
   );
-}
+};
 
 export default Register;
