@@ -4,7 +4,6 @@ import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 import Login from './pages/Guest/Login/Login';
 import Register from './pages/Guest/Register/Register';
 import TermsAndConditions from './pages/Guest/TermsAndConditions/TermsAndConditions';
-import Footer from './components/Footer/Footer';
 import Homepage from './pages/Guest/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
