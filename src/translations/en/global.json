@@ -1,0 +1,61 @@
+{
+  "header": {
+    "login_button": "Log in",
+    "register_button": "Sign up"
+  },
+  "homepage": {
+    "hero_title": "The New Platform for Producers and Artists",
+    "hero_subtitle": "Your Vision.",
+    "hero_subtitle_span": "Our Passion.",
+    "hero_description": "The best library of professional beats at your fingertips. Find the perfect track to bring your lyrics to life.",
+    "start_free": "Start Free",
+    "explore_beats": "Explore Beats",
+    "start_today": "Start Today",
+    "create_account": "Create your account and connect with professional producers.",
+    "register": "Sign up",
+    "features_title": "Featured Features",
+    "quality_sound": "Sound Quality",
+    "quality_description": "Enjoy high-definition beats. Export in multiple formats and sample rates to suit your needs.",
+    "easy_to_use": "Easy to Use",
+    "easy_description": "Modern and intuitive interface. Find the perfect beat in seconds with our advanced search system.",
+    "filters": "BPM, Key, Genre Filters...",
+    "collaborations": "Collaborations",
+    "collaborations_description": "Connect with producers from around the world. Share your ideas and create music together.",
+    "comment_system": "Comment System",
+    "contacts": "Contacts",
+    "catalog_title": "Check out our catalog of producers.",
+    "bizarrap_description": "Innovator in the music scene",
+    "guetta_description": "Master of electronic music",
+    "williams_description": "Creativity without limits",
+    "boomin_description": "The future of hip-hop",
+    "testimonials_title": "Testimonials",
+    "testimonial_1": "The best platform to discover new talents. Incredible!",
+    "testimonial_1_author": "Juan Pérez",
+    "testimonial_2": "A unique experience that has allowed me to grow as an artist by listening to and collaborating with producers from all over the world.",
+    "testimonial_2_author": "Ana Gómez"
+  },
+  "login": {
+    "title": "Log in",
+    "client_button": "Client",
+    "producer_button": "Producer",
+    "email_label": "Email",
+    "email_field": "Introduce your email",
+    "password_label": "Password",
+    "password_field": "Introduce your password",
+    "login_button": "Log in"
+  },
+  "register": {
+    "title": "Sign up",
+    "name_label": "Name",
+    "name_field": "Enter your name",
+    "email_label": "Email",
+    "email_field": "Enter your email",
+    "password_label": "Password",
+    "password_field": "Enter your password",
+    "password_confirmation_label": "Confirm Password",
+    "password_confirmation_field": "Confirm your password",
+    "already_have_account": "Already have an account?",
+    "login": "Log in",
+    "register_button": "Sign up"
+  }
+}
