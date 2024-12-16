@@ -1,0 +1,174 @@
+.beat-detail {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: calc(100vh - 80px); /* Ajusta el 80px según el tamaño de tu navbar */
+}
+
+.beat-detail__left {
+  background-color: #1E1E1E;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.beat-cover {
+  margin-bottom: 1rem;
+}
+
+.beat-cover img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.beat-detail__left h2 {
+  margin: 0.5rem 0;
+  color: white;
+}
+
+.beat-detail__left p {
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.action-buttons button {
+  background: none;
+  border: 1px solid #444;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: white;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  color: white;
+}
+
+.beat-detail__right {
+  background-color: #1E1E1E;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.licenses {
+  margin-top: 2rem;
+}
+
+.licenses h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.license-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.license-card {
+  background-color: #2A2A2A;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.license-card h4 {
+  color: white;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.license-card .price {
+  color: white;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.license-card .format {
+  color: #999;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.license-card.selected {
+  background-color: white;
+  border-color: white;
+}
+
+.license-card.selected h4 {
+  color: #000;
+}
+
+.license-card.selected .price {
+  color: #000;
+}
+
+.license-card.selected .format {
+  color: #666;
+}
+
+.comments {
+  margin-top: 2rem;
+}
+
+.comments h3 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.comment-input {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.comment-input input {
+  flex: 1;
+  background-color: #2A2A2A;
+  border: 1px solid #333;
+  padding: 0.8rem;
+  border-radius: 4px;
+  color: white;
+  width: 100%;
+}
+
+.comment-input input::placeholder {
+  color: #999;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.no-comments {
+  text-align: center;
+  color: #666;
+  margin: 2rem 0;
+}
+
+.no-comments p {
+  color: #999;
+}
+
+.beat-info {
+  color: white;
+}

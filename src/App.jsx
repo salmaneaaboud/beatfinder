@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import EmailVerificationSuccess from './pages/Guest/EmailVerification/EmailVerificationSuccess';
 import EmailVerificationError from './pages/Guest/EmailVerification/EmailVerificationError';
+import BeatDetail from './pages/Client/BeatDetail/BeatDetail';
 import ProducerDashboard from './pages/Producer/ProducerDashboard/ProducerDashboard';
 import UploadForm from './pages/Producer/UploadForm/UploadForm';
 
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/beat-detail" element={<BeatDetail />} />
         <Route path="/" element={<Homepage />} />
         <Route
           path="/dashboard"
