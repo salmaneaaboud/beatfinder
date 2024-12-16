@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 import Login from './pages/Guest/Login/Login';
 import Register from './pages/Guest/Register/Register';
+import TermsAndConditions from './pages/Guest/TermsAndConditions/TermsAndConditions';
+import Footer from './components/Footer/Footer';
 import Homepage from './pages/Guest/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -20,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/beat-detail" element={<BeatDetail />} />
         <Route path="/" element={<Homepage />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
         <Route
           path="/dashboard"
           element={

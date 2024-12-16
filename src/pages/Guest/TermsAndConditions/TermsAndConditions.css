@@ -1,0 +1,134 @@
+.terms-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: white;
+}
+
+.terms-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.terms-header h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: linear-gradient(45deg, #EE772F, #E95420);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.terms-section {
+  background: #1E1E1E;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid #333;
+}
+
+.terms-section h2 {
+  font-size: 2rem;
+  color: #EE772F;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.terms-section h3 {
+  font-size: 1.5rem;
+  color: white;
+  margin: 25px 0 15px;
+}
+
+.terms-section p, .terms-section li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #CCC;
+  margin-bottom: 15px;
+}
+
+.terms-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.terms-section li {
+  padding: 15px;
+  background: #2A2A2A;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #333;
+}
+
+.terms-section strong {
+  color: #EE772F;
+}
+
+.royalties-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: #2A2A2A;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.royalties-table th, .royalties-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.royalties-table th {
+  background: #333;
+  color: white;
+}
+
+.royalties-table td {
+  color: #CCC;
+}
+
+.highlight-box {
+  background: rgba(238, 119, 47, 0.1);
+  border-left: 4px solid #EE772F;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+@media (max-width: 768px) {
+  .terms-container {
+    padding: 20px;
+  }
+
+  .terms-header h1 {
+    font-size: 2rem;
+  }
+
+  .terms-section h2 {
+    font-size: 1.75rem;
+  }
+
+  .terms-section {
+    padding: 20px;
+  }
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-terms {
+  color: white;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.footer-terms:hover {
+  text-decoration: underline;
+}
+  
