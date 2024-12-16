@@ -8,6 +8,8 @@ import Footer from './components/Footer/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import EmailVerificationSuccess from './pages/Guest/EmailVerification/EmailVerificationSuccess';
 import EmailVerificationError from './pages/Guest/EmailVerification/EmailVerificationError';
+import ProducerDashboard from './pages/Producer/ProducerDashboard/ProducerDashboard';
+import UploadForm from './pages/Producer/UploadForm/UploadForm';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         />
         <Route path="/email-verification/success" element={<EmailVerificationSuccess />} />
         <Route path="/email-verification/error" element={<EmailVerificationError />} />
+        <Route path="/producer-dashboard" element={<ProducerDashboard />} />
+        <Route path="/upload-beat" element={<UploadForm />} />
       </Routes>
       <Footer />
     </BrowserRouter>
