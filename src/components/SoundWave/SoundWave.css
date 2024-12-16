@@ -1,0 +1,7 @@
+#waveform wave {
+    overflow: visible !important;
+  }
+  
+  .wavesurfer-region {
+    z-index: 3;
+  }
