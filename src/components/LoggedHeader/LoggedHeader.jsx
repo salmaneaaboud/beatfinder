@@ -50,7 +50,7 @@ export function LoggedHeader() {
               <Dropdown align="end">
                 <Dropdown.Toggle className="client-dropdown" id="dropdown-basic">
                   <div className="d-flex align-items-center gap-2">
-                    <span className="client-name">{auth.user?.name || "Cliente"}</span>
+                    <span className="client-name">{auth.user?.name || "Usuario"}</span>
                     <img src={clientAvatar} alt="Avatar" className="avatar" />
                   </div>
                 </Dropdown.Toggle>
