@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FaSearch } from "react-icons/fa";
 import AudioPlayer from "/src/components/MusicPlayer/AudioPlayer";
 import BeatItem from "/src/components/BeatItem/BeatItem";
+import Sidebar from '/src/components/Sidebar/Sidebar';
 
 
 function ExploreBeats() {
@@ -15,6 +16,10 @@ function ExploreBeats() {
 
   return (
     <>
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      
+      <div style={{ flex: 1 }}>
       <LoggedHeader />
       <Container>
         <Row>
@@ -140,10 +145,11 @@ function ExploreBeats() {
       audiourl='./src/assets/resources/song8.mp3'
     />
   </Col>
-</Row>
+</Row>    
+</Container>
 
-
-      </Container>
+      </div>
+      </div>
       <AudioPlayer 
         trackTitle = "Runaway"
         artist = "Kanye West"
@@ -151,6 +157,7 @@ function ExploreBeats() {
         coverImage = "https://images-na.ssl-images-amazon.com/images/I/61xeA8OWEbL._AC_UL210_SR210,210_.jpg"
       />
     </>
+
   );
 };
 
