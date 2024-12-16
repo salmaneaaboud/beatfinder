@@ -2,6 +2,8 @@ import "./Login.css";
 import { useState } from "react";
 import Form from "/src/components/Form/Form";
 import { useAuth } from '/src/hooks/useAuth';
+import { CustomButton } from "/src/components/CustomButton/CustomButton";
+import { Header } from "/src/components/Header/Header";
 
 const Login = () => {
   const auth = useAuth();
@@ -9,6 +11,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const [selectedRole, setSelectedRole] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,15 +43,36 @@ const Login = () => {
     });
   };
 
+  const handleButtonClick = (role) => {
+    setSelectedRole(role); 
+  };
+
   return (
-    <Form
-      title="Iniciar sesión"
-      fields={campos}
-      onSubmit={handleLogin}
-      botonTexto="Iniciar sesión"
-      values={formData}
-      onChange={handleChange}
-    />
+    <>
+      <Header />
+      <h2>Conectarse</h2>
+      <div className='login-center'>
+        <div className="login-toggle-buttons">
+          <CustomButton
+            type={selectedRole === "cliente" ? 'btn-primary' : 'btn-outline-light'}
+            value="Cliente"
+            onClick={() => handleButtonClick("cliente")}
+          />
+          <CustomButton
+            type={selectedRole === "productor" ? 'btn-primary' : 'btn-outline-light'}
+            value="Productor"
+            onClick={() => handleButtonClick("productor")}
+          />
+        </div>
+      </div>
+      <Form
+        fields={campos}
+        onSubmit={handleLogin}
+        botonTexto="Iniciar sesión"
+        values={formData}
+        onChange={handleChange}
+      />
+    </>
   );
 };
 
