@@ -10,10 +10,6 @@ import Sidebar from '/src/components/Sidebar/Sidebar';
 
 
 function ExploreBeats() {
-
-
-
-
   return (
     <>
     <div style={{ display: "flex" }}>
@@ -44,7 +40,7 @@ function ExploreBeats() {
 
         <Row className="py-5">
           <Col md={12} lg={12} xl={12} sm={12} className="d-flex gap-3">
-        <div className="search-bar">
+        <div className="search-bar-explore">
           <FaSearch className="search-icon" />
           <input type="text" placeholder="Buscar por tags" />
         </div>
