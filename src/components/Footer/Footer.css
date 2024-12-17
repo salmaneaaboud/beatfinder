@@ -24,3 +24,21 @@
     width: 100px;
     margin-right: 6px;
   }
+  
+  .footer-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .footer-terms {
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+  
+  .footer-terms:hover {
+    text-decoration: underline;
+  }

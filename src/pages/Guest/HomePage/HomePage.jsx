@@ -3,8 +3,11 @@ import { Header } from "/src/components/Header/Header";
 import { Link } from "react-router-dom";
 import { CustomButton } from "/src/components/CustomButton/CustomButton";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useTranslation } from 'react-i18next';
 
 function Homepage() {
+  const { t } = useTranslation(); 
+
   return (
     <>
       <Header />
@@ -15,7 +18,7 @@ function Homepage() {
         <img 
           src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745"
           className="hero-img w-100 h-100 position-absolute top-0 start-0" 
-          alt="Estudio de música moderno" 
+          alt={t("homepage.hero_description")} 
         />
         <div className="hero-overlay position-absolute top-0 start-0 w-100 h-100" />
         
@@ -24,28 +27,27 @@ function Homepage() {
           <div className="row justify-content-center align-items-center min-vh-75">
             <div className="col-lg-10 text-center">
               <span className="badge bg-primary bg-opacity-25 mb-3 text-uppercase fw-bold">
-                La Nueva Plataforma Para Productores y Artistas
+                {t("homepage.hero_title")}
               </span>
               
               <h1 className="display-3 fw-bolder mb-4 text-uppercase">
-                Tu Visión. <span className="text-gradient">Nuestra Pasión.</span>
+                {t("homepage.hero_subtitle")} <span className="text-gradient">{t("homepage.hero_subtitle_span")}</span>
               </h1>
               
               <p className="fs-4 mb-5 text-white-75 fw-light">
-                La mejor biblioteca de beats profesionales a tu alcance.
-                Encuentra la base perfecta para dar vida a tus letras.
+                {t("homepage.hero_description")}
               </p>
               
               <div className="d-flex gap-4 justify-content-center mb-5">
                 <Link to="/register">
                   <CustomButton
-                    value="Empezar Gratis"
+                    value={t("homepage.start_free")}
                     type="btn-primary"
                   />
                 </Link>
                 <Link to="/about">
                   <CustomButton
-                    value="Explorar Beats"
+                    value={t("homepage.explore_beats")}
                     type="btn-outline-light"
                   />
                 </Link>
@@ -63,15 +65,15 @@ function Homepage() {
               <div className="row align-items-center">
                 <div className="col-12 col-md-6 p-4 text-center d-flex flex-column justify-content-center">
                   <h3 className="fw-bold mb-4 text-white">
-                    Comienza Hoy
+                    {t("homepage.start_today")}
                   </h3>
                   <p className="fs-5 mb-5 text-white-50">
-                    Crea tu cuenta y conecta con productores profesionales
+                    {t("homepage.create_account")}
                   </p>
                   <div className="text-center">
                     <Link to="/register">
                       <CustomButton
-                        value="Registrarse"
+                        value={t("homepage.register")}
                         variant="primary"
                         size="lg"
                       />
@@ -83,7 +85,7 @@ function Homepage() {
                   <img
                     className="img-fluid rounded shadow-lg"
                     src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04"
-                    alt="Estudio de grabación"
+                    alt={t("homepage.hero_description")}
                   />
                 </div>
               </div>
@@ -95,7 +97,7 @@ function Homepage() {
       {/* Features Section */}
       <div className="container my-5">
         <h3 className="text-center text-white mb-4 px-3">
-          Características Destacadas
+          {t("homepage.features_title")}
         </h3>
         <div className="row g-4 row-cols-1 row-cols-md-3 h-100">
           <div className="col-12 col-md-4">
@@ -103,11 +105,9 @@ function Homepage() {
               <div className="icon-wrapper mb-3">
                 <i className="fas fa-music fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white fs-5 fs-md-4">Calidad de Sonido</h4>
+              <h4 className="text-white fs-5 fs-md-4">{t("homepage.quality_sound")}</h4>
               <p className="text-white-50 flex-grow-1 small">
-                Disfruta de beats en alta definición. Exporta en múltiples
-                formatos y frecuencias de muestreo para adaptarse a tus
-                necesidades.
+                {t("homepage.quality_description")}
               </p>
               <div className="feature-footer mt-auto d-flex flex-wrap justify-content-center gap-2">
                 <span className="badge bg-primary">WAV</span>
@@ -120,13 +120,12 @@ function Homepage() {
               <div className="icon-wrapper mb-3">
                 <i className="fas fa-sliders-h fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white fs-5 fs-md-4">Fácil de Usar</h4>
+              <h4 className="text-white fs-5 fs-md-4">{t("homepage.easy_to_use")}</h4>
               <p className="text-white-50 flex-grow-1 small">
-                Interfaz moderna e intuitiva. Encuentra el beat perfecto en
-                segundos con nuestro sistema de búsqueda avanzada.
+                {t("homepage.easy_description")}
               </p>
               <div className="feature-footer mt-auto">
-                <span className="badge bg-primary d-inline-block text-wrap px-2">Filtros de BPM, Tonalidad, Género...</span>
+                <span className="badge bg-primary d-inline-block text-wrap px-2">{t("homepage.filters")}</span>
               </div>
             </div>
           </div>
@@ -135,14 +134,13 @@ function Homepage() {
               <div className="icon-wrapper mb-3">
                 <i className="fas fa-users fa-2x fa-md-3x text-white"></i>
               </div>
-              <h4 className="text-white fs-5 fs-md-4">Colaboraciones</h4>
+              <h4 className="text-white fs-5 fs-md-4">{t("homepage.collaborations")}</h4>
               <p className="text-white-50 flex-grow-1 small">
-                Conecta con productores de todo el mundo. Aporta tus ideas y
-                crea música juntos.
+                {t("homepage.collaborations_description")}
               </p>
               <div className="feature-footer mt-auto d-flex flex-wrap justify-content-center gap-2">
-                <span className="badge bg-primary">Sistema de comentarios</span>
-                <span className="badge bg-primary">Contactos</span>
+                <span className="badge bg-primary">{t("homepage.comment_system")}</span>
+                <span className="badge bg-primary">{t("homepage.contacts")}</span>
               </div>
             </div>
           </div>
@@ -151,7 +149,7 @@ function Homepage() {
 
       <div className="container d-flex flex-column align-items-center justify-content-center">
         <h3 className="fw-normal mb-3 text-white">
-          Echa un vistazo a nuestro catálogo de productores.
+          {t("homepage.catalog_title")}
         </h3>
         <div className="gallery col-12">
           <div className="gallery-card">
@@ -162,7 +160,7 @@ function Homepage() {
               />
               <figcaption className="text-white p-3 bg-dark bg-opacity-75 rounded-bottom">
                 <h5 className="mb-0 fw-bold">Bizarrap</h5>
-                <p className="mb-0 text-white-50">Innovador en la escena musical</p>
+                <p className="mb-0 text-white-50">{t("homepage.bizarrap_description")}</p>
               </figcaption>
             </figure>
           </div>
@@ -174,7 +172,7 @@ function Homepage() {
               />
               <figcaption className="text-white p-3 bg-dark bg-opacity-75 rounded-bottom">
                 <h5 className="mb-0 fw-bold">David Guetta</h5>
-                <p className="mb-0 text-white-50">Maestro de la música electrónica</p>
+                <p className="mb-0 text-white-50">{t("homepage.guetta_description")}</p>
               </figcaption>
             </figure>
           </div>
@@ -186,7 +184,7 @@ function Homepage() {
               />
               <figcaption className="text-white p-3 bg-dark bg-opacity-75 rounded-bottom">
                 <h5 className="mb-0 fw-bold">Pharrell Williams</h5>
-                <p className="mb-0 text-white-50">Creatividad sin límites</p>
+                <p className="mb-0 text-white-50">{t("homepage.williams_description")}</p>
               </figcaption>
             </figure>
           </div>
@@ -198,7 +196,7 @@ function Homepage() {
               />
               <figcaption className="text-white p-3 bg-dark bg-opacity-75 rounded-bottom">
                 <h5 className="mb-0 fw-bold">Metro Boomin</h5>
-                <p className="mb-0 text-white-50">El futuro del hip-hop</p>
+                <p className="mb-0 text-white-50">{t("homepage.boomin_description")}</p>
               </figcaption>
             </figure>
           </div>
@@ -207,28 +205,25 @@ function Homepage() {
 
       {/* Testimonials Section */}
       <div className="container my-5">
-        <h3 className="text-center text-white mb-4">Testimonios</h3>
+        <h3 className="text-center text-white mb-4">{t("homepage.testimonials_title")}</h3>
         <div className="row gy-4 gy-md-0">
           <div className="col-md-6">
             <blockquote className="blockquote text-white h-100 d-flex flex-column justify-content-center">
               <p className="w-100">
-                &quot;La mejor plataforma para descubrir nuevos talentos.
-                ¡Increíble!&quot;
+                &quot;{t("homepage.testimonial_1")}&quot;
               </p>
               <footer className="blockquote-footer text-white-50">
-                Juan Pérez
+                {t("homepage.testimonial_1_author")}
               </footer>
             </blockquote>
           </div>
           <div className="col-md-6">
             <blockquote className="blockquote text-white h-100 d-flex flex-column justify-content-center">
               <p className="w-100">
-                &quot;Una experiencia única que me ha permitido crecer como
-                artista al poder escuchar y colaborar con productores de todo el
-                mundo.&quot;
+                &quot;{t("homepage.testimonial_2")}&quot;
               </p>
               <footer className="blockquote-footer text-white-50">
-                Ana Gómez
+                {t("homepage.testimonial_2_author")}
               </footer>
             </blockquote>
           </div>
@@ -237,5 +232,9 @@ function Homepage() {
     </>
   );
 }
+
+
+
+
 
 export default Homepage;

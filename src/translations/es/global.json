@@ -1,0 +1,61 @@
+{
+  "header": {
+    "login_button": "Iniciar sesión",
+    "register_button": "Registarse"
+  },
+  "homepage": {
+    "hero_title": "La Nueva Plataforma Para Productores y Artistas",
+    "hero_subtitle": "Tu Visión. ",
+    "hero_subtitle_span": "Nuestra Pasión.",
+    "hero_description": "La mejor biblioteca de beats profesionales a tu alcance. Encuentra la base perfecta para dar vida a tus letras.",
+    "start_free": "Empezar Gratis",
+    "explore_beats": "Explorar Beats",
+    "start_today": "Comienza Hoy",
+    "create_account": "Crea tu cuenta y conecta con productores profesionales",
+    "register": "Registarse",
+    "features_title": "Características Destacadas",
+    "quality_sound": "Calidad de Sonido",
+    "quality_description": "Disfruta de beats en alta definición. Exporta en múltiples formatos y frecuencias de muestreo para adaptarse a tus necesidades.",
+    "easy_to_use": "Fácil de Usar",
+    "easy_description": "Interfaz moderna e intuitiva. Encuentra el beat perfecto en segundos con nuestro sistema de búsqueda avanzada.",
+    "filters": "Filtros de BPM, Tonalidad, Género...",
+    "collaborations": "Colaboraciones",
+    "collaborations_description": "Conecta con productores de todo el mundo. Aporta tus ideas y crea música juntos.",
+    "comment_system": "Sistema de comentarios",
+    "contacts": "Contactos",
+    "catalog_title": "Echa un vistazo a nuestro catálogo de productores.",
+    "bizarrap_description": "Innovador en la escena musical",
+    "guetta_description": "Maestro de la música electrónica",
+    "williams_description": "Creatividad sin límites",
+    "boomin_description": "El futuro del hip-hop",
+    "testimonials_title": "Testimonios",
+    "testimonial_1": "La mejor plataforma para descubrir nuevos talentos. ¡Increíble!",
+    "testimonial_1_author": "Juan Pérez",
+    "testimonial_2": "Una experiencia única que me ha permitido crecer como artista al poder escuchar y colaborar con productores de todo el mundo.",
+    "testimonial_2_author": "Ana Gómez"
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "client_button": "Cliente",
+    "producer_button": "Productor",
+    "email_label": "Correo electrónico",
+    "email_field": "Introduce tu correo electrónico",
+    "password_label": "Contraseña",
+    "password_field": "Introduce tu contraseña",
+    "login_button": "Iniciar sesión"
+  },
+  "register": {
+    "title": "Registrarse",
+    "name_label": "Nombre",
+    "name_field": "Ingrese su nombre",
+    "email_label": "Correo electrónico",
+    "email_field": "Ingrese su correo electrónico",
+    "password_label": "Contraseña",
+    "password_field": "Ingrese su contraseña",
+    "password_confirmation_label": "Confirmar contraseña",
+    "password_confirmation_field": "Confirme su contraseña",
+    "already_have_account": "¿Ya tienes una cuenta Beatfinder?",
+    "login": "Iniciar sesión",
+    "register_button": "Registrarse"
+  }
+}
