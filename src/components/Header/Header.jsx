@@ -26,7 +26,7 @@ export function Header() {
               className="client-dropdown"
               id="dropdown-basic"
             >
-              Idioma
+              {i18n.language === "en" ? "English" : "Español"}
             </Dropdown.Toggle>
             <Dropdown.Menu className="custom-dropdown-menu">
                 <Dropdown.Item
