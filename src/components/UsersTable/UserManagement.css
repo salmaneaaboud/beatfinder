@@ -1,0 +1,44 @@
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th, .table td {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #495057;
+    color: #f8f9fa;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f1f3f5;
+}
+
+.btn {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.btn:hover {
+    background-color: #5a6268;
+    color: #ffffff;
+}
+
+.rounded-circle {
+    border: 3px solid #5a6268;
+}
+
+.badge {
+    font-size: 1rem;
+    border-radius: 15px;
+}

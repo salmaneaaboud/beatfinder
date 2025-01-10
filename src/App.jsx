@@ -13,7 +13,7 @@ import ExploreBeats from './pages/Client/ExploreBeats/ExploreBeats';
 import BeatDetail from './pages/Client/BeatDetail/BeatDetail';
 import ProducerDashboard from './pages/Producer/ProducerDashboard/ProducerDashboard';
 import UploadForm from './pages/Producer/UploadForm/UploadForm';
-import UserManagement from './components/UsersTable/UsersTable';
+import UserManagement from './components/UsersTable/UserManagement';
 
 function App() {
   return (
