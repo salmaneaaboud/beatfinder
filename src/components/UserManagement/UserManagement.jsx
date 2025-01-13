@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; 
 import { Music, Edit, Shield, UserCheck, CheckCircle, UserX } from 'lucide-react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button } from 'react-bootstrap';
@@ -134,13 +135,15 @@ const UserManagement = () => {
                 >
                   <CheckCircle />
                 </Button>
-                <Button
-                  variant="outline-primary"
-                  size="sm"
-                  className="ms-2"
-                >
-                  <Edit />
-                </Button>
+                <Link to={`/edit-user/${id}`}>
+                  <Button
+                    variant="outline-primary"
+                    size="sm"
+                    className="ms-2"
+                  >
+                    <Edit />
+                  </Button>
+                </Link>
               </td>
             </tr>
           ))}

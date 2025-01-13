@@ -1,6 +1,7 @@
 import { Nav, Navbar, Container, Form, Dropdown, Badge } from "react-bootstrap";
 import { FaSearch, FaRegCommentDots, FaRegHeart } from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
+import { Link } from 'react-router-dom'; 
 import clientAvatar from "/src/assets/avatar_temp.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LoggedHeader.css";
@@ -9,7 +10,7 @@ import { useAuth } from '/src/hooks/useAuth';
 
 export function LoggedHeader() {
   const auth = useAuth();
-  
+  console.log(auth.user);
   return (
     <Navbar expand="lg" className="custom-navbar w-100">
       <Container fluid className="px-3">
@@ -51,11 +52,13 @@ export function LoggedHeader() {
                 <Dropdown.Toggle className="client-dropdown" id="dropdown-basic">
                   <div className="d-flex align-items-center gap-2">
                     <span className="client-name">{auth.user?.name || "Usuario"}</span>
-                    <img src={clientAvatar} alt="Avatar" className="avatar" />
+                    <img src={auth.user?.avatar || clientAvatar} alt="Avatar" className="avatar" />
                   </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="custom-dropdown-menu">
-                  <Dropdown.Item href="#profile">Mi perfil</Dropdown.Item>
+                  <Dropdown.Item as={Link} to={`/edit-user/${auth.user?.id}`}>
+                    Mi perfil
+                  </Dropdown.Item>
                   <Dropdown.Item onClick={auth.logout}>Cerrar sesión</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
