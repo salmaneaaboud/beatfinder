@@ -13,7 +13,8 @@ import ExploreBeats from './pages/Client/ExploreBeats/ExploreBeats';
 import BeatDetail from './pages/Client/BeatDetail/BeatDetail';
 import ProducerDashboard from './pages/Producer/ProducerDashboard/ProducerDashboard';
 import UploadForm from './pages/Producer/UploadForm/UploadForm';
-import UserManagement from './components/UsersTable/UsersTable';
+import UserManagement from './components/UserManagement/UserManagement';
+import UserProfile from './components/UserProfile/UserProfile';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/producer-dashboard" element={<ProducerDashboard />} />
         <Route path="/upload-beat" element={<UploadForm />} />
         <Route path="/user-management" element={<UserManagement />} />
+        <Route path="/edit-user/:id" element={<UserProfile />} />
       </Routes>
       <Footer />
     </BrowserRouter>
