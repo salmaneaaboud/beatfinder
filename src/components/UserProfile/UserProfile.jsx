@@ -18,7 +18,7 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`http://10.14.4.163:8000/api/user/${id}`);
+                const response = await fetch(`http://10.14.4.163:8080/api/user/${id}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener el usuario');
                 }
@@ -74,7 +74,7 @@ const UserProfile = () => {
             avatar: uploadedImageURL || null,
         };
         try {
-            const response = await fetch(`http://10.14.4.163:8000/api/update-user/${id}`, {
+            const response = await fetch(`http://10.14.4.163:8080/api/update-user/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
