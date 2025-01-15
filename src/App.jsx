@@ -44,8 +44,7 @@ function App() {
         <Route path="/producer-dashboard" element={<ProducerDashboard />} />
         <Route path="/upload-beat" element={<UploadForm />} />
         <Route path="/user-management" element={<UserManagement />} />
-        <Route path="/prueba/:id" element={<UserProfilePage />} />
-        <Route path="/edit-user/:id" element={<UserProfile />} />
+        <Route path="/edit-user/:id" element={<UserProfilePage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

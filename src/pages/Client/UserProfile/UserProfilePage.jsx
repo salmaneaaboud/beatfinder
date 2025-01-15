@@ -91,9 +91,6 @@ const UserProfilePage = () => {
         }
     };
 
-    if (loading) return <div className="loading">Cargando...</div>;
-    if (error) return <div className="error">Error: {error}</div>;
-
     return (
         <div className="user-profile-container">
             <aside className="user-profile-sidebar">
@@ -104,69 +101,75 @@ const UserProfilePage = () => {
                 </ul>
             </aside>
             <main className="user-profile-main">
-                {selectedTab === 'info' && (
-                    <div>
-                        <div className="user-profile-header">
-                            <div className="avatar-container">
-                                {formData.avatar && <img src={formData.avatar} alt="Avatar" className="profile-avatar" />}
+                {loading && <div className="loading">Cargando...</div>}
+                {!loading && error && <div className="error">Error: {error}</div>}
+                {!loading && !error && (
+                    <>
+                        {selectedTab === 'info' && (
+                            <div>
+                                <div className="user-profile-header">
+                                    <div className="avatar-container">
+                                        {formData.avatar && <img src={formData.avatar} alt="Avatar" className="profile-avatar" />}
+                                    </div>
+                                    <label htmlFor="upload-avatar" className="user-profile-btn-upload">Subir Foto</label>
+                                    <input id="upload-avatar" type="file" style={{ display: 'none' }} onChange={handleFileChange} />
+                                </div>
+                                <form onSubmit={handleSubmit} className="user-profile-form">
+                                    <div className="form-group">
+                                        <label>Nombre:</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Email:</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <button type="submit" className="user-profile-btn-save">Guardar cambios</button>
+                                </form>
                             </div>
-                            <label htmlFor="upload-avatar" className="user-profile-btn-upload">Subir Foto</label>
-                            <input id="upload-avatar" type="file" style={{ display: 'none' }} onChange={handleFileChange} />
-                        </div>
-                        <form onSubmit={handleSubmit} className="user-profile-form">
-                            <div className="form-group">
-                                <label>Nombre:</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Email:</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <button type="submit" className="user-profile-btn-save">Guardar cambios</button>
-                        </form>
-                    </div>
-                )}
-                {selectedTab === 'credentials' && (
-                    <form onSubmit={handleSubmit} className="user-profile-form">
-                        <div className="form-group">
-                            <label>Contraseña actual:</label>
-                            <input
-                                type="password"
-                                name="currentPassword"
-                                value={formData.currentPassword}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Nueva contraseña:</label>
-                            <input
-                                type="password"
-                                name="newPassword"
-                                value={formData.newPassword}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Repetir nueva contraseña:</label>
-                            <input
-                                type="password"
-                                name="confirmNewPassword"
-                                value={formData.confirmNewPassword}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <button type="submit" className="user-profile-btn-save">Actualizar credenciales</button>
-                    </form>
+                        )}
+                        {selectedTab === 'credentials' && (
+                            <form onSubmit={handleSubmit} className="user-profile-form">
+                                <div className="form-group">
+                                    <label>Contraseña actual:</label>
+                                    <input
+                                        type="password"
+                                        name="currentPassword"
+                                        value={formData.currentPassword}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Nueva contraseña:</label>
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        value={formData.newPassword}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Repetir nueva contraseña:</label>
+                                    <input
+                                        type="password"
+                                        name="confirmNewPassword"
+                                        value={formData.confirmNewPassword}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <button type="submit" className="user-profile-btn-save">Actualizar credenciales</button>
+                            </form>
+                        )}
+                    </>
                 )}
             </main>
         </div>
