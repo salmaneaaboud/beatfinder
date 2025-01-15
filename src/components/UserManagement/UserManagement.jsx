@@ -11,7 +11,7 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://10.14.4.163:8000/api/users');
+        const response = await fetch('http://10.14.4.163:8080/api/users');
         const data = await response.json();
         setUsers(data);
       } catch (error) {
