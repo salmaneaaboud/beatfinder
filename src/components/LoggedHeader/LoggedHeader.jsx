@@ -56,7 +56,7 @@ export function LoggedHeader() {
                   </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="custom-dropdown-menu">
-                  <Dropdown.Item as={Link} to={`/edit-user/${auth.user?.id}`}>
+                  <Dropdown.Item as={Link} to={`/edit-user`}>
                     Mi perfil
                   </Dropdown.Item>
                   <Dropdown.Item onClick={auth.logout}>Cerrar sesión</Dropdown.Item>

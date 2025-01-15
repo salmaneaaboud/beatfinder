@@ -1,0 +1,13 @@
+.stats-card {
+    border-radius: 10px;
+    transition: 0.3s;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.stats-card .card-body {
+    padding: 4%;
+}

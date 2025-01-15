@@ -1,32 +1,25 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { useContext } from 'react';
+import AuthContext from '/src/contexts/AuthContext';
 
 export const useAuth = () => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState(null);
+    const { setUser } = useContext(AuthContext); 
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const storedUser = localStorage.getItem('user');
-        
-        if (token && storedUser) {
-            setUser(JSON.parse(storedUser));
-            api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        }
-    }, []);
+    const navigate = useNavigate();
 
     const login = async (email, password) => {
         try {
             const response = await api.post("/login", { email, password });
+            const data = response.data; 
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user)); 
+
+            setUser(data.user);
+            api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
             
-            localStorage.setItem('token', response.data.token);
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            
-            api.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-            
-            setUser(response.data.user);
-            navigate("/dashboard");
+            return { user: data.user, token: data.token };
         } catch (error) {
             console.error("Error de login:", error);
             alert(error.response?.data?.message || "Error de inicio de sesión");
@@ -48,9 +41,7 @@ export const useAuth = () => {
     };
 
     return {
-        user,
         login,
-        logout,
-        isAuthenticated: !!user
+        logout
     };
 }; 
