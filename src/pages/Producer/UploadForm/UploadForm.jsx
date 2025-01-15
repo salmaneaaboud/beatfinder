@@ -5,12 +5,14 @@ import { FaCamera } from "react-icons/fa"; // Icono de la cámara
 import { initializeEssentia, processAudioFile } from "./audioAnalysis";
 import ProducerSidebar from "/src/components/ProducerSidebar/ProducerSidebar";
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
+import api from "/src/services/api";
 
 const UploadForm = () => {
   const [audioFile, setAudioFile] = useState(null);
   const [coverArt, setCoverArt] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
+    title: "",
+    cover: "",
     bpm: "",
     key: "",
     mood: [],
@@ -48,7 +50,12 @@ const UploadForm = () => {
   };
 
   const handleCoverArtChange = (e) => {
-    setCoverArt(e.target.files[0]);
+    const file = e.target.files[0];
+    setCoverArt(file);
+    setFormData((prevData) => ({
+      ...prevData,
+      cover: file, // Almacena la imagen de la carátula en formData
+    }));
   };
 
   const handleInputChange = (e) => {
@@ -88,9 +95,86 @@ const UploadForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleAudioUpload = async () => {
+    if (audioFile) {
+      const data = new FormData();
+      data.append("file", audioFile);
+      data.append("upload_preset", "avatars");
+      data.append("cloud_name", "dayc24gzd");
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dayc24gzd/video/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Error al subir el archivo de audio");
+        }
+
+        const result = await res.json();
+        console.log(
+          "Archivo de audio subido correctamente:",
+          result.secure_url
+        );
+        return result.secure_url;
+      } catch (error) {
+        console.error("Error al subir el archivo de audio:", error);
+      }
+    }
+  };
+
+  const handleCoverUpload = async () => {
+    if (coverArt) {
+      const data = new FormData();
+      data.append("file", coverArt);
+      data.append("upload_preset", "avatars");
+      data.append("cloud_name", "dayc24gzd");
+      try {
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dayc24gzd/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+
+        if (!res.ok) {
+          throw new Error("Error al subir la carátula");
+        }
+
+        const result = await res.json();
+        console.log("Carátula subida correctamente:", result.secure_url);
+        return result.secure_url;
+      } catch (error) {
+        console.error("Error al subir la carátula:", error);
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", { audioFile, coverArt, ...formData });
+    const audioURL = await handleAudioUpload();
+    const coverURL = await handleCoverUpload();
+
+    const beatData = {
+      title: formData.title,
+      cover: coverURL,
+      genre: formData.genre,
+      bpm: formData.bpm,
+      key: formData.key,
+      mp3_file: audioURL,
+      wav_file: audioURL,
+    };
+
+    try {
+      const response = await api.post("/beat-upload", beatData);
+      console.log("Datos del beat subidos correctamente:", response.data);
+    } catch (error) {
+      console.error("Error al subir los datos del beat:", error);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -105,10 +189,7 @@ const UploadForm = () => {
       <div style={{ flex: 1 }}>
         <LoggedHeader />
         <h2 className="text-center mb-4">Subir Beat</h2>
-        <form
-          onSubmit={handleSubmit}
-          className=" text-white p-4 rounded"
-        >
+        <form onSubmit={handleSubmit} className=" text-white p-4 rounded">
           <div className="row mb-4">
             <div className="col-lg-4 d-flex justify-content-center align-items-center">
               <label htmlFor="coverArt" className="d-block w-100">
@@ -177,8 +258,8 @@ const UploadForm = () => {
                   <input
                     type="text"
                     className="form-control"
-                    name="name"
-                    value={formData.name}
+                    name="title"
+                    value={formData.title}
                     onChange={handleInputChange}
                     required
                   />
@@ -198,7 +279,7 @@ const UploadForm = () => {
 
               <div className="row mt-4">
                 <div className="col-md-6">
-                  <label className="form-label">Clave:</label>
+                  <label className="form-label">Tonalidad:</label>
                   <input
                     type="text"
                     className="form-control"
@@ -301,7 +382,11 @@ const UploadForm = () => {
           </div>
 
           <div className="d-flex justify-content-end gap-3">
-            <CustomButton type="btn-outline-light" value="Cancelar" onClick={() => window.location.href = '/producer-dashboard'} />
+            <CustomButton
+              type="btn-outline-light"
+              value="Cancelar"
+              onClick={() => (window.location.href = "/producer-dashboard")}
+            />
             <CustomButton
               type="btn-primary"
               value="Publicar"
