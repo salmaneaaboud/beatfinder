@@ -18,11 +18,13 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@reduxjs/toolkit": "^1.8.5",
     "amazon-s3": "^2.0.0",
+    "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "cdbreact": "^1.5.19",
     "i18next": "^24.1.0",
     "lucide-react": "^0.469.0",
+    "postcss": "^8.5.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.6",
     "react-chartjs-2": "^5.2.0",
@@ -32,6 +34,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^7.0.1",
     "recharts": "^2.15.0",
+    "tailwindcss": "^3.4.17",
     "wavesurfer.js": "^7.8.11"
   },
   "devDependencies": {
@@ -39,14 +42,11 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "autoprefixer": "^10.4.20",
     "eslint": "^9.13.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
-    "postcss": "^8.5.0",
-    "tailwindcss": "^3.1.3",
     "vite": "^5.4.10"
   }
 }

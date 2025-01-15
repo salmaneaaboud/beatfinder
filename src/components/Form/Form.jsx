@@ -5,7 +5,7 @@ import './Form.css';
 function Form({ title, fields, onSubmit, botonTexto, values, onChange }) {
   return (
     <form className="formulario" onSubmit={onSubmit}>
-      <h2 className='formulario-title'>{title}</h2>
+      <h2 className='formulario-title text-center text-4xl font-bold mb-4'>{title}</h2>
       {fields.map((field, index) => (
         <div key={index} className="form-group">
           <label className="form-label" htmlFor={field.name}>
