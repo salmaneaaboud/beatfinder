@@ -17,6 +17,7 @@ import UserManagement from './components/UserManagement/UserManagement';
 import UserProfile from './components/UserProfile/UserProfile';
 import Discover from './pages/Client/Discover/Discover';
 import MusicPlayer from './components/MusicPlayer/index';
+import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -42,8 +43,9 @@ function App() {
         <Route path="/producer-dashboard" element={<ProducerDashboard />} />
         <Route path="/upload-beat" element={<UploadForm />} />
         <Route path="/user-management" element={<UserManagement />} />
-        <Route path="/edit-user/:id" element={<UserProfile />} />
+        <Route path="/manage-profile/:id" element={<UserProfile />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/edit-user/:id" element={<UserProfilePage />} />
       </Routes>
       {activeSong?.title && (
         <div className="music-player-fixed">
