@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { toast } from 'sonner';
 
 const UserProfile = () => {
-    const { id } = useParams();
+    const location = useLocation();
+    const id = location.state?.userId; 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

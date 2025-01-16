@@ -7,10 +7,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./LoggedHeader.css";
 import logo from "/src/assets/logo.png";
 import { useAuth } from '/src/hooks/useAuth';
+import { useContext } from "react";
+import AuthContext from "/src/contexts/AuthContext";
 
 export function LoggedHeader() {
   const auth = useAuth();
-  console.log(auth.user);
+  const { user } = useContext(AuthContext);
   return (
     <Navbar expand="lg" className="custom-navbar w-100">
       <Container fluid className="px-3">
@@ -51,8 +53,8 @@ export function LoggedHeader() {
               <Dropdown align="end">
                 <Dropdown.Toggle className="client-dropdown" id="dropdown-basic">
                   <div className="d-flex align-items-center gap-2">
-                    <span className="client-name">{auth.user?.name || "Usuario"}</span>
-                    <img src={auth.user?.avatar || clientAvatar} alt="Avatar" className="avatar" />
+                    <span className="client-name">{user?.name || "Usuario"}</span>
+                    <img src={user?.avatar || clientAvatar} alt="Avatar" className="avatar" />
                   </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="custom-dropdown-menu">

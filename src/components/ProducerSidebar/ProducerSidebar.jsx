@@ -27,7 +27,7 @@ const ProducerSidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/producer-dashboard" activeClassName="activeClicked">
+            <NavLink exact to="/producer" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="tachometer-alt">Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/upload-beat" activeClassName="activeClicked">

@@ -1,11 +1,32 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import Card from "/src/components/Card/Card";
-import beatsData from "/src/assets/resources/beatsData/beatsData.json";
 import ProducerSidebar from "/src/components/ProducerSidebar/ProducerSidebar";
 import Chart from "/src/components/Chart/Chart";
+import { useEffect, useState, useContext } from "react";
+import AuthContext from "/src/contexts/AuthContext"; 
 
 function ProducerDashboard() {
+    const { user } = useContext(AuthContext);
+    const [beatsData, setBeatsData] = useState([]);
+
+    useEffect(() => {
+        const fetchBeats = async () => {
+            if (user && user.role === 'producer') {
+                const response = await fetch('http://10.14.4.163:8000/api/beats/my', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                setBeatsData(data);
+            }
+        };
+
+        fetchBeats();
+    }, [user]);
+
     return (
         <div style={{ display: "flex" }}>
             <ProducerSidebar />
@@ -34,24 +55,22 @@ function ProducerDashboard() {
                             <div className="trending-beats">
                                 <h4 className="section-title">Mis Beats</h4>
                                 <div className="row d-flex flex-wrap justify-content-between g-3">
-                                    {beatsData.map((beat, index) => (
+                                    {user && user.role === 'producer' && beatsData.map((beat, index) => (
                                         <Col key={index} xs={12} sm={12} md={6} lg={6} xl={6} className="card-col">
                                             <Card
                                                 title={beat.title}
                                                 subtitle={beat.subtitle}
-                                                imageURL={beat.imageURL}
+                                                imageURL={beat.cover}
                                                 detailsURL={beat.detailsURL}
                                                 className="custom-card"
                                             />
                                         </Col>
                                     ))}
                                 </div>
-
                             </div>
                         </Col>
                     </Row>
                 </Container>
-
             </div>
         </div>
     );

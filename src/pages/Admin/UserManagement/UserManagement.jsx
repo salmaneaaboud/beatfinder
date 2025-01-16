@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import { Music, Edit, Shield, UserCheck, CheckCircle, UserX } from 'lucide-react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button } from 'react-bootstrap';
 import './UserManagement.css';
+import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 
 const UserManagement = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -83,79 +85,81 @@ const UserManagement = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h4>Gestión de Usuarios</h4>
-      <Table bordered hover responsive variant="light" style={{ backgroundColor: 'white' }}>
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th>Verificación</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(({ id, avatar, name, email, role, status, email_verified_at }) => (
-            <tr key={id} className="align-middle">
-              <td>
-                <div className="d-flex align-items-center">
-                  <img
-                    src={avatar}
-                    alt={name}
-                    className="rounded-circle me-2"
-                    style={{ width: '50px', height: '50px', objectFit: 'cover' }}
-                  />
-                  <span className="fw-bold">{name}</span>
-                </div>
-              </td>
-              <td>{email}</td>
-              <td>
-                <div className="d-flex align-items-center">
-                  {getRoleIcon(role)}
-                  <span className="ms-2 text-capitalize">{role}</span>
-                </div>
-              </td>
-              <td>
-                <Badge bg={status === 'active' ? 'success' : 'danger'}>
-                  {status}
-                </Badge>
-              </td>
-              <td>
-                {renderVerificationBadge(email_verified_at)}
-              </td>
-              <td>
-                <Button
-                  onClick={() => handleDeleteUser(id)}
-                  variant="outline-danger"
-                  size="sm"
-                >
-                  <UserX />
-                </Button>
-                <Button
-                  onClick={() => handleActivateUser(id)}
-                  variant="outline-success"
-                  size="sm"
-                  className="ms-2"
-                >
-                  <CheckCircle />
-                </Button>
-                <Link to={`/edit-user/${id}`}>
+    <>
+      <LoggedHeader />
+      <div className="container mt-4">
+        <h4 className="text-light mb-5">Gestión de Usuarios</h4>
+        <Table bordered hover responsive variant="light" style={{ backgroundColor: 'white' }}>
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Verificación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(({ id, avatar, name, email, role, status, email_verified_at }) => (
+              <tr key={id} className="align-middle">
+                <td>
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={avatar}
+                      alt={name}
+                      className="rounded-circle me-2"
+                      style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                    />
+                    <span className="fw-bold">{name}</span>
+                  </div>
+                </td>
+                <td>{email}</td>
+                <td>
+                  <div className="d-flex align-items-center">
+                    {getRoleIcon(role)}
+                    <span className="ms-2 text-capitalize">{role}</span>
+                  </div>
+                </td>
+                <td>
+                  <Badge bg={status === 'active' ? 'success' : 'danger'}>
+                    {status}
+                  </Badge>
+                </td>
+                <td>
+                  {renderVerificationBadge(email_verified_at)}
+                </td>
+                <td>
                   <Button
+                    onClick={() => handleDeleteUser(id)}
+                    variant="outline-danger"
+                    size="sm"
+                  >
+                    <UserX />
+                  </Button>
+                  <Button
+                    onClick={() => handleActivateUser(id)}
+                    variant="outline-success"
+                    size="sm"
+                    className="ms-2"
+                  >
+                    <CheckCircle />
+                  </Button>
+                  <Button
+                    onClick={() => navigate('/manage-profile', { state: { userId: id } })}
                     variant="outline-primary"
                     size="sm"
                     className="ms-2"
                   >
                     <Edit />
                   </Button>
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ import EmailVerificationError from './pages/Guest/EmailVerification/EmailVerific
 import BeatDetail from './pages/Client/BeatDetail/BeatDetail';
 import ProducerDashboard from './pages/Producer/ProducerDashboard/ProducerDashboard';
 import UploadForm from './pages/Producer/UploadForm/UploadForm';
-import UserManagement from './components/UserManagement/UserManagement';
+import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import UserProfile from './components/UserProfile/UserProfile';
 import Discover from './pages/Client/Discover/Discover';
 import MusicPlayer from './components/MusicPlayer/index';
@@ -54,8 +54,14 @@ function App() {
             }
           />
           <Route path="/upload-beat" element={<UploadForm />} />
-          <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/manage-profile/:id" element={<UserProfile />} />
+          <Route
+            path="/user-management"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <UserManagement />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/discover" element={<Discover />} />
           <Route path="/edit-user" element={<UserProfilePage />} />
           <Route
@@ -63,6 +69,14 @@ function App() {
             element={
               <ProtectedRoute requiredRole="admin">
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manage-profile"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <UserProfile />
               </ProtectedRoute>
             }
           />

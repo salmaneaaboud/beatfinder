@@ -8,11 +8,11 @@ import Card from "/src/components/Card/Card";
 import { CustomButton } from "/src/components/CustomButton/CustomButton";
 import beatsData from "/src/assets/resources/beatsData/beatsData.json";
 import "./ClientDashboard.css";
-import { useAuth } from '/src/hooks/useAuth';
+import { useContext } from "react";
+import AuthContext from "/src/contexts/AuthContext";
 
 function ClientDashboard() {
-  const auth = useAuth();
-
+  const { user } = useContext(AuthContext);
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
@@ -22,7 +22,7 @@ function ClientDashboard() {
         <Container className="dashboard-container">
           <Row>
             <Col md={12} lg={8} xl={8}>
-              <h2 className="welcome-text">¡Bienvenido, <span>{auth.user?.name || "Usuario"}</span>!</h2>
+              <h2 className="welcome-text">¡Bienvenido, <span>{user?.name || "Usuario"}</span>!</h2>
               <Carrousel />
 
               <div className="buttons-container container d-flex gap-3 my-4">
