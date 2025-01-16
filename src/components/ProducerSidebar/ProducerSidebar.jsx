@@ -33,7 +33,7 @@ const ProducerSidebar = () => {
             <NavLink exact to="/upload-beat" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="upload">Subir beat</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/explore" activeClassName="activeClicked">
+            <NavLink exact to="/discover" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/settings" activeClassName="activeClicked">
