@@ -60,5 +60,19 @@
     "already_have_account": "Already have an account?",
     "login": "Log in",
     "register_button": "Sign up"
-  }
+  },
+  "clientDashboard": {
+    "welcome": "Welcome",
+    "defaultUser": "User",
+    "forYou": "For You",
+    "shuffle": "Shuffle",
+    "following": "Following",
+    "trendingBeats": "Trending Beats",
+    "popularAndTrending": "Popular y Trending"
+  },
+  "producerDashboard": {
+  "monthlyListeners": "Monthly Listeners",
+  "earningsThisMonth": "Earnings This Month",
+  "myBeats": "My Beats"
+}
 }

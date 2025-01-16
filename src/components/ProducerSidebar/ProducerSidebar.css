@@ -1,4 +1,5 @@
 #sidebar-bg {
+    height: 100vh;
     background: linear-gradient(
         to right, 
         rgba(0, 0, 0, 1) 0%,      
@@ -11,3 +12,11 @@
         display: none; 
     }
 }
+.language-switcher-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 40px;
+  }
+  

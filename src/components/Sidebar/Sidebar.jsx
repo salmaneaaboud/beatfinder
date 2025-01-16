@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -10,41 +10,49 @@ import {
 import { NavLink } from "react-router-dom";
 import logo from "/src/assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Sidebar.css";
 import { LanguageSwitcher } from "/src/components/LanguageSwitcher/LanguageSwitcher";
+import "./Sidebar.css";
 
 const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleCollapseToggle = () => {
+    setIsCollapsed((prevState) => !prevState);
+  };
+
   return (
     <div className="mt-3">
-      <CDBSidebar textColor="#fff" id="sidebar-bg">
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a href="/" className="text-decoration-none" style={{ color: "inherit" }}>
+      <CDBSidebar className={`bg-transparent text-light vh-100 ${isCollapsed ? "collapsed" : ""}`}>
+        <CDBSidebarHeader prefix={<i className="fa fa-bars" onClick={handleCollapseToggle}></i>}>
+          <a href="/" className="text-decoration-none text-white">
             Menú
           </a>
         </CDBSidebarHeader>
 
-        <CDBSidebarContent className="sidebar-content">
+        <CDBSidebarContent>
           <CDBSidebarMenu>
-            <NavLink exact to="/dashboard" activeClassName="activeClicked">
+            <NavLink exact to="/dashboard" activeClassName="active">
               <CDBSidebarMenuItem icon="tachometer-alt">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/explore" activeClassName="activeClicked">
+            <NavLink exact to="/explore" activeClassName="active">
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/playlists" activeClassName="activeClicked">
+            <NavLink exact to="/playlists" activeClassName="active">
               <CDBSidebarMenuItem icon="music">Mis Playlists</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/favorites" activeClassName="activeClicked">
+            <NavLink exact to="/favorites" activeClassName="active">
               <CDBSidebarMenuItem icon="heart">Mis Favoritos</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/settings" activeClassName="activeClicked">
+            <NavLink exact to="/settings" activeClassName="active">
               <CDBSidebarMenuItem icon="cogs">Configuración</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
 
-        <CDBSidebarFooter className="sidebar-footer">
-          <LanguageSwitcher />
+        <CDBSidebarFooter>
+          <div className={`language-switcher-container ${isCollapsed ? "d-none" : ""}`}>
+            <LanguageSwitcher />
+          </div>
         </CDBSidebarFooter>
       </CDBSidebar>
     </div>

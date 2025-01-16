@@ -60,5 +60,19 @@
     "already_have_account": "¿Ya tienes una cuenta Beatfinder?",
     "login": "Iniciar sesión",
     "register_button": "Registrarse"
+  },
+    "clientDashboard": {
+      "welcome": "¡Bienvenido",
+      "defaultUser": "Usuario",
+      "forYou": "Para ti",
+      "shuffle": "Shuffle",
+      "following": "Siguiendo",
+      "trendingBeats": "Trending Beats",
+      "popularAndTrending": "Popular y Trending"
+    },
+    "producerDashboard": {
+    "monthlyListeners": "Oyentes Mensuales",
+    "earningsThisMonth": "Ingresados este mes",
+    "myBeats": "Mis Beats"
   }
 }

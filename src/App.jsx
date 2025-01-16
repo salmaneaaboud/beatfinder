@@ -1,6 +1,6 @@
 import './App.css'
 import { useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext'; 
 import ClientDashboard from './pages/Client/ClientDashboard/ClientDashboard';
 import Login from './pages/Guest/Login/Login';
@@ -8,7 +8,6 @@ import Register from './pages/Guest/Register/Register';
 import TermsAndConditions from './pages/Guest/TermsAndConditions/TermsAndConditions';
 import Homepage from './pages/Guest/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
-import ProtectedRoute from './utils/ProtectedRoute';
 import EmailVerificationSuccess from './pages/Guest/EmailVerification/EmailVerificationSuccess';
 import EmailVerificationError from './pages/Guest/EmailVerification/EmailVerificationError';
 import BeatDetail from './pages/Client/BeatDetail/BeatDetail';
@@ -35,37 +34,16 @@ function App() {
           <Route path="/beat-detail" element={<BeatDetail />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
-          <Route
-            path="/client"
-            element={
-              <ProtectedRoute requiredRole="client">
-                <ClientDashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/client" element={<ClientDashboard />} />
           <Route path="/email-verification/success" element={<EmailVerificationSuccess />} />
           <Route path="/email-verification/error" element={<EmailVerificationError />} />
-          <Route
-            path="/producer"
-            element={
-              <ProtectedRoute requiredRole="producer">
-                <ProducerDashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/producer" element={<ProducerDashboard />} />
           <Route path="/upload-beat" element={<UploadForm />} />
           <Route path="/user-management" element={<UserManagement />} />
           <Route path="/manage-profile/:id" element={<UserProfile />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/edit-user" element={<UserProfilePage />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute requiredRole="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
         {activeSong?.title && (
           <div className="music-player-fixed">
