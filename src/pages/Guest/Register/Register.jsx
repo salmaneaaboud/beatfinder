@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import api from "/src/services/api";
 import Form from "/src/components/Form/Form";
 import { Header } from "/src/components/Header/Header";
@@ -7,7 +8,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import SocialButton from "/src/components/SocialButton/SocialButton";
 import './Register.css';
 import { useTranslation } from "react-i18next";
-import { CustomButton } from "/src/components/CustomButton/CustomButton"; // Importar el botón personalizado
+import { CustomButton } from "/src/components/CustomButton/CustomButton";
 
 const Register = () => {
   const { t } = useTranslation();
@@ -56,18 +57,19 @@ const Register = () => {
     e.preventDefault();
     try {
       if (formData.password !== formData.password_confirmation) {
-        alert("Las contraseñas no coinciden");
+        toast.error("Las contraseñas no coinciden");
         return;
       }
 
       if (formData.password.length < 8) {
-        alert("La contraseña debe tener al menos 8 caracteres");
+        toast.error("La contraseña debe tener al menos 8 caracteres");
         return;
       }
       console.log(formData);
       const response = await api.post("/register", formData);
+      console.log(response.data);
       localStorage.setItem("token", response.data.token);
-      alert("Usuario registrado exitosamente");
+      toast.success("Usuario registrado exitosamente");
       navigate("/login");
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
@@ -84,7 +86,7 @@ const Register = () => {
         mensajeError = "No se pudo conectar con el servidor";
       }
 
-      alert(mensajeError);
+      toast.error(mensajeError);
     }
   };
 

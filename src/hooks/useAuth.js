@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useContext } from 'react';
 import AuthContext from '/src/contexts/AuthContext';
+import { toast } from 'sonner';
 
 export const useAuth = () => {
     const { setUser } = useContext(AuthContext); 
@@ -22,15 +23,17 @@ export const useAuth = () => {
             return { user: data.user, token: data.token };
         } catch (error) {
             console.error("Error de login:", error);
-            alert(error.response?.data?.message || "Error de inicio de sesión");
+            toast.error(error.response?.data?.message || "Error de inicio de sesión");
         }
     };
 
     const logout = async () => {
         try {
             await api.post('/logout');
+            toast.success("Sesión cerrada exitosamente");
         } catch (error) {
             console.error('Error en logout:', error);
+            toast.error("Error al cerrar sesión");
         } finally {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
@@ -39,9 +42,10 @@ export const useAuth = () => {
             navigate('/login');
         }
     };
+    
 
     return {
         login,
         logout
     };
-}; 
+};

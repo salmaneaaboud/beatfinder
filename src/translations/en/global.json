@@ -42,7 +42,8 @@
     "email_field": "Introduce your email",
     "password_label": "Password",
     "password_field": "Introduce your password",
-    "login_button": "Log in"
+    "login_button": "Log in",
+    "success_message": "You have successfully logged in"
   },
   "register": {
     "title": "Sign up",
