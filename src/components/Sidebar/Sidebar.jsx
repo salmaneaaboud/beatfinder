@@ -5,22 +5,20 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
+  CDBSidebarFooter,
 } from "cdbreact";
 import { NavLink } from "react-router-dom";
 import logo from "/src/assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Sidebar.css";
+import { LanguageSwitcher } from "/src/components/LanguageSwitcher/LanguageSwitcher";
 
 const Sidebar = () => {
   return (
     <div className="mt-3">
       <CDBSidebar textColor="#fff" id="sidebar-bg">
         <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-          <a
-            href="/"
-            className="text-decoration-none"
-            style={{ color: "inherit" }}
-          >
+          <a href="/" className="text-decoration-none" style={{ color: "inherit" }}>
             Menú
           </a>
         </CDBSidebarHeader>
@@ -44,6 +42,10 @@ const Sidebar = () => {
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
+
+        <CDBSidebarFooter className="sidebar-footer">
+          <LanguageSwitcher />
+        </CDBSidebarFooter>
       </CDBSidebar>
     </div>
   );

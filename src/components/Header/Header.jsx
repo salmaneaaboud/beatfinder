@@ -1,16 +1,13 @@
-import { Navbar, Container, Button, Dropdown } from "react-bootstrap";
+import { Navbar, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "/src/assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Header.css";
 import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "/src/components/LanguageSwitcher/LanguageSwitcher";
 
 export function Header() {
-  const { i18n, t } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  const { t } = useTranslation();
 
   return (
     <Navbar expand="lg" className="navbar-transparent">
@@ -20,33 +17,7 @@ export function Header() {
         </Navbar.Brand>
 
         <div className="d-flex gap-3">
-          <Dropdown align="end">
-            <Dropdown.Toggle
-              variant="light"
-              className="client-dropdown"
-              id="dropdown-basic"
-            >
-              {i18n.language === "en" ? "English" : "Español"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="custom-dropdown-menu">
-                <Dropdown.Item
-                  onClick={() => changeLanguage("es")}
-                  style={{
-                    fontWeight: i18n.language === "es" ? "bold" : "normal",
-                  }}
-                >
-                  Español
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => changeLanguage("en")}
-                  style={{
-                    fontWeight: i18n.language === "en" ? "bold" : "normal",
-                  }}
-                >
-                  English
-                </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <LanguageSwitcher />
 
           <Link to="/register">
             <Button variant="primary" className="btn-register">
@@ -64,3 +35,5 @@ export function Header() {
     </Navbar>
   );
 }
+
+
