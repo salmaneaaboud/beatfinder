@@ -46,6 +46,8 @@
   },
   "register": {
     "title": "Registrarse",
+    "role_client": "Cliente",
+    "role_producer": "Productor",
     "name_label": "Nombre",
     "name_field": "Ingrese su nombre",
     "email_label": "Correo electrónico",

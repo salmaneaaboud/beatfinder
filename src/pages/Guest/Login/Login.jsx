@@ -2,12 +2,13 @@ import "./Login.css";
 import { useState } from "react";
 import Form from "/src/components/Form/Form";
 import { useAuth } from '/src/hooks/useAuth';
-import { CustomButton } from "/src/components/CustomButton/CustomButton";
 import { Header } from "/src/components/Header/Header";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { t } = useTranslation(); 
+  const navigate = useNavigate();
 
   const auth = useAuth();
   const [formData, setFormData] = useState({
@@ -15,11 +16,21 @@ const Login = () => {
     password: "",
   });
 
-  const [selectedRole, setSelectedRole] = useState("");
-
   const handleLogin = async (e) => {
     e.preventDefault();
-    await auth.login(formData.email, formData.password);
+
+    const loginResponse = await auth.login(formData.email, formData.password);
+    
+    if (loginResponse) {
+      const userRole = loginResponse.user.role; 
+      if (userRole === 'admin') {
+        navigate('/admin');
+      } else if (userRole === 'producer') {
+        navigate('/producer');
+      } else if (userRole === 'client') {
+        navigate('/client');
+      }
+    }
   };
 
   const campos = [
@@ -46,28 +57,10 @@ const Login = () => {
     });
   };
 
-  const handleButtonClick = (role) => {
-    setSelectedRole(role); 
-  };
-
   return (
     <>
       <Header />
       <h2 className="text-center text-4xl font-bold mb-4">{t("login.title")}</h2>
-      <div className='login-center'>
-        <div className="login-toggle-buttons">
-          <CustomButton
-            type={selectedRole === "cliente" ? 'btn-primary' : 'btn-outline-light'}
-            value={t("login.client_button")}
-            onClick={() => handleButtonClick("cliente")}
-          />
-          <CustomButton
-            type={selectedRole === "productor" ? 'btn-primary' : 'btn-outline-light'}
-            value={t("login.producer_button")}
-            onClick={() => handleButtonClick("productor")}
-          />
-        </div>
-      </div>
       <Form
         fields={campos}
         onSubmit={handleLogin}

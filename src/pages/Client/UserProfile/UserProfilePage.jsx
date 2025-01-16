@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './UserProfilePage.css';
+import AuthContext from '/src/contexts/AuthContext';
 
 const UserProfilePage = () => {
+    const { user } = useContext(AuthContext);
     const { id } = useParams();
-    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        avatar: '',
+        name: user ? user.name : '',
+        email: user ? user.email : '',
+        avatar: user ? user.avatar : '',
         currentPassword: '',
         newPassword: '',
         confirmNewPassword: ''
@@ -20,21 +21,13 @@ const UserProfilePage = () => {
     const [selectedTab, setSelectedTab] = useState('info');
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await fetch(`http://10.14.4.163:8000/api/user/${id}`);
-                if (!response.ok) throw new Error('Error al obtener el usuario');
-                const data = await response.json();
-                setUser(data);
-                setFormData({ name: data.name, email: data.email, avatar: data.avatar });
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchUser();
-    }, [id]);
+        if (user) { 
+            setFormData({ name: user.name, email: user.email, avatar: user.avatar });
+            setLoading(false); 
+        } else {
+            setLoading(true); 
+        }
+    }, [user]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

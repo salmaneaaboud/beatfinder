@@ -2,10 +2,9 @@ import PropTypes from 'prop-types'; // Importa PropTypes para la validación de 
 import './Form.css';
 
 // Componente Form que crea un formulario dinámico
-function Form({ title, fields, onSubmit, botonTexto, values, onChange }) {
+function Form({ fields, onSubmit, botonTexto, values, onChange }) {
   return (
     <form className="formulario" onSubmit={onSubmit}>
-      <h2 className='formulario-title text-center text-4xl font-bold mb-4'>{title}</h2>
       {fields.map((field, index) => (
         <div key={index} className="form-group">
           <label className="form-label" htmlFor={field.name}>
