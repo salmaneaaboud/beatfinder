@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './UserProfilePage.css';
 import AuthContext from '/src/contexts/AuthContext';
+import { toast } from 'sonner';
 
 const UserProfilePage = () => {
     const { user } = useContext(AuthContext);
@@ -51,7 +52,7 @@ const UserProfilePage = () => {
                 const result = await res.json();
                 setUploadedImageURL(result.secure_url);
             } catch (error) {
-                console.error(error.message);
+                toast.error(error.message);
             }
         }
     };
@@ -65,7 +66,7 @@ const UserProfilePage = () => {
         };
         if (selectedTab === 'credentials') {
             if (formData.newPassword !== formData.confirmNewPassword) {
-                alert('Las contraseñas nuevas no coinciden');
+                toast.error('Las contraseñas nuevas no coinciden');
                 return;
             }
             dataToSend.currentPassword = formData.currentPassword;
@@ -78,9 +79,9 @@ const UserProfilePage = () => {
                 body: JSON.stringify(dataToSend)
             });
             if (!response.ok) throw new Error('Error al actualizar los datos');
-            alert('Datos actualizados correctamente');
+            toast.success('Datos actualizados correctamente');
         } catch (error) {
-            setError(error.message);
+            toast.error(error.message);
         }
     };
 

@@ -5,6 +5,7 @@ import { useAuth } from '/src/hooks/useAuth';
 import { Header } from "/src/components/Header/Header";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Login = () => {
   const { t } = useTranslation(); 
@@ -22,6 +23,7 @@ const Login = () => {
     const loginResponse = await auth.login(formData.email, formData.password);
     
     if (loginResponse) {
+      toast.success(t("login.success_message"));
       const userRole = loginResponse.user.role; 
       if (userRole === 'admin') {
         navigate('/admin');

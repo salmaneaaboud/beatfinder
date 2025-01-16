@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
+import { toast } from 'sonner';
 
 const UserProfile = () => {
     const { id } = useParams();
@@ -61,7 +62,7 @@ const UserProfile = () => {
                 const result = await res.json();
                 setUploadedImageURL(result.secure_url); 
             } catch (error) {
-                console.error(error.message);
+                toast.error('Error al subir la imagen');
             }
         }
     };
@@ -84,9 +85,9 @@ const UserProfile = () => {
             if (!response.ok) {
                 throw new Error('Error al actualizar el perfil');
             }
-            alert('Perfil actualizado correctamente');
+            toast.success('Perfil actualizado correctamente');
         } catch (error) {
-            setError(error.message);
+            toast.error('Error al actualizar el perfil');
         }
     };
 

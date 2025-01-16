@@ -20,6 +20,7 @@ import Discover from './pages/Client/Discover/Discover';
 import MusicPlayer from './components/MusicPlayer/index';
 import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
+import { Toaster } from 'sonner'
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -27,6 +28,7 @@ function App() {
   return (
     <AuthProvider> 
       <BrowserRouter>
+      <Toaster position="bottom-right" richColors offset="6vh"/>
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

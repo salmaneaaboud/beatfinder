@@ -42,7 +42,8 @@
     "email_field": "Introduce tu correo electrónico",
     "password_label": "Contraseña",
     "password_field": "Introduce tu contraseña",
-    "login_button": "Iniciar sesión"
+    "login_button": "Iniciar sesión",
+    "success_message": "Has iniciado sesión con éxito"
   },
   "register": {
     "title": "Registrarse",
