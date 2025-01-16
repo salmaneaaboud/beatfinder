@@ -27,13 +27,13 @@ const ProducerSidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/producer-dashboard" activeClassName="activeClicked">
+            <NavLink exact to="/producer" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="tachometer-alt">Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/upload-beat" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="upload">Subir beat</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/explore" activeClassName="activeClicked">
+            <NavLink exact to="/discover" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/settings" activeClassName="activeClicked">

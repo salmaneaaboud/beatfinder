@@ -52,14 +52,14 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
       </div>
 
       <div className="mt-3">
-        <p className="fw-semibold text-white text-truncate">
+        <p className="fw-bold text-white text-truncate">
           <Link to={`/songs/${song?.key}`} className="text-decoration-none text-white">
             {song.title}
           </Link>
         </p>
-        <p className="text-muted text-truncate mt-1">
-          <Link to={song.artists ? `/artists/${song?.id}` : '/top-artists'} className="text-decoration-none text-muted">
-            {song.subtitle}
+        <p className="fw-semibold text-white text-truncate mt-1">
+          <Link to={song.artists ? `/artists/${song?.id}` : '/top-artists'} className="text-decoration-none text-white">
+            {song.user.name}
           </Link>
         </p>
       </div>

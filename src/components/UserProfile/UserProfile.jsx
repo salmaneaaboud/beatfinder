@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { toast } from 'sonner';
 
 const UserProfile = () => {
-    const { id } = useParams();
-    const [user, setUser] = useState(null);
+    const location = useLocation();
+    const id = location.state?.userId;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ const UserProfile = () => {
         avatar: ''
     });
     const [file, setFile] = useState(null);
-    const [uploadedImageURL, setUploadedImageURL] = useState('');
+    const [avatarPreview, setAvatarPreview] = useState('');
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -24,8 +24,8 @@ const UserProfile = () => {
                     throw new Error('Error al obtener el usuario');
                 }
                 const data = await response.json();
-                setUser(data);
                 setFormData({ name: data.name, email: data.email, avatar: data.avatar });
+                setAvatarPreview(data.avatar);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -40,51 +40,71 @@ const UserProfile = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleFileChange = async (e) => {
-        const selectedFile = e.target.files[0];
-        setFile(selectedFile);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFile(file);
+            setAvatarPreview(URL.createObjectURL(file));
+        }
+    };
 
-        if (selectedFile) {
-            const data = new FormData();
-            data.append("file", selectedFile);
-            data.append("upload_preset", "avatars");
-            data.append("cloud_name", "dayc24gzd");
-            try {
-                const res = await fetch("https://api.cloudinary.com/v1_1/dayc24gzd/image/upload", {
-                    method: "POST",
-                    body: data
-                });
+    const uploadImageToCloudinary = async (file) => {
+        if (!file) return null;
 
-                if (!res.ok) {
-                    throw new Error('Error al subir la imagen');
-                }
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "avatars");
+        data.append("cloud_name", "dayc24gzd");
 
-                const result = await res.json();
-                setUploadedImageURL(result.secure_url); 
-            } catch (error) {
-                toast.error('Error al subir la imagen');
+        try {
+            const res = await fetch("https://api.cloudinary.com/v1_1/dayc24gzd/image/upload", {
+                method: "POST",
+                body: data
+            });
+
+            if (!res.ok) {
+                throw new Error('Error al subir la imagen');
             }
+
+            const result = await res.json();
+            return result.secure_url;
+        } catch (error) {
+            toast.error('Error al subir la imagen');
+            return null;
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let avatarUrl = formData.avatar;
+        if (file) {
+            const uploadedUrl = await uploadImageToCloudinary(file);
+            if (uploadedUrl) {
+                avatarUrl = uploadedUrl;
+            }
+        }
+
         const dataToSend = {
             name: formData.name,
             email: formData.email,
-            avatar: uploadedImageURL || null,
+            avatar: avatarUrl,
         };
+
         try {
-            const response = await fetch(`http://10.14.4.163:8080/api/update-user/${id}`, {
+            const token = localStorage.getItem('token'); 
+            const response = await fetch(`http://10.14.4.163:8000/api/update-user/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify(dataToSend),
             });
             if (!response.ok) {
                 throw new Error('Error al actualizar el perfil');
             }
+            setFormData(prev => ({ ...prev, avatar: avatarUrl }));
             toast.success('Perfil actualizado correctamente');
         } catch (error) {
             toast.error('Error al actualizar el perfil');
@@ -123,7 +143,7 @@ const UserProfile = () => {
                 <Form.Group controlId="formAvatar">
                     <Form.Label>Avatar</Form.Label>
                     <div>
-                        {formData.avatar && <img src={formData.avatar} alt="Avatar" className="img-thumbnail" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '3px solid #5a6268' }} />}
+                        {avatarPreview && <img src={avatarPreview} alt="Avatar" className="img-thumbnail" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '3px solid #5a6268' }} />}
                     </div>
                     <Form.Control
                         type="file"

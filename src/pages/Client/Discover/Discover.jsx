@@ -21,8 +21,8 @@ const Discover = () => {
         <Sidebar />
         <div className="flex-grow-1">
             <LoggedHeader />
-            <div className="d-flex flex-column">
-                <div className="d-flex flex-wrap justify-content-around gap-4">
+            <div className="d-flex flex-column mx-auto" style={{ width : "90%"}}>
+                <div className="d-flex flex-wrap justify-content-around gap-4 ">
                     {data?.map((song, i) => (
                     <SongCard
                         key={song.key}

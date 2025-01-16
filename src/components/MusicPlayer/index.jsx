@@ -7,6 +7,10 @@ import Player from './Player';
 import Seekbar from './Seekbar';
 import Track from './Track';
 import VolumeBar from './VolumeBar';
+import { IoClose } from 'react-icons/io5';
+import { resetPlayer } from '../../redux/features/playerSlice';
+
+import './MusicPlayer.css';
 
 const MusicPlayer = () => {
   const { activeSong, currentSongs, currentIndex, isActive, isPlaying } = useSelector((state) => state.player);
@@ -53,53 +57,70 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className="d-flex justify-content-between align-items-center px-3 px-sm-4 w-100">
-      {/* Track Info */}
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
+    <div className="music-player-container">
+      <div className="music-player-content">
+        {/* Track Info */}
+        <div className="track-section">
+          <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
+        </div>
 
-      {/* Center Section with Controls */}
-      <div className="d-flex flex-column align-items-center flex-grow-1">
-        <Controls
-          isPlaying={isPlaying}
-          isActive={isActive}
-          repeat={repeat}
-          setRepeat={setRepeat}
-          shuffle={shuffle}
-          setShuffle={setShuffle}
-          currentSongs={currentSongs}
-          handlePlayPause={handlePlayPause}
-          handlePrevSong={handlePrevSong}
-          handleNextSong={handleNextSong}
-        />
-        <Seekbar
-          value={appTime}
-          min="0"
-          max={duration}
-          onInput={(event) => setSeekTime(event.target.value)}
-          setSeekTime={setSeekTime}
-          appTime={appTime}
-        />
-        <Player
-          activeSong={activeSong}
-          volume={volume}
-          isPlaying={isPlaying}
-          seekTime={seekTime}
-          repeat={repeat}
-          currentIndex={currentIndex}
-          onEnded={handleNextSong}
-          onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
-          onLoadedData={(event) => setDuration(event.target.duration)}
-        />
+        {/* Center Section with Controls */}
+        <div className="controls-section">
+          <Controls
+            isPlaying={isPlaying}
+            isActive={isActive}
+            repeat={repeat}
+            setRepeat={setRepeat}
+            shuffle={shuffle}
+            setShuffle={setShuffle}
+            currentSongs={currentSongs}
+            handlePlayPause={handlePlayPause}
+            handlePrevSong={handlePrevSong}
+            handleNextSong={handleNextSong}
+          />
+          <Seekbar
+            value={appTime}
+            min="0"
+            max={duration}
+            onInput={(event) => setSeekTime(event.target.value)}
+            setSeekTime={setSeekTime}
+            appTime={appTime}
+          />
+          <Player
+            activeSong={activeSong}
+            volume={volume}
+            isPlaying={isPlaying}
+            seekTime={seekTime}
+            repeat={repeat}
+            currentIndex={currentIndex}
+            onEnded={handleNextSong}
+            onTimeUpdate={(event) => setAppTime(event.target.currentTime)}
+            onLoadedData={(event) => setDuration(event.target.duration)}
+          />
+        </div>
+
+        {/* Volume Bar */}
+        <div className="volume-section">
+          <VolumeBar
+            value={volume}
+            min="0"
+            max="1"
+            onChange={(event) => setVolume(event.target.value)}
+            setVolume={setVolume}
+          />
+        </div>
+
+        
       </div>
-
-      {/* Volume Bar */}
-      <VolumeBar 
-        value={volume} 
-        min="0" 
-        max="1" 
-        onChange={(event) => setVolume(event.target.value)} 
-        setVolume={setVolume} 
-      />
+      <div>
+          <IoClose
+            size={24}
+            color="#FFF"
+            className="position-absolute top-0 end-0 me-3"
+            onClick={() => dispatch(resetPlayer())}
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
     </div>
   );
 };
