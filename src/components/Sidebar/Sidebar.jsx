@@ -34,7 +34,7 @@ const Sidebar = () => {
             <NavLink exact to="/dashboard" activeClassName="active">
               <CDBSidebarMenuItem icon="tachometer-alt">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/explore" activeClassName="active">
+            <NavLink exact to="/discover" activeClassName="active">
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/playlists" activeClassName="active">
