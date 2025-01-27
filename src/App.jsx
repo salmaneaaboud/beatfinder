@@ -26,6 +26,9 @@ import { Toaster } from 'sonner'
 function App() {
   const { activeSong } = useSelector((state) => state.player);
 
+ 
+  
+
   return (
     <AuthProvider> 
       <BrowserRouter>
