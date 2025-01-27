@@ -3,8 +3,11 @@ import SoundWave from "../../../components/SoundWave/SoundWave";
 import { FaHeart, FaPlus } from "react-icons/fa";
 import "./BeatDetail.css";
 import CommentBox from "../../../components/CommentBox/CommentBox";
+import { useSelector } from 'react-redux';
 
 const BeatDetail = () => {
+  const selectedSong = useSelector((state) => state.player.selectedSong);
+  console.log(selectedSong || "no hay una cancion seleccionada");
   const [selectedLicense, setSelectedLicense] = useState(null);
 
   const licenses = [
@@ -32,12 +35,16 @@ const BeatDetail = () => {
     setSelectedLicense(licenseId);
   };
 
+  if (!selectedSong) {
+    return <p>No hay detalles disponibles para esta canción.</p>;
+  }
+
   return (
     <div className="beat-detail">
       <div className="beat-detail__left">
         <div className="beat-cover">
           <img
-            src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=500&auto=format&fit=crop"
+            src={selectedSong?.cover}
             alt="Beat cover"
           />
         </div>
@@ -68,7 +75,7 @@ const BeatDetail = () => {
       </div>
 
       <div className="beat-detail__right">
-        <SoundWave audioUrl="https://res.cloudinary.com/dayc24gzd/video/upload/v1737040944/MUSIC/AFROBEATS/fgi8ase9gzygjlebzmu9.mp3" />
+        <SoundWave audioUrl={selectedSong?.mp3_file} />
 
         <div className="licenses">
           <h3>Licencias</h3>

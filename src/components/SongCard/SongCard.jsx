@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import PlayPause from '../PlayPause/PlayPause';
-import { playPause, setActiveSong } from '/src/redux/features/playerSlice';
+import { playPause, setActiveSong, setSelectedSong } from '/src/redux/features/playerSlice';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
@@ -14,6 +14,10 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
+  };
+
+  const handleDetailClick = () => {
+    dispatch(setSelectedSong(song));
   };
 
   return (
@@ -53,12 +57,20 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
 
       <div className="mt-3">
         <p className="fw-bold text-white text-truncate">
-          <Link to={`/songs/${song?.key}`} className="text-decoration-none text-white">
+          <Link
+            to="/beat-detail"
+            className="text-decoration-none text-white"
+            onClick={handleDetailClick}
+          >
             {song.title}
           </Link>
         </p>
         <p className="fw-semibold text-white text-truncate mt-1">
-          <Link to={song.artists ? `/artists/${song?.id}` : '/top-artists'} className="text-decoration-none text-white">
+          <Link
+            to="/beat-detail"
+            className="text-decoration-none text-white"
+            onClick={handleDetailClick}
+          >
             {song.user.name}
           </Link>
         </p>
