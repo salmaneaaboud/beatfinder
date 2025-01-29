@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Loader from "/src/components/Loader/Loader";
 import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
+import { BASE_URL } from "./../../../config";
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -15,7 +16,7 @@ const BeatDetail = () => {
 
   useEffect(() => {
     const fetchBeat = async () => {
-      const response = await fetch(`http://10.14.4.163:8000/api/beat/${id}`);
+      const response = await fetch(BASE_URL+`/beat/${id}`);
       const data = await response.json();
       setBeat(data);
     };

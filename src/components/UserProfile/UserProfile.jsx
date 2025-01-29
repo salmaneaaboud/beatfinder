@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { toast } from 'sonner';
+import { BASE_URL } from "./../../config";
+
 
 const UserProfile = () => {
     const location = useLocation();
@@ -19,7 +21,7 @@ const UserProfile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`http://10.14.4.163:8080/api/user/${id}`);
+                const response = await fetch(BASE_URL+`/user/${id}`);
                 if (!response.ok) {
                     throw new Error('Error al obtener el usuario');
                 }
@@ -93,7 +95,7 @@ const UserProfile = () => {
 
         try {
             const token = localStorage.getItem('token'); 
-            const response = await fetch(`http://10.14.4.163:8000/api/update-user/${id}`, {
+            const response = await fetch(BASE_URL+`/update-user/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

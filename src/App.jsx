@@ -23,6 +23,9 @@ import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import { Toaster } from 'sonner'
 import { useEffect } from 'react';
+import { BASE_URL } from "./config";
+
+
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -38,7 +41,7 @@ function App() {
             const userAgentResponse = await fetch(`https://api.ipgeolocation.io/user-agent?apiKey=${API_KEY}`);
             const userAgentData = await userAgentResponse.json();
 
-            await fetch("http://10.14.4.163:8000/api/storeip", {
+            await fetch(BASE_URL+"/storeip", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
