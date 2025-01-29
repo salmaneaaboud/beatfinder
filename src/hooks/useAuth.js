@@ -9,8 +9,9 @@ import { resetPlayer } from '../redux/features/playerSlice';
 export const useAuth = () => {
     const { setUser } = useContext(AuthContext); 
     const dispatch = useDispatch();
-    const API_KEY = "17b5db1d3502435e86689e4aa96a1e7b";
     const navigate = useNavigate();
+
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
     const login = async (email, password) => {
         try {

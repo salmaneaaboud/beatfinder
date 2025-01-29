@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 function App() {
   const { activeSong } = useSelector((state) => state.player);
 
-  const API_KEY = "17b5db1d3502435e86689e4aa96a1e7b";
+  const API_KEY = import.meta.env.VITE_API_KEY;
 
   const trackVisitorIP = async () => {
     if (!localStorage.getItem("ipTracked")) {
