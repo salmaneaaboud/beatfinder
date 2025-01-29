@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
 import { FaPlay, FaPause } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import { resetPlayer } from '/src/redux/features/playerSlice';
 
 const SoundWave = ({ audioUrl }) => {
   const waveformRef = useRef(null);
@@ -8,6 +10,7 @@ const SoundWave = ({ audioUrl }) => {
   const timeRef = useRef(null);
   const durationRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!waveformRef.current) return;
@@ -51,6 +54,7 @@ const SoundWave = ({ audioUrl }) => {
 
   const handlePlayPause = () => {
     if (wavesurferRef.current) {
+      dispatch(resetPlayer());
       wavesurferRef.current.playPause();
       setIsPlaying(!isPlaying);
     }

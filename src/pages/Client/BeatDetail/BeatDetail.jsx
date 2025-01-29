@@ -1,11 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SoundWave from "../../../components/SoundWave/SoundWave";
 import { FaHeart, FaPlus } from "react-icons/fa";
 import "./BeatDetail.css";
 import CommentBox from "../../../components/CommentBox/CommentBox";
+import { useParams } from "react-router-dom";
+import Loader from "/src/components/Loader/Loader";
+import Sidebar from '/src/components/Sidebar/Sidebar';
+import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
+  const { id } = useParams();
+  const [beat, setBeat] = useState(null);
+
+  useEffect(() => {
+    const fetchBeat = async () => {
+      const response = await fetch(`http://10.14.4.163:8000/api/beat/${id}`);
+      const data = await response.json();
+      setBeat(data);
+    };
+
+    fetchBeat();
+  }, [id]);
+
+  // Función para formatear la fecha
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  };
 
   const licenses = [
     {
@@ -33,65 +59,73 @@ const BeatDetail = () => {
   };
 
   return (
-    <div className="beat-detail">
-      <div className="beat-detail__left">
-        <div className="beat-cover">
-          <img
-            src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=500&auto=format&fit=crop"
-            alt="Beat cover"
-          />
-        </div>
-        <h2>R&B type beat</h2>
-        <p>Productor 2</p>
-        <div className="action-buttons">
-          <button className="like-button">
-            <FaHeart size={20} />
-          </button>
-          <button className="add-button">
-            <FaPlus size={20} />
-          </button>
-        </div>
-
-        <div className="beat-info">
-          <h3>Información</h3>
-          <div className="info-grid">
-            <div>Fecha de publicación</div>
-            <div>Oct 19, 2024</div>
-            <div>BPM</div>
-            <div>90</div>
-            <div>Clave</div>
-            <div>Si bemol</div>
-            <div>Reproducciones</div>
-            <div>1.2K</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="beat-detail__right">
-        <SoundWave audioUrl="https://res.cloudinary.com/dayc24gzd/video/upload/v1737040944/MUSIC/AFROBEATS/fgi8ase9gzygjlebzmu9.mp3" />
-
-        <div className="licenses">
-          <h3>Licencias</h3>
-          <div className="license-options">
-            {licenses.map((license) => (
-              <div
-                key={license.id}
-                className={`license-card ${
-                  selectedLicense === license.id ? "selected" : ""
-                }`}
-                onClick={() => handleLicenseSelect(license.id)}
-              >
-                <h4>{license.name}</h4>
-                <p className="price">{license.price}</p>
-                <p className="format">{license.format}</p>
+    <div className="d-flex">
+      <Sidebar />
+      <div className="flex-grow-1">
+        <LoggedHeader />
+        {!beat ? (
+          <Loader title="Cargando instrumental..." />
+        ) : (
+          <div className="beat-detail">
+            <div className="beat-detail__left">
+              <div className="beat-cover">
+                <img src={beat.cover} alt="Beat cover" />
               </div>
-            ))}
-          </div>
-        </div>
+              <h2>{beat.title}</h2> 
+              <p>{beat.user.name}</p> 
+              <div className="action-buttons">
+                <button className="like-button">
+                  <FaHeart size={20} />
+                </button>
+                <button className="add-button">
+                  <FaPlus size={20} />
+                </button>
+              </div>
 
-        <div className="comments">
-          <CommentBox />
-        </div>
+              <div className="beat-info">
+                <h3>Información</h3>
+                <div className="info-grid">
+                  <div>Fecha de publicación</div>
+                  <div>{formatDate(beat.created_at)}</div> 
+                  <div>BPM</div>
+                  <div>{beat.bpm}</div> 
+                  <div>Tonalidad</div>
+                  <div>{beat.key}</div> 
+                  <div>Género</div>
+                  <div>{beat.genre}</div> 
+                  <div>Estado</div>
+                  <div>{beat.status}</div> 
+                </div>
+              </div>
+            </div>
+
+            <div className="beat-detail__right">
+              <SoundWave audioUrl={beat.mp3_file} /> 
+
+              <div className="licenses">
+                <h3>Licencias</h3>
+                <div className="license-options">
+                  {licenses.map((license) => (
+                    <div
+                      key={license.id}
+                      className={`license-card ${selectedLicense === license.id ? "selected" : ""
+                        }`}
+                      onClick={() => handleLicenseSelect(license.id)}
+                    >
+                      <h4>{license.name}</h4>
+                      <p className="price">{license.price}</p>
+                      <p className="format">{license.format}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="comments">
+                <CommentBox />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

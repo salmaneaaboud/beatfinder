@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import PlayPause from '../PlayPause/PlayPause';
-import { playPause, setActiveSong } from '/src/redux/features/playerSlice';
+import { playPause, setActiveSong, setSelectedSong } from '/src/redux/features/playerSlice';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -52,16 +53,16 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
       </div>
 
       <div className="mt-3">
-        <p className="fw-bold text-white text-truncate">
-          <Link to={`/songs/${song?.key}`} className="text-decoration-none text-white">
-            {song.title}
-          </Link>
-        </p>
-        <p className="fw-semibold text-white text-truncate mt-1">
-          <Link to={song.artists ? `/artists/${song?.id}` : '/top-artists'} className="text-decoration-none text-white">
+        <Link
+          to={`/beat-detail/${song.id}`}
+          className="text-decoration-none text-white"
+        >
+          <p className="fw-bold text-white text-truncate">{song.title}</p>
+          <p className="fw-semibold text-white text-truncate mt-1">
             {song.user.name}
-          </Link>
-        </p>
+          </p>
+        </Link>
+
       </div>
     </div>
   );
