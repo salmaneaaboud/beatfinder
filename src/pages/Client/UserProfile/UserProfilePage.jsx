@@ -62,7 +62,6 @@ const UserProfilePage = () => {
         e.preventDefault();
         const dataToSend = {
             name: formData.name,
-            email: formData.email,
             avatar: uploadedImageURL || formData.avatar
         };
         if (selectedTab === 'credentials') {
@@ -74,9 +73,12 @@ const UserProfilePage = () => {
             dataToSend.newPassword = formData.newPassword;
         }
         try {
-            const response = await fetch(BASE_URL+`/update-user/${id}`, {
+            const response = await fetch(BASE_URL+`/update-profile/${id}`, {
+            const token = localStorage.getItem('token'); 
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                 },
                 body: JSON.stringify(dataToSend)
             });
             if (!response.ok) throw new Error('Error al actualizar los datos');
@@ -126,6 +128,7 @@ const UserProfilePage = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
+                                            disabled
                                         />
                                     </div>
                                     <button type="submit" className="user-profile-btn-save">Guardar cambios</button>
