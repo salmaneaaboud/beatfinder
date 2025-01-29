@@ -5,6 +5,8 @@ import AuthContext from '/src/contexts/AuthContext';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { resetPlayer } from '../redux/features/playerSlice';
+import { BASE_URL } from "./../config";
+
 
 export const useAuth = () => {
     const { setUser } = useContext(AuthContext); 
@@ -34,7 +36,7 @@ export const useAuth = () => {
             const userAgentResponse = await fetch(`https://api.ipgeolocation.io/user-agent?apiKey=${API_KEY}`);
             const userAgentData = await userAgentResponse.json();
     
-            await api.post("http://10.14.4.163:8000/api/storeip", {
+            await api.post(BASE_URL+"/storeip", {
                 country: geoData.country_name,
                 city: geoData.city,
                 user_id: data.user.id,

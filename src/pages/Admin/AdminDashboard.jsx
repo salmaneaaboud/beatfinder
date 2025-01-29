@@ -7,6 +7,7 @@ import './AdminDashboard.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import { useNavigate } from 'react-router-dom';
 import Loader from '/src/components/Loader/Loader';  
+import { BASE_URL } from "./../../config";
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ function AdminDashboard() {
             try {
                 const token = localStorage.getItem('token');
                 // Cambiar la URL de la API por la correcta
-                const response = await fetch('http://10.14.4.163:8000/api/admin/stats', {
+                const response = await fetch(BASE_URL+'/admin/stats', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
