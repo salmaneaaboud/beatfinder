@@ -9,28 +9,48 @@ import { resetPlayer } from '../redux/features/playerSlice';
 export const useAuth = () => {
     const { setUser } = useContext(AuthContext); 
     const dispatch = useDispatch();
-
+    const API_KEY = "17b5db1d3502435e86689e4aa96a1e7b";
     const navigate = useNavigate();
 
     const login = async (email, password) => {
         try {
             const response = await api.post("/login", { email, password });
             const data = response.data; 
-            if (data.user.status == 'inactive') {
+    
+            if (data.user.status === 'inactive') {
                 toast.error("Su cuenta está deshabilitada");
-            } else {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user)); 
-                setUser(data.user);
-                api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-                return { user: data.user, token: data.token };
+                return;
             }
+    
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user)); 
+            setUser(data.user);
+            api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+    
+            const geoResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
+            const geoData = await geoResponse.json();
+    
+            const userAgentResponse = await fetch(`https://api.ipgeolocation.io/user-agent?apiKey=${API_KEY}`);
+            const userAgentData = await userAgentResponse.json();
+    
+            await api.post("http://10.14.4.163:8000/api/storeip", {
+                country: geoData.country_name,
+                city: geoData.city,
+                user_id: data.user.id,
+                ip: geoData.ip,
+                userAgent: userAgentData.name,
+                device: userAgentData.device.name,
+                operatingSystem: userAgentData.operatingSystem.name,
+            });
+    
+            return { user: data.user, token: data.token };
+    
         } catch (error) {
             console.error("Error de login:", error);
             toast.error(error.response?.data?.message || "Error de inicio de sesión");
         }
     };
-
+    
     const logout = async () => {
         try {
             dispatch(resetPlayer());
