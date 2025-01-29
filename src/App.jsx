@@ -72,7 +72,7 @@ useEffect(() => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/beat-detail" element={<BeatDetail />} />
+          <Route path="/beat-detail/:id" element={<BeatDetail />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/terms" element={<TermsAndConditions />} />
           <Route

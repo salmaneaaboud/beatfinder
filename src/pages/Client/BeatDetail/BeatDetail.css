@@ -3,7 +3,7 @@
   grid-template-columns: 350px 1fr;
   gap: 2rem;
   padding: 2rem;
-  min-height: calc(100vh - 80px); /* Ajusta el 80px según el tamaño de tu navbar */
+  min-height: calc(100vh - 80px);
 }
 
 .beat-detail__left {
@@ -123,50 +123,10 @@
   color: #666;
 }
 
-.comments {
-  margin-top: 2rem;
-}
-
-.comments h3 {
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.comment-input {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-.comment-input input {
-  flex: 1;
-  background-color: #2A2A2A;
-  border: 1px solid #333;
-  padding: 0.8rem;
-  border-radius: 4px;
-  color: white;
-  width: 100%;
-}
-
-.comment-input input::placeholder {
-  color: #999;
-}
-
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-}
-
-.no-comments {
-  text-align: center;
-  color: #666;
-  margin: 2rem 0;
-}
-
-.no-comments p {
-  color: #999;
 }
 
 .beat-info {

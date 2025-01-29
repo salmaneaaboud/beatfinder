@@ -1,7 +1,11 @@
+// Asegúrate de definir 'global' como 'window' si no está definido
+if (typeof global === 'undefined') {
+  var global = window;
+}
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
-
 import global_en from "./translations/en/global.json";
 import global_es from "./translations/es/global.json";
 import i18next from "i18next";
@@ -17,7 +21,7 @@ i18next.init({
   },
   lng: 'es',
   fallbackLng: 'en',
-  interpolation: {escapeValue: false}
+  interpolation: { escapeValue: false },
 });
 
 createRoot(document.getElementById('root')).render(
@@ -27,5 +31,5 @@ createRoot(document.getElementById('root')).render(
         <App />
       </I18nextProvider>
     </Provider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
