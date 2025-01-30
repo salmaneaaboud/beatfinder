@@ -73,8 +73,8 @@ const UserProfilePage = () => {
             dataToSend.newPassword = formData.newPassword;
         }
         try {
-            const response = await fetch(BASE_URL+`/update-profile/${id}`, {
             const token = localStorage.getItem('token'); 
+            const response = await fetch(BASE_URL+`/update-profile/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
