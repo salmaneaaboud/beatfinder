@@ -23,6 +23,7 @@ const ClientLikes = () => {
                     <div className="d-flex flex-column mx-auto" style={{ width: "90%" }}>
                         <div className="d-flex flex-wrap justify-content-around gap-4 ">
                             {data?.map((song, i) => (
+                                 
                                 <SongCard
                                 key={song.beat.key}
                                 song={song}
