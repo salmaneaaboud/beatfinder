@@ -3,13 +3,12 @@ import Loader from '/src/components/Loader/Loader';
 import Error from '/src/components/Error/Error';
 import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
-
-import { useGetUserLikesQuery } from '/src/redux/services/shazamCore'; // Asegúrate de que esta query esté configurada en tu Redux
+import { useGetUserLikesQuery } from '/src/redux/services/shazamCore'; // Asegúrate de que esta ruta sea correcta
 
 const ClientLikes = () => {
     const token = localStorage.getItem('token'); // Obtener el token desde localStorage
 
-    const { data, isFetching, error } = useGetUserLikesQuery(token);
+    const { data, isFetching, error } = useGetUserLikesQuery(token); // Usar el hook correctamente
 
     if (error) return <Error />;
 
@@ -25,10 +24,11 @@ const ClientLikes = () => {
                         <div className="d-flex flex-wrap justify-content-around gap-4 ">
                             {data?.map((song, i) => (
                                 <SongCard
-                                    key={song.id}
-                                    song={song}
-                                    i={i}
-                                />
+                                key={song.beat.key}
+                                song={song}
+                                data={data}
+                                i={i}
+                            />
                             ))}
                         </div>
                     </div>
