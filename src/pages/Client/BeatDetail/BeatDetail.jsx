@@ -13,19 +13,35 @@ const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
   const { id } = useParams();
   const [beat, setBeat] = useState(null);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const fetchBeat = async () => {
       const response = await fetch(BASE_URL+`/beat/${id}`);
       const data = await response.json();
       setBeat(data);
+      setLiked(data.liked);
     };
 
     fetchBeat();
   }, [id]);
 
-  // Función para formatear la fecha
-  const formatDate = (dateString) => {
+  const toggleLike = async () => {
+    const response = await fetch(`${BASE_URL}/beats/${id}/like`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+    });
+
+    if (response.ok) {
+      setLiked(!liked);
+    }
+    
+  };
+
+ const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -75,8 +91,8 @@ const BeatDetail = () => {
               <h2>{beat.title}</h2> 
               <p>{beat.user.name}</p> 
               <div className="action-buttons">
-                <button className="like-button">
-                  <FaHeart size={20} />
+                <button onClick={toggleLike}>
+                  <FaHeart className={`like-button ${liked ? "liked" : ""}`} size={20} />
                 </button>
                 <button className="add-button">
                   <FaPlus size={20} />

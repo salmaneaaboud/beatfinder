@@ -1,0 +1,49 @@
+.mis-likes {
+    padding: 20px;
+  }
+  
+  .mis-likes h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .liked-beats-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .liked-beat {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+  }
+  
+  .liked-beat img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  
+  .liked-beat h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .liked-beat p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .like-button {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
