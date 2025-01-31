@@ -60,6 +60,38 @@ export const useAuth = () => {
         }
     };
 
+    const loginWithGoogle = async (googleToken) => {
+        try {
+            const response = await api.post("/login/google", { token: googleToken });
+            const data = response.data;
+
+            if (data.user.status === 'inactive') {
+                toast.error("Su cuenta está deshabilitada");
+                return;
+            }
+
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            setUser(data.user);
+            api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
+
+            if (data.user.role == "client") {
+                localStorage.removeItem('cart');
+                const cartResponse = await api.get('/cart');
+                dispatch(setCart(cartResponse.data || []));
+            }
+
+            navigate('/dashboard');
+            toast.success("Inicio de sesión exitoso");
+
+            return { user: data.user, token: data.token };
+
+        } catch (error) {
+            console.error("Error al iniciar sesión con Google:", error);
+            toast.error("Error al iniciar sesión con Google");
+        }
+    };
+
     const logout = async () => {
         try {
             const localCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -84,6 +116,7 @@ export const useAuth = () => {
 
     return {
         login,
+        loginWithGoogle,
         logout
     };
 };
