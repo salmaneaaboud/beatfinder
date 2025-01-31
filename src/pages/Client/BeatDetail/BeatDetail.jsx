@@ -14,14 +14,23 @@ const BeatDetail = () => {
   const { id } = useParams();
   const [beat, setBeat] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     const fetchBeat = async () => {
-      const response = await fetch(BASE_URL+`/beat/${id}`);
+      const response = await fetch(`${BASE_URL}/beat/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+    
       const data = await response.json();
       setBeat(data);
-      setLiked(data.liked);
+      setLiked(data.is_liked);
+      setLikeCount(data.likes_count);
+
     };
+    
 
     fetchBeat();
   }, [id]);
@@ -34,12 +43,13 @@ const BeatDetail = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       },
     });
-
+  
     if (response.ok) {
       setLiked(!liked);
+      setLikeCount(prevCount => liked ? prevCount - 1 : prevCount + 1); // Actualiza el contador de likes
     }
-    
   };
+  
 
  const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -92,7 +102,8 @@ const BeatDetail = () => {
               <p>{beat.user.name}</p> 
               <div className="action-buttons">
                 <button onClick={toggleLike}>
-                  <FaHeart className={`like-button ${liked ? "liked" : ""}`} size={20} />
+                  <FaHeart className={`like-button ${liked ? "liked" : ""}`} size={35} />
+                  <span className="like-count">{likeCount}</span>
                 </button>
                 <button className="add-button">
                   <FaPlus size={20} />
