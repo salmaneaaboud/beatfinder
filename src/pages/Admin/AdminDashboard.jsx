@@ -8,6 +8,7 @@ import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import { useNavigate } from 'react-router-dom';
 import Loader from '/src/components/Loader/Loader';  
 import { BASE_URL } from "./../../config";
+import TrafficByBrowser from '../../components/TrafficByBrowser/TrafficByBrowser';
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -121,6 +122,9 @@ function AdminDashboard() {
                         <div className="row mt-4">
                             <div className="col-md-6">
                                 <Chart />
+                            </div>
+                            <div className="col-md-6">
+                                <TrafficByBrowser />
                             </div>
                         </div>
                     </main>
