@@ -54,59 +54,68 @@ export function LoggedHeader() {
               />
             </Form>
 
-            <div className="d-flex align-items-center gap-4 ms-auto notifications">
-              <div className="notification-item">
-                <FaRegCommentDots className="notification-icon" />
-                <Badge pill bg="danger" className="notification-badge">
-                  5
-                </Badge>
-              </div>
-              <div className="notification-item">
-                <FaRegHeart className="notification-icon" />
-                <Badge pill bg="danger" className="notification-badge">
-                  3
-                </Badge>
-              </div>
 
-              <Dropdown align="end">
-                <Dropdown.Toggle className="client-dropdown" id="cart-dropdown">
-                  <FaShoppingCart fontSize="20px" />
-                  <Badge pill bg="danger" className="ms-1">
-                    {cart.length}
-                  </Badge>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="custom-dropdown-menu" style={{ minWidth: "300px" }}>
-                  {cart.length > 0 ? (
-                    <>
-                      {cart.map((item) => (
-                        <div key={item.id} className="d-flex align-items-center p-2 border-bottom">
-                          <img
-                            src={item.cover}
-                            alt={item.title}
-                            className="cart-item-img"
-                            style={{ width: "50px", height: "50px", objectFit: "cover" }}
-                          />
-                          <div className="ms-2 flex-grow-1">
-                            <p className="mb-1 text-truncate" style={{ maxWidth: "180px" }}>
-                              {item.title}
-                            </p>
+            <div className="d-flex align-items-center gap-4 ms-auto notifications">
+
+              {user && user.role !== "admin" && (
+                <>
+                  <div className="notification-item">
+                    <FaRegCommentDots className="notification-icon" />
+                    <Badge pill bg="danger" className="notification-badge">
+                      5
+                    </Badge>
+                  </div>
+                  <div className="notification-item">
+                    <FaRegHeart className="notification-icon" />
+                    <Badge pill bg="danger" className="notification-badge">
+                      3
+                    </Badge>
+                  </div>
+                </>
+              )}
+
+
+              {user && user.role == "client" && (
+                <Dropdown align="end">
+                  <Dropdown.Toggle className="client-dropdown" id="cart-dropdown">
+                    <FaShoppingCart fontSize="20px" />
+                    <Badge pill bg="danger" className="ms-1">
+                      {cart.length}
+                    </Badge>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="custom-dropdown-menu" style={{ minWidth: "300px" }}>
+                    {cart.length > 0 ? (
+                      <>
+                        {cart.map((item) => (
+                          <div key={item.id} className="d-flex align-items-center p-2 border-bottom">
+                            <img
+                              src={item.cover}
+                              alt={item.title}
+                              className="cart-item-img"
+                              style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                            />
+                            <div className="ms-2 flex-grow-1">
+                              <p className="mb-1 text-truncate" style={{ maxWidth: "180px" }}>
+                                {item.title}
+                              </p>
+                            </div>
+                            <AiFillDelete
+                              fontSize="20px"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => handleRemoveFromCart(item)}
+                            />
                           </div>
-                          <AiFillDelete
-                            fontSize="20px"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => handleRemoveFromCart(item)}
-                          />
-                        </div>
-                      ))}
-                      <Link to="/cart">
-                        <button className="btn btn-primary w-100 mt-2">Ir al carrito</button>
-                      </Link>
-                    </>
-                  ) : (
-                    <p className="p-3 text-center">El carrito está vacío</p>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
+                        ))}
+                        <Link to="/cart">
+                          <button className="btn btn-primary w-100 mt-2">Ir al carrito</button>
+                        </Link>
+                      </>
+                    ) : (
+                      <p className="p-3 text-center">El carrito está vacío</p>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
 
               <Dropdown align="end">
                 <Dropdown.Toggle className="client-dropdown" id="dropdown-basic">
