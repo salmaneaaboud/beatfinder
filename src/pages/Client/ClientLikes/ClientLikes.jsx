@@ -27,7 +27,7 @@ const ClientLikes = () => {
                 ) : (
                     <div className="d-flex flex-column mx-auto" style={{ width: "90%" }}>
                     <h1 className='text-center' style={{ color: "white", fontSize: "2rem", marginBottom: "3rem" }}>Canciones que te gustan</h1>
-                        <div className="d-flex flex-wrap justify-content-around gap-4 ">
+                        <div className="d-flex flex-wrap justify-flex-start gap-4 ">
                         {data?.length > 0 ? (
                             data.map((song, i) => (
                                 <SongCard
