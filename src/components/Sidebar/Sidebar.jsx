@@ -27,20 +27,20 @@ const Sidebar = () => {
 
         <CDBSidebarContent className="sidebar-content">
           <CDBSidebarMenu>
-            <NavLink exact to="/dashboard" activeClassName="activeClicked">
+            <NavLink exact to="/client" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="tachometer-alt">Dashboard</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/discover" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/playlists" activeClassName="activeClicked">
+            <NavLink exact to="#" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="music">Mis Playlists</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/favorites" activeClassName="activeClicked">
+            <NavLink exact to="/client/likes" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="heart">Mis Favoritos</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/settings" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="cogs">Configuración</CDBSidebarMenuItem>
+            <NavLink exact to="/edit-user" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="cogs">Perfil</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
