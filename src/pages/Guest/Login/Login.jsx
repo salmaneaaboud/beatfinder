@@ -38,20 +38,20 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async (credentialResponse) => {
-    const loginResponse = await auth.loginWithGoogle(credentialResponse.credential);
-    
-    if (loginResponse) {
-      toast.success(t("login.success_message"));
-      const userRole = loginResponse.user.role; 
-      if (userRole === 'admin') {
-        navigate('/admin');
-      } else if (userRole === 'producer') {
-        navigate('/producer');
-      } else if (userRole === 'client') {
-        navigate('/client');
-      }
+    try {
+        const res = await fetch('http://10.14.4.163:8000/api/login/google', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: credentialResponse.credential }),
+        });
+
+        const data = await res.json();
+        console.log("Respuesta del backend:", data);
+    } catch (error) {
+        console.error("Error al iniciar sesión con Google:", error);
     }
-  };
+};
+
 
   const campos = [
     {
