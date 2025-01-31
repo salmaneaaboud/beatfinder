@@ -6,12 +6,15 @@ import { Header } from "/src/components/Header/Header";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+
+const clientId = 'TU_CLIENT_ID_DE_GOOGLE';
 
 const Login = () => {
   const { t } = useTranslation(); 
   const navigate = useNavigate();
-
   const auth = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,8 +22,23 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     const loginResponse = await auth.login(formData.email, formData.password);
+    
+    if (loginResponse) {
+      toast.success(t("login.success_message"));
+      const userRole = loginResponse.user.role; 
+      if (userRole === 'admin') {
+        navigate('/admin');
+      } else if (userRole === 'producer') {
+        navigate('/producer');
+      } else if (userRole === 'client') {
+        navigate('/client');
+      }
+    }
+  };
+
+  const handleGoogleLogin = async (credentialResponse) => {
+    const loginResponse = await auth.loginWithGoogle(credentialResponse.credential);
     
     if (loginResponse) {
       toast.success(t("login.success_message"));
@@ -60,9 +78,10 @@ const Login = () => {
   };
 
   return (
-    <>
+    <GoogleOAuthProvider clientId={clientId}>
       <Header />
       <h2 className="text-center text-4xl font-bold mb-4">{t("login.title")}</h2>
+      
       <Form
         fields={campos}
         onSubmit={handleLogin}
@@ -70,7 +89,14 @@ const Login = () => {
         values={formData}
         onChange={handleChange}
       />
-    </>
+
+      <div className="flex justify-center mt-4">
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => toast.error("Error al iniciar sesión con Google")}
+        />
+      </div>
+    </GoogleOAuthProvider>
   );
 };
 
