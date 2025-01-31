@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
-const clientId = 'TU_CLIENT_ID_DE_GOOGLE';
+const clientId = '283047612634-ijbj7cbg6saufh1l4ikb29boha6s37p2.apps.googleusercontent.com';
 
 const Login = () => {
   const { t } = useTranslation(); 
