@@ -7,25 +7,29 @@ export const shazamCoreApi = createApi({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
-
       return headers;
     },
   }),
   endpoints: (builder) => ({
-    getTopCharts: builder.query({ query: () => '/beats' }),
-    getSongByGenre: builder.query({ query: (genre) => `/beats` }),
-    getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),
+    getTopCharts: builder.query({ query: () => '/user' }),
+    getSongByGenre: builder.query({ query: () => `/beats` }),
+    getUserLikes: builder.query({ query: (token) => ({
+      url: `/user-likes`,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })}),
     getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
     getArtistDetails: builder.query({ query: (artistid) => `/artists/details?artist_id=${artistid}` }),
     getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}` }),
     getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` })
-  })
+  }),
 });
 
 export const {
   useGetTopChartsQuery,
   useGetSongByGenreQuery,
-  useGetSongDetailsQuery,
+  useGetUserLikesQuery,
   useGetSongRelatedQuery,
   useGetArtistDetailsQuery,
   useGetSongsByCountryQuery,

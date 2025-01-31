@@ -24,7 +24,7 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import { Toaster } from 'sonner'
 import { useEffect } from 'react';
 import { BASE_URL } from "./config";
-
+import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -85,6 +85,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
+          <Route path="/client/likes" element={<ClientLikes />} />
           <Route path="/email-verification/success" element={<EmailVerificationSuccess />} />
           <Route path="/email-verification/error" element={<EmailVerificationError />} />
           <Route

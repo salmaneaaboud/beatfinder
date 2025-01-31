@@ -13,19 +13,45 @@ const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
   const { id } = useParams();
   const [beat, setBeat] = useState(null);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     const fetchBeat = async () => {
-      const response = await fetch(BASE_URL+`/beat/${id}`);
+      const response = await fetch(`${BASE_URL}/beat/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+    
       const data = await response.json();
       setBeat(data);
+      setLiked(data.is_liked);
+      setLikeCount(data.likes_count);
+
     };
+    
 
     fetchBeat();
   }, [id]);
 
-  // Función para formatear la fecha
-  const formatDate = (dateString) => {
+  const toggleLike = async () => {
+    const response = await fetch(`${BASE_URL}/beats/${id}/like`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+    });
+  
+    if (response.ok) {
+      setLiked(!liked);
+      setLikeCount(prevCount => liked ? prevCount - 1 : prevCount + 1); // Actualiza el contador de likes
+    }
+  };
+  
+
+ const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -75,8 +101,9 @@ const BeatDetail = () => {
               <h2>{beat.title}</h2> 
               <p>{beat.user.name}</p> 
               <div className="action-buttons">
-                <button className="like-button">
-                  <FaHeart size={20} />
+                <button onClick={toggleLike}>
+                  <FaHeart className={`like-button ${liked ? "liked" : ""}`} size={35} />
+                  <span className="like-count">{likeCount}</span>
                 </button>
                 <button className="add-button">
                   <FaPlus size={20} />
