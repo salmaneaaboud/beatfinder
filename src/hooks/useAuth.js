@@ -30,9 +30,11 @@ export const useAuth = () => {
             setUser(data.user);
             api.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 
-            localStorage.removeItem('cart');
-            const cartResponse = await api.get('/cart');
-            dispatch(setCart(cartResponse.data || []));
+            if (data.user.role == "client") {
+                localStorage.removeItem('cart');
+                const cartResponse = await api.get('/cart');
+                dispatch(setCart(cartResponse.data || []));
+            }
 
             const geoResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
             const geoData = await geoResponse.json();
