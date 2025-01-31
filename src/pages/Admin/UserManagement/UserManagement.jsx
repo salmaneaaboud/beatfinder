@@ -6,6 +6,7 @@ import { Table, Badge, Button, Modal } from 'react-bootstrap';
 import './UserManagement.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import Loader from '/src/components/Loader/Loader'; 
+import { BASE_URL } from "./../../../config";
 
 const UserManagement = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const UserManagement = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://10.14.4.163:8000/api/users', {
+        const response = await fetch(BASE_URL+'/users', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ const UserManagement = () => {
       const token = localStorage.getItem('token');
       const newStatus = modalAction === 'deactivate' ? 'inactive' : 'active';
 
-      const response = await fetch(`http://10.14.4.163:8000/api/users/${selectedUser.id}/status`, {
+      const response = await fetch(BASE_URL+`/users/${selectedUser.id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

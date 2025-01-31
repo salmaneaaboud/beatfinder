@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button, Modal } from 'react-bootstrap';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import Loader from '/src/components/Loader/Loader';  // Asegúrate de importar el Loader
+import { BASE_URL } from "./../../../config";
 
 const BeatManagement = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const BeatManagement = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://10.14.4.163:8000/api/beats', {
+        const response = await fetch(BASE_URL+'/beats', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -40,7 +41,7 @@ const BeatManagement = () => {
       const token = localStorage.getItem('token');
       const newStatus = modalAction === 'deactivate' ? 'not_available' : 'available';
 
-      const response = await fetch(`http://10.14.4.163:8000/api/beats/${selectedBeat.id}/status`, {
+      const response = await fetch(BASE_URL+`/beats/${selectedBeat.id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

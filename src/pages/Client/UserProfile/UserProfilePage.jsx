@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import './UserProfilePage.css';
 import AuthContext from '/src/contexts/AuthContext';
 import { toast } from 'sonner';
+import { BASE_URL } from "./../../../config";
 
 const UserProfilePage = () => {
     const { user } = useContext(AuthContext);
@@ -61,7 +62,6 @@ const UserProfilePage = () => {
         e.preventDefault();
         const dataToSend = {
             name: formData.name,
-            email: formData.email,
             avatar: uploadedImageURL || formData.avatar
         };
         if (selectedTab === 'credentials') {
@@ -73,9 +73,12 @@ const UserProfilePage = () => {
             dataToSend.newPassword = formData.newPassword;
         }
         try {
-            const response = await fetch(`http://10.14.4.163:8000/api/update-user/${id}`, {
+            const token = localStorage.getItem('token'); 
+            const response = await fetch(BASE_URL+`/update-profile/${id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                 },
                 body: JSON.stringify(dataToSend)
             });
             if (!response.ok) throw new Error('Error al actualizar los datos');
@@ -125,6 +128,7 @@ const UserProfilePage = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
+                                            disabled
                                         />
                                     </div>
                                     <button type="submit" className="user-profile-btn-save">Guardar cambios</button>

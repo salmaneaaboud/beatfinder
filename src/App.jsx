@@ -22,9 +22,50 @@ import MusicPlayer from './components/MusicPlayer/index';
 import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import { Toaster } from 'sonner'
+import { useEffect } from 'react';
+import { BASE_URL } from "./config";
+
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
+
+  const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const trackVisitorIP = async () => {
+    if (!localStorage.getItem("ipTracked")) {
+        try {
+            const ipResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
+            const ipData = await ipResponse.json();
+
+            const userAgentResponse = await fetch(`https://api.ipgeolocation.io/user-agent?apiKey=${API_KEY}`);
+            const userAgentData = await userAgentResponse.json();
+
+            await fetch(BASE_URL+"/storeip", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    country: ipData.country_name,
+                    city: ipData.city,
+                    user_id: null,
+                    ip: ipData.ip,
+                    userAgent: userAgentData.name,
+                    device: userAgentData.device.name,
+                    operatingSystem: userAgentData.operatingSystem.name,
+                })
+            });
+
+            localStorage.setItem("ipTracked", "true");
+        } catch (error) {
+            console.error("Error al rastrear IP:", error);
+        }
+    }
+};
+
+useEffect(() => {
+    trackVisitorIP();
+}, []);
 
   return (
     <AuthProvider> 
@@ -97,6 +138,7 @@ function App() {
         )}
       </BrowserRouter>
     </AuthProvider>
+    
   );
 }
 

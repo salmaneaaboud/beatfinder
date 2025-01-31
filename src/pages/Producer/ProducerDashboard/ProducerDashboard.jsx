@@ -5,6 +5,7 @@ import ProducerSidebar from "/src/components/ProducerSidebar/ProducerSidebar";
 import Chart from "/src/components/Chart/Chart";
 import { useEffect, useState, useContext } from "react";
 import AuthContext from "/src/contexts/AuthContext"; 
+import { BASE_URL } from "./../../../config";
 
 function ProducerDashboard() {
     const { user } = useContext(AuthContext);
@@ -13,7 +14,7 @@ function ProducerDashboard() {
     useEffect(() => {
         const fetchBeats = async () => {
             if (user && user.role === 'producer') {
-                const response = await fetch('http://10.14.4.163:8000/api/beats/my', {
+                const response = await fetch(BASE_URL+'/beats/my', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json'
