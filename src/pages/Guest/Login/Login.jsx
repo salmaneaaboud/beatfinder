@@ -39,6 +39,7 @@ const Login = () => {
 
   const handleGoogleLogin = async (credentialResponse) => {
     try {
+      console.log("Token recibido de Google:", credentialResponse.credential);
         const res = await fetch('http://10.14.4.163:8000/api/login/google', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
