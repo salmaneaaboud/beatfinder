@@ -26,6 +26,7 @@ import { useEffect } from 'react';
 import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
 
+
 function App() {
   const { activeSong } = useSelector((state) => state.player);
 
@@ -53,6 +54,9 @@ function App() {
                     userAgent: userAgentData.name,
                     device: userAgentData.device.name,
                     operatingSystem: userAgentData.operatingSystem.name,
+                    countryFlag: ipData.country_flag,
+                    latitude: ipData.latitude,
+                    longitude: ipData.longitude
                 })
             });
 
@@ -131,6 +135,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
+
         </Routes>
         {activeSong?.title && localStorage.getItem('token') && (
           <div className="music-player-fixed">
