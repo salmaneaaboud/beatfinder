@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Music, Edit, Shield, UserCheck, CheckCircle, UserX, UserPlus } from 'lucide-react';
+import { Music, Edit, Shield, UserCheck, UserX, UserPlus } from 'lucide-react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button, Modal } from 'react-bootstrap';
-import './UserManagement.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
-import Loader from '/src/components/Loader/Loader'; 
+import Loader from '/src/components/Loader/Loader';  
 import { BASE_URL } from "./../../../config";
+import { useSelector } from 'react-redux';
 
 const UserManagement = () => {
   const navigate = useNavigate();
@@ -16,11 +16,19 @@ const UserManagement = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Get the searchTerm from the Redux store
+  const searchTerm = useSelector((state) => state.search.searchTerm) || '';
+
+  const filteredUsers = users?.filter(
+    (user) =>
+      user?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];   
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(BASE_URL+'/users', {
+        const response = await fetch(BASE_URL + '/users', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -42,7 +50,7 @@ const UserManagement = () => {
       const token = localStorage.getItem('token');
       const newStatus = modalAction === 'deactivate' ? 'inactive' : 'active';
 
-      const response = await fetch(BASE_URL+`/users/${selectedUser.id}/status`, {
+      const response = await fetch(BASE_URL + `/users/${selectedUser.id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +65,7 @@ const UserManagement = () => {
             user.id === selectedUser.id ? { ...user, status: newStatus } : user
           )
         );
-        setShowModal(false); // Close the modal after successful update
+        setShowModal(false);
       } else {
         console.error(`Error al cambiar el estado del usuario a ${newStatus}`);
       }
@@ -93,7 +101,7 @@ const UserManagement = () => {
         <LoggedHeader />
         <Loader title="Cargando usuarios..." />
       </>
-    )
+    );
   }
 
   return (
@@ -113,7 +121,7 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map(({ id, avatar, name, email, role, status, email_verified_at }) => (
+            {filteredUsers.map(({ id, avatar, name, email, role, status, email_verified_at }) => (
               <tr key={id} className="align-middle">
                 <td>
                   <div className="d-flex align-items-center">

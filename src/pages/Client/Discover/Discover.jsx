@@ -8,10 +8,15 @@ import { useGetSongByGenreQuery, useGetTopChartsQuery } from '/src/redux/service
 import { useDispatch, useSelector } from 'react-redux';
 
 const Discover = () => {
-    const dispatch = useDispatch();
     const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
-
+    const searchTerm = useSelector((state) => state.search.searchTerm);
     const { data, isFetching, error } = useGetSongByGenreQuery(genreListId || "POP");
+
+    const filteredSongs = data?.filter(
+        (song) =>
+          song?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          song?.user?.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );      
 
     if (error) return <Error />;
 
@@ -25,13 +30,13 @@ const Discover = () => {
                 ) : (
                     <div className="d-flex flex-column mx-auto" style={{ width: "90%" }}>
                         <div className="d-flex flex-wrap justify-content-around gap-4 ">
-                            {data?.map((song, i) => (
+                            {filteredSongs?.map((song, i) => (
                                 <SongCard
                                     key={song.key}
                                     song={song}
                                     isPlaying={isPlaying}
                                     activeSong={activeSong}
-                                    data={data}
+                                    data={filteredSongs}
                                     i={i}
                                 />
                             ))}
