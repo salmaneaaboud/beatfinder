@@ -4,22 +4,30 @@ import { Music, Edit, Shield, CheckCircle, XCircle } from 'lucide-react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button, Modal } from 'react-bootstrap';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
-import Loader from '/src/components/Loader/Loader';  // Asegúrate de importar el Loader
+import Loader from '/src/components/Loader/Loader';  
 import { BASE_URL } from "./../../../config";
+import { useSelector } from 'react-redux';
 
 const BeatManagement = () => {
   const navigate = useNavigate();
   const [beats, setBeats] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalAction, setModalAction] = useState(''); // Action: 'activate' or 'deactivate'
+  const [modalAction, setModalAction] = useState(''); 
   const [selectedBeat, setSelectedBeat] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const searchTerm = useSelector((state) => state.search.searchTerm) || '';
+
+  const filteredBeats = beats?.filter(
+    (beat) =>
+      beat?.title?.toLowerCase().includes(searchTerm.toLowerCase()) 
+  ) || [];   
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(BASE_URL+'/beats', {
+        const response = await fetch(BASE_URL+'/all-beats', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -56,7 +64,7 @@ const BeatManagement = () => {
             beat.id === selectedBeat.id ? { ...beat, status: newStatus } : beat
           )
         );
-        setShowModal(false); // Close the modal after successful update
+        setShowModal(false);
       } else {
         console.error(`Error al cambiar el estado del beat a ${newStatus}`);
       }
@@ -97,7 +105,7 @@ const BeatManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {beats.map(({ id, title, cover, genre, bpm, status, user }) => (
+            {filteredBeats.map(({ id, title, cover, genre, bpm, status, user }) => (
               <tr key={id} className="align-middle">
                 <td>
                   <div className="d-flex align-items-center">

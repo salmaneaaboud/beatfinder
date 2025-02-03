@@ -8,11 +8,18 @@ import { useGetUserLikesQuery } from '/src/redux/services/shazamCore';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ClientLikes = () => {
-    const dispatch = useDispatch();
     const { activeSong, isPlaying } = useSelector((state) => state.player);
+    const searchTerm = useSelector((state) => state.search.searchTerm);
     const token = localStorage.getItem('token');
 
     const { data, isFetching, error } = useGetUserLikesQuery(token);
+
+    const filteredSongs = data?.filter(
+        (song) =>
+          song?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          song?.user?.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );      
+
 
     if (error) return <Error />;
     console.log(data);
@@ -28,8 +35,8 @@ const ClientLikes = () => {
                     <div className="d-flex flex-column mx-auto" style={{ width: "90%" }}>
                     <h1 className='text-center' style={{ color: "white", fontSize: "2rem", marginBottom: "3rem" }}>Canciones que te gustan</h1>
                         <div className="d-flex flex-wrap justify-flex-start gap-4 ">
-                        {data?.length > 0 ? (
-                            data.map((song, i) => (
+                        {filteredSongs?.length > 0 ? (
+                            filteredSongs.map((song, i) => (
                                 <SongCard
                                     key={song.id}
                                     song={song}

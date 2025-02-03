@@ -1,7 +1,7 @@
 import { Nav, Navbar, Container, Form, Dropdown, Badge } from "react-bootstrap";
 import { FaSearch, FaRegCommentDots, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';  // Added useLocation here
 import { useState, useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import clientAvatar from "/src/assets/avatar_temp.png";
@@ -13,23 +13,28 @@ import { useContext } from "react";
 import AuthContext from "/src/contexts/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/features/cartSlice";
+import { setSearchTerm } from "/src/redux/features/searchSlice";
 
 export function LoggedHeader() {
   const auth = useAuth();
   const { user } = useContext(AuthContext);
+  const location = useLocation(); // Added the useLocation hook to get the current path
 
-  // Obtener el carrito desde Redux
   const cart = useSelector(state => state.cart.cart);
-  const dispatch = useDispatch();
 
-  // Función para eliminar del carrito
   const handleRemoveFromCart = (item) => {
     try {
-      dispatch(removeFromCart(item)); // Eliminar del carrito usando Redux
+      dispatch(removeFromCart(item));
     } catch (error) {
       console.error("Error al eliminar el producto del carrito:", error);
     }
   };
+
+  const rutasSinBuscador = ["/client", "/producer", "/admin"];
+  const ocultarBuscador = rutasSinBuscador.includes(location.pathname);
+
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
   return (
     <Navbar expand="lg" className="custom-navbar w-100">
@@ -44,16 +49,20 @@ export function LoggedHeader() {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="w-100 flex-column flex-lg-row">
-            <Form className="search-bar-container col-12 col-lg-6 ms-lg-auto mx-0 my-lg-0 my-3">
-              <FaSearch className="search-icon" />
-              <input
-                type="search"
-                placeholder="Buscar productor, artista..."
-                className="search-bar w-100"
-                aria-label="Search"
-              />
-            </Form>
-
+            {/* The search bar is shown unless the current route is one of the hidden routes */}
+            {!ocultarBuscador && (
+              <Form className="search-bar-container col-12 col-lg-6 ms-lg-auto mx-0 my-lg-0 my-3">
+                <FaSearch className="search-icon" />
+                <input
+                  type="search"
+                  value={searchTerm}
+                  placeholder="Buscar productor, artista..."
+                  className="search-bar w-100"
+                  aria-label="Search"
+                  onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+                />
+              </Form>
+            )}
 
             <div className="d-flex align-items-center gap-4 ms-auto notifications">
 
@@ -73,7 +82,6 @@ export function LoggedHeader() {
                   </div>
                 </>
               )}
-
 
               {user && user.role == "client" && (
                 <Dropdown align="end">
