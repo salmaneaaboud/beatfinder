@@ -50,6 +50,7 @@ export const useAuth = () => {
                 userAgent: userAgentData.name,
                 device: userAgentData.device.name,
                 operatingSystem: userAgentData.operatingSystem.name,
+                countryFlag: geoData.country_flag,
             });
 
             return { user: data.user, token: data.token };
