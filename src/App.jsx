@@ -25,6 +25,8 @@ import { Toaster } from 'sonner'
 import { useEffect } from 'react';
 import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
+import SignIn from "./components/SignIn/SignIn";
+import GoogleCallback from "./components/GoogleCallback/GoogleCallback";
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -131,6 +133,9 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/auth/google" element={<GoogleCallback />}></Route>
         </Routes>
         {activeSong?.title && localStorage.getItem('token') && (
           <div className="music-player-fixed">
