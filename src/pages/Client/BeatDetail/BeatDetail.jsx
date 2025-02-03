@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SoundWave from "../../../components/SoundWave/SoundWave";
-import { FaHeart, FaPlus } from "react-icons/fa";
+import { FaHeart, FaPlus, FaShoppingCart } from "react-icons/fa";
 import "./BeatDetail.css";
 import CommentBox from "../../../components/CommentBox/CommentBox";
 import { useParams } from "react-router-dom";
@@ -8,7 +8,9 @@ import Loader from "/src/components/Loader/Loader";
 import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { BASE_URL } from "./../../../config";
-import ClipLoader from "react-spinners/ClipLoader"; // Importamos el Spinner de react-spinners
+import ClipLoader from "react-spinners/ClipLoader";
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -16,7 +18,11 @@ const BeatDetail = () => {
   const [beat, setBeat] = useState(null);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // Estado para controlar la carga del like
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart.cart);
+  const isInCart = beat ? cart.some(item => item.id === beat.id) : false;
 
   useEffect(() => {
     const fetchBeat = async () => {
@@ -36,7 +42,7 @@ const BeatDetail = () => {
   }, [id]);
 
   const toggleLike = async () => {
-    setIsLoading(true); // Activar el loading al hacer clic en el ícono
+    setIsLoading(true);
     const response = await fetch(`${BASE_URL}/beats/${id}/like`, {
       method: "POST",
       headers: {
@@ -47,9 +53,19 @@ const BeatDetail = () => {
 
     if (response.ok) {
       setLiked(!liked);
-      setLikeCount(prevCount => liked ? prevCount - 1 : prevCount + 1); // Actualiza el contador de likes
+      setLikeCount(prevCount => liked ? prevCount - 1 : prevCount + 1);
     }
-    setIsLoading(false); // Desactivar el loading después de completar la solicitud
+    setIsLoading(false);
+  };
+
+  const handleCartToggle = () => {
+    if (beat) {
+      if (isInCart) {
+        dispatch(removeFromCart(beat));
+      } else {
+        dispatch(addToCart(beat));
+      }
+    }
   };
 
   const formatDate = (dateString) => {
@@ -102,9 +118,9 @@ const BeatDetail = () => {
               <h2>{beat.title}</h2>
               <p>{beat.user.name}</p>
               <div className="action-buttons">
-                <button onClick={toggleLike} disabled={isLoading}> {/* Deshabilitar el botón durante el loading */}
+                <button onClick={toggleLike} disabled={isLoading}>
                   {isLoading ? (
-                    <ClipLoader size={24} color={"#3498db"} loading={isLoading} /> // Mostrar spinner mientras está cargando
+                    <ClipLoader size={24} color={"#3498db"} loading={isLoading} />
                   ) : (
                     <FaHeart className={`like-button ${liked ? "liked" : ""}`} size={35} />
                   )}
@@ -112,6 +128,9 @@ const BeatDetail = () => {
                 </button>
                 <button className="add-button">
                   <FaPlus size={20} />
+                </button>
+                <button onClick={handleCartToggle} className="cart-button">
+                  <FaShoppingCart size={20} color={isInCart ? "red" : "white"} />
                 </button>
               </div>
 
@@ -141,8 +160,7 @@ const BeatDetail = () => {
                   {licenses.map((license) => (
                     <div
                       key={license.id}
-                      className={`license-card ${selectedLicense === license.id ? "selected" : ""
-                        }`}
+                      className={`license-card ${selectedLicense === license.id ? "selected" : ""}`}
                       onClick={() => handleLicenseSelect(license.id)}
                     >
                       <h4>{license.name}</h4>
