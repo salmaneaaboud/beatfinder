@@ -33,6 +33,7 @@ const BeatDetail = () => {
       });
 
       const data = await response.json();
+      console.log(data);
       setBeat(data);
       setLiked(data.is_liked);
       setLikeCount(data.likes_count);
@@ -89,13 +90,7 @@ const BeatDetail = () => {
       name: "Licencia Premium",
       price: "80€",
       format: "MP3, WAV",
-    },
-    {
-      id: 3,
-      name: "Licencia Exclusiva",
-      price: "Precio negociable",
-      format: "MP3, WAV",
-    },
+    }
   ];
 
   const handleLicenseSelect = (licenseId) => {
