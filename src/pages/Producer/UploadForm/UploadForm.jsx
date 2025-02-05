@@ -174,11 +174,11 @@ const UploadForm = () => {
       mp3_file: audioURL,
       wav_file: audioURL,
       licenses: [
-        { name: "Basic", price: formData.pricing.basic },
-        { name: "Premium", price: formData.pricing.premium },
+        { license_id: 1, price: formData.pricing.basic },
+        { license_id: 2, price: formData.pricing.premium },
       ],
     };
-    
+  
     try {
       console.log("Datos del beat enviados a la API:", beatData);
       const response = await api.post("/beat-upload", beatData);
