@@ -170,7 +170,6 @@ const UploadForm = () => {
       pricing: {
         basic: formData.pricing.basic,
         premium: formData.pricing.premium,
-        exclusive: formData.pricing.exclusive,
       },
     };
   
