@@ -90,10 +90,11 @@ const UploadForm = () => {
       ...prevData,
       pricing: {
         ...prevData.pricing,
-        [name]: value,
+        [name]: parseInt(value, 10),
       },
     }));
   };
+  
 
   const handleAudioUpload = async () => {
     if (audioFile) {
