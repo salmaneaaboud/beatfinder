@@ -174,6 +174,7 @@ const UploadForm = () => {
     };
   
     try {
+      console.log("Datos del beat enviados a la API:", beatData);
       const response = await api.post("/beat-upload", beatData);
       console.log("Datos del beat subidos correctamente:", response.data);
     } catch (error) {
