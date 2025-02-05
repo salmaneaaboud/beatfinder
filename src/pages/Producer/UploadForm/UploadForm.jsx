@@ -368,16 +368,6 @@ const UploadForm = () => {
                   onChange={handlePricingChange}
                 />
               </div>
-              <div className="col-md-3 mb-3">
-                <label className="form-label">Exclusiva:</label>
-                <input
-                  type="number"
-                  className="form-control form-control-sm"
-                  name="exclusive"
-                  value={formData.pricing.exclusive}
-                  onChange={handlePricingChange}
-                />
-              </div>
             </div>
           </div>
 
