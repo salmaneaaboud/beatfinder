@@ -158,7 +158,7 @@ const UploadForm = () => {
     e.preventDefault();
     const audioURL = await handleAudioUpload();
     const coverURL = await handleCoverUpload();
-
+  
     const beatData = {
       title: formData.title,
       cover: coverURL,
@@ -167,8 +167,13 @@ const UploadForm = () => {
       key: formData.key,
       mp3_file: audioURL,
       wav_file: audioURL,
+      pricing: {
+        basic: formData.pricing.basic,
+        premium: formData.pricing.premium,
+        exclusive: formData.pricing.exclusive,
+      },
     };
-
+  
     try {
       const response = await api.post("/beat-upload", beatData);
       console.log("Datos del beat subidos correctamente:", response.data);
@@ -176,6 +181,7 @@ const UploadForm = () => {
       console.error("Error al subir los datos del beat:", error);
     }
   };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -344,32 +350,39 @@ const UploadForm = () => {
             </div>
           </div>
 
-          <div className="row mb-4">
-            <div className="col-12">
-              <h3>Licensing</h3>
-              <div className="col-md-3 mb-3">
-                <label className="form-label">Básica:</label>
-                <input
-                  type="number"
-                  className="form-control form-control-sm"
-                  name="basic"
-                  value={formData.pricing.basic}
-                  onChange={handlePricingChange}
-                />
-              </div>
-
-              <div className="col-md-3 mb-3">
-                <label className="form-label">Premium:</label>
-                <input
-                  type="number"
-                  className="form-control form-control-sm"
-                  name="premium"
-                  value={formData.pricing.premium}
-                  onChange={handlePricingChange}
-                />
-              </div>
-            </div>
+          <div className="row mt-4">
+          <div className="col-md-4">
+            <label className="form-label">Precio Basic:</label>
+            <input
+              type="number"
+              className="form-control"
+              name="basic"
+              value={formData.pricing.basic}
+              onChange={handlePricingChange}
+            />
           </div>
+          <div className="col-md-4">
+            <label className="form-label">Precio Premium:</label>
+            <input
+              type="number"
+              className="form-control"
+              name="premium"
+              value={formData.pricing.premium}
+              onChange={handlePricingChange}
+            />
+          </div>
+          <div className="col-md-4">
+            <label className="form-label">Precio Exclusivo:</label>
+            <input
+              type="number"
+              className="form-control"
+              name="exclusive"
+              value={formData.pricing.exclusive}
+              onChange={handlePricingChange}
+            />
+          </div>
+        </div>
+
 
           <div className="d-flex justify-content-end gap-3">
             <CustomButton
