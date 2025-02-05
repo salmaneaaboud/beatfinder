@@ -18,10 +18,16 @@ const UploadForm = () => {
     mood: [],
     genre: "Hip-Hop",
     tags: [],
-    pricing: {
-      basic: 0,
-      premium: 0,
-    },
+    pricing: [
+      {
+        name: "Basic",
+        price: 0,
+      },
+      {
+        name: "Premium",
+        price: 0,
+      },
+    ],
   });
 
   const [currentTag, setCurrentTag] = useState("");
@@ -167,10 +173,7 @@ const UploadForm = () => {
       key: formData.key,
       mp3_file: audioURL,
       wav_file: audioURL,
-      licenses: {
-        basic: formData.pricing.basic,
-        premium: formData.pricing.premium,
-      },
+      licenses: [ formData.pricing[0].name, formData.pricing[1].name ],
     };
   
     try {
