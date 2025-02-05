@@ -10,6 +10,7 @@ import { clearCart, setCart } from '../redux/features/cartSlice';
 
 export const useAuth = () => {
     const { setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ export const useAuth = () => {
                 const cartResponse = await api.get('/cart');
                 dispatch(setCart(cartResponse.data || []));
             }
-
+            
             const geoResponse = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
             const geoData = await geoResponse.json();
 
@@ -65,8 +66,10 @@ export const useAuth = () => {
 
     const logout = async () => {
         try {
-            const localCart = JSON.parse(localStorage.getItem('cart')) || [];
-            await api.post('/cart/sync', { cart: localCart });
+            if (user?.role == "client") {
+                const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+                await api.post('/cart/sync', { cart: localCart });
+            }
             dispatch(resetPlayer());
             await api.post('/logout');
             toast.success("Sesión cerrada exitosamente");
