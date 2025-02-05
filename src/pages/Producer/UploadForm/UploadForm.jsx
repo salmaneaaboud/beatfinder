@@ -19,9 +19,8 @@ const UploadForm = () => {
     genre: "Hip-Hop",
     tags: [],
     pricing: {
-      basic: "",
-      premium: "",
-      exclusive: "",
+      basic: 0,
+      premium: 0,
     },
   });
 
