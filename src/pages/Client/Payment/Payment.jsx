@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import "./Payment.css";
-import { faJetFighter } from "@fortawesome/free-solid-svg-icons";
 import { AiFillDelete } from "react-icons/ai";
 
 const Payment = () => {
@@ -20,10 +19,12 @@ const Payment = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const subTotal = cart.reduce((sum, beat) => sum + (beat.price || 0), 0);
-  const discount = subTotal * 0.1;
-  const tax = subTotal * 0.15;
-  const total = subTotal - discount + tax;
+  const subTotal = cart.reduce((sum, beat) => {
+    const price = beat.price && !isNaN(parseFloat(beat.price)) ? parseFloat(beat.price) : 0;
+    return sum + price;
+  }, 0);
+
+  const total = subTotal;
 
   return (
     <div className="payment-container">
@@ -38,7 +39,9 @@ const Payment = () => {
               <div className="cart-item__details">
                 <h3>{beat.title}</h3>
                 <p>{beat.user.name}</p>
-                <p className="cart-item__price">{(beat.price || 0).toFixed(2)}€</p>
+                <p className="cart-item__price">
+                  {beat.price && !isNaN(parseFloat(beat.price)) ? parseFloat(beat.price).toFixed(2) : "Cargando..."}€
+                </p>
                 <button className="btn-remove" onClick={() => handleRemove(beat.id)}>
                   <AiFillDelete fontSize="20px" />
                 </button>
@@ -52,11 +55,8 @@ const Payment = () => {
         <h3>Resumen de la compra</h3>
         <p>Detalles de la compra</p>
         <p>Sub Total: {subTotal.toFixed(2)}€</p>
-        <p>Descuento (10%): {discount.toFixed(2)}€</p>
-        <p>Impuesto (15%): {tax.toFixed(2)}€</p>
         <h2 className="title-price">Total: {total.toFixed(2)}€</h2>
-        <button className="btn-pay paypal">PayPal</button>
-        <button className="btn-pay card">Tarjeta de débito o crédito</button>
+        <button className="btn-pay card">Comprar</button>
       </div>
     </div>
   );

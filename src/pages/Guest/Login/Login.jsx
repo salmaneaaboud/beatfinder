@@ -62,7 +62,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <h2 className="text-center text-4xl font-bold mb-4">{t("login.title")}</h2>
+      <h2 className="text-center text-4xl font-bold mb-4 text-white">{t("login.title")}</h2>
       <Form
         fields={campos}
         onSubmit={handleLogin}

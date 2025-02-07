@@ -9,9 +9,7 @@ import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { BASE_URL } from "./../../../config";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -20,11 +18,9 @@ const BeatDetail = () => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
 
-  const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.cart);
-  const isInCart = beat ? cart.some(item => item.id === beat.id) : false;
-  const navigate = useNavigate(); // Usar useNavigate en lugar de useHistory
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBeat = async () => {
@@ -42,6 +38,11 @@ const BeatDetail = () => {
 
     fetchBeat();
   }, [id]);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setIsInCart(cart.some(item => item.id === beat?.id));
+  }, [beat]);
 
   const toggleLike = async () => {
     setIsLoading(true);
@@ -61,17 +62,38 @@ const BeatDetail = () => {
   };
 
   const handleCartToggle = () => {
-    if (beat) {
-      if (isInCart) {
-        dispatch(removeFromCart(beat));
+    if (beat && selectedLicense !== null) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const selectedBeatWithLicense = {
+        ...beat,
+        price: beat.licenses[selectedLicense].price,
+        licenseName: beat.licenses[selectedLicense].license_name
+      };
+
+      if (cart.some(item => item.id === selectedBeatWithLicense.id)) {
+        const updatedCart = cart.filter(item => item.id !== selectedBeatWithLicense.id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        setIsInCart(false);
       } else {
-        dispatch(addToCart(beat));
+        cart.push(selectedBeatWithLicense);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        setIsInCart(true);
       }
     }
   };
 
   const handlePurchase = () => {
-    navigate("/payment"); // Usar navigate para redirigir
+    if (selectedLicense !== null) {
+      const selectedBeatWithLicense = {
+        ...beat,
+        price: beat.licenses[selectedLicense].price,
+        licenseName: beat.licenses[selectedLicense].license_name
+      };
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(selectedBeatWithLicense);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      navigate(`/payment`);
+    }
   };
 
   const formatDate = (dateString) => {

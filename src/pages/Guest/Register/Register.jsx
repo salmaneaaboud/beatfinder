@@ -111,7 +111,7 @@ const Register = () => {
         <Row className="justify-content-center">
           <Col lg={6} xl={5}>
             <div className="register-form">
-              <h2 className='formulario-title text-center text-4xl font-bold mb-4'>{t("register.title")}</h2>
+              <h2 className='formulario-title text-center text-4xl font-bold mb-4 text-white'>{t("register.title")}</h2>
               <div className="d-flex justify-content-center align-items-center text-center">
                 <div className="d-flex justify-content-center mb-2" style={{ gap: '30px' }}>
                   <CustomButton
