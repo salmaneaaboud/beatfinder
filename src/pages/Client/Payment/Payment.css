@@ -1,0 +1,73 @@
+
+.payment-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: #E2E2E2;
+  }
+  
+  .cart-section {
+    width: 60%;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    background: rgba(231, 188, 241, 0.356);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .cart-item__cover {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+  }
+  
+  .cart-item__details {
+    flex-grow: 1;
+  }
+  
+  .cart-item__price {
+    font-weight: bold;
+  }
+  
+  .btn-remove {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .summary-section {
+    background: #F5F5F4;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+  }
+  
+  .btn-pay {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .paypal {
+    background: #ffc439;
+  }
+  
+  .card {
+    background: #333;
+    color: white;
+  }
+  
+  .title-price{
+    color: black;
+  }

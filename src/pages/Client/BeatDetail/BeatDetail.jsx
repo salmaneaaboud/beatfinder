@@ -11,6 +11,7 @@ import { BASE_URL } from "./../../../config";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -23,6 +24,7 @@ const BeatDetail = () => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.cart);
   const isInCart = beat ? cart.some(item => item.id === beat.id) : false;
+  const navigate = useNavigate(); // Usar useNavigate en lugar de useHistory
 
   useEffect(() => {
     const fetchBeat = async () => {
@@ -33,7 +35,6 @@ const BeatDetail = () => {
       });
 
       const data = await response.json();
-      console.log(data);
       setBeat(data);
       setLiked(data.is_liked);
       setLikeCount(data.likes_count);
@@ -69,6 +70,10 @@ const BeatDetail = () => {
     }
   };
 
+  const handlePurchase = () => {
+    navigate("/payment"); // Usar navigate para redirigir
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', {
@@ -77,21 +82,6 @@ const BeatDetail = () => {
       day: 'numeric',
     });
   };
-
-  const licenses = [
-    {
-      id: 1,
-      name: "Licencia Básica",
-      price: "40€",
-      format: "MP3",
-    },
-    {
-      id: 2,
-      name: "Licencia Premium",
-      price: "80€",
-      format: "MP3, WAV",
-    }
-  ];
 
   const handleLicenseSelect = (licenseId) => {
     setSelectedLicense(licenseId);
@@ -151,23 +141,41 @@ const BeatDetail = () => {
 
               <div className="licenses">
                 <h3>Licencias</h3>
-                <div className="license-options">
-                  {licenses.map((license) => (
-                    <div
-                      key={license.id}
-                      className={`license-card ${selectedLicense === license.id ? "selected" : ""}`}
-                      onClick={() => handleLicenseSelect(license.id)}
-                    >
-                      <h4>{license.name}</h4>
-                      <p className="price">{license.price}</p>
-                      <p className="format">{license.format}</p>
+                {beat.licenses && beat.licenses.length > 0 && (
+                  <>
+                    <div className="selected-license">
+                      <h4>Licencia seleccionada</h4>
+                      <p>{beat.licenses[selectedLicense]?.license_name || "Ninguna seleccionada"}</p>
+                      <p>{beat.licenses[selectedLicense]?.price || "0€"}</p>
                     </div>
-                  ))}
-                </div>
+                    <div className="license-options">
+                      {beat.licenses.map((license, index) => (
+                        <div
+                          key={index}
+                          className={`license-card ${selectedLicense === index ? "selected" : ""} ${license.license_name === 'premium' ? 'premium' : 'basic'}`}
+                          onClick={() => handleLicenseSelect(index)}
+                        >
+                          <h4>{license.license_name === 'premium' ? 'Premium' : 'Básica'}</h4>
+                          <p className="price">{license.price}€</p>
+                          <p className="format">
+                            {license.license_name === 'premium' ? 'MP3 / WAV' : 'MP3'}
+                          </p>
+                          <span className={`license-type ${license.license_name}`}>{license.license_name === 'premium' ? 'Premium' : 'Básica'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="comments">
                 <CommentBox />
+              </div>
+
+              <div className="purchase-button">
+                <button onClick={handlePurchase} className="btn-purchase">
+                  Comprar ahora
+                </button>
               </div>
             </div>
           </div>
