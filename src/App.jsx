@@ -25,6 +25,7 @@ import { Toaster } from 'sonner'
 import { useEffect } from 'react';
 import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
+import ProducerProfile from './pages/Client/ProducerProfile/ProducerProfile';
 
 
 function App() {
@@ -135,7 +136,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
-
+          <Route path="/producer/:id" element={<ProducerProfile />} />
         </Routes>
         {activeSong?.title && localStorage.getItem('token') && (
           <div className="music-player-fixed">
