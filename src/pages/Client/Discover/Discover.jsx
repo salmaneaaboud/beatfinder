@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import ReactPaginate from 'react-paginate';
 
 const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -18,6 +19,8 @@ const Discover = () => {
     const [selectedBpm, setSelectedBpm] = useState([60, 200]);
     const [selectedKey, setSelectedKey] = useState([]);
     const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const songsPerPage = 10;
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
@@ -38,6 +41,13 @@ const Discover = () => {
     };
 
     const uniqueGenres = [...new Set(data?.map(song => song.genre))];
+
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const pageCount = Math.ceil(filteredSongs.length / songsPerPage);
+    const displayedSongs = filteredSongs.slice(currentPage * songsPerPage, (currentPage + 1) * songsPerPage);
 
     if (error) return <Error />;
 
@@ -124,7 +134,7 @@ const Discover = () => {
                             </div>
                         </div>
                         <div className="d-flex flex-wrap justify-flex-start gap-4">
-                            {filteredSongs?.map((song, i) => (
+                            {displayedSongs?.map((song, i) => (
                                 <SongCard
                                     key={song.id}
                                     song={song}
@@ -135,6 +145,17 @@ const Discover = () => {
                                 />
                             ))}
                         </div>
+                        <ReactPaginate
+                            previousLabel={"Anterior"}
+                            nextLabel={"Siguiente"}
+                            breakLabel={"..."}
+                            pageCount={pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={"pagination"}
+                            activeClassName={"active"}
+                        />
                     </div>
                 )}
             </div>
