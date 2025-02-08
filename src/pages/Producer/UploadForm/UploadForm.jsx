@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CustomButton } from "/src/components/CustomButton/CustomButton";
-import { FaCamera } from "react-icons/fa"; // Icono de la cámara
+import { FaCamera } from "react-icons/fa"; 
 import { initializeEssentia, processAudioFile } from "./audioAnalysis";
 import ProducerSidebar from "/src/components/ProducerSidebar/ProducerSidebar";
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import api from "/src/services/api";
+import { toast } from "sonner"; // Importa sonner
 
 const UploadForm = () => {
   const [audioFile, setAudioFile] = useState(null);
@@ -50,6 +51,7 @@ const UploadForm = () => {
         }));
       } catch (error) {
         console.error("Error procesando el archivo de audio:", error);
+        toast.error("Error al procesar el archivo de audio"); // Muestra un error con sonner
       }
     }
   };
@@ -59,7 +61,7 @@ const UploadForm = () => {
     setCoverArt(file);
     setFormData((prevData) => ({
       ...prevData,
-      cover: file, // Almacena la imagen de la carátula en formData
+      cover: file,
     }));
   };
 
@@ -99,7 +101,6 @@ const UploadForm = () => {
       },
     }));
   };
-  
 
   const handleAudioUpload = async () => {
     if (audioFile) {
@@ -128,6 +129,7 @@ const UploadForm = () => {
         return result.secure_url;
       } catch (error) {
         console.error("Error al subir el archivo de audio:", error);
+        toast.error("Error al subir el archivo de audio"); // Muestra el error
       }
     }
   };
@@ -156,6 +158,7 @@ const UploadForm = () => {
         return result.secure_url;
       } catch (error) {
         console.error("Error al subir la carátula:", error);
+        toast.error("Error al subir la carátula"); // Muestra el error
       }
     }
   };
@@ -165,6 +168,11 @@ const UploadForm = () => {
     const audioURL = await handleAudioUpload();
     const coverURL = await handleCoverUpload();
   
+    if (!formData.title || !formData.bpm || !audioURL || !coverURL) {
+      toast.error("Faltan campos por rellenar"); // Muestra un error si falta algún campo
+      return;
+    }
+
     const beatData = {
       title: formData.title,
       cover: coverURL,
@@ -179,16 +187,18 @@ const UploadForm = () => {
         { license_id: 2, price: formData.pricing.premium },
       ],
     };
-  
+
     try {
       console.log("Datos del beat enviados a la API:", beatData);
       const response = await api.post("/beat-upload", beatData);
       console.log("Datos del beat subidos correctamente:", response.data);
+      toast.success("Beat subido correctamente"); 
+      window.location.href = "/producer";
     } catch (error) {
       console.error("Error al subir los datos del beat:", error);
+      toast.error("Error al subir los datos del beat");
     }
   };
-  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -202,6 +212,8 @@ const UploadForm = () => {
       <div style={{ flex: 1 }}>
         <LoggedHeader />
         <h2 className="text-center mb-4">Subir Beat</h2>
+
+
         <form onSubmit={handleSubmit} className=" text-white p-4 rounded">
           <div className="row mb-4">
             <div className="col-lg-4 d-flex justify-content-center align-items-center">
@@ -404,3 +416,7 @@ const UploadForm = () => {
 };
 
 export default UploadForm;
+
+
+
+
