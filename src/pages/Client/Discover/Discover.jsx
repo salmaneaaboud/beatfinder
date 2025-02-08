@@ -6,6 +6,8 @@ import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { useGetSongByGenreQuery } from '/src/redux/services/shazamCore';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -13,16 +15,16 @@ const Discover = () => {
     const { data, isFetching, error } = useGetSongByGenreQuery();
 
     const [selectedGenres, setSelectedGenres] = useState([]);
-    const [selectedBpm, setSelectedBpm] = useState(120);
+    const [selectedBpm, setSelectedBpm] = useState([60, 200]);
     const [selectedKey, setSelectedKey] = useState([]);
-    const [selectedPrice, setSelectedPrice] = useState(50);
+    const [selectedPrice, setSelectedPrice] = useState([0, 100]);
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
         const matchesGenre = selectedGenres.length ? selectedGenres.includes(song.genre) : true;
-        const matchesBpm = Math.abs(song.bpm - selectedBpm) <= 20;
+        const matchesBpm = song.bpm >= selectedBpm[0] && song.bpm <= selectedBpm[1];
         const matchesKey = selectedKey.length ? selectedKey.includes(song.key) : true;
-        const matchesPrice = song.price <= selectedPrice;
+        const matchesPrice = song.price >= selectedPrice[0] && song.price <= selectedPrice[1];
 
         return matchesSearch && matchesGenre && matchesBpm && matchesKey && matchesPrice;
     });
@@ -71,13 +73,16 @@ const Discover = () => {
                         </div>
                         <div className="filter-section d-flex flex-column align-items-center mb-4">
                             <div className="d-flex flex-column align-items-center mb-3 text-white">
-                                <span>BPM: {selectedBpm}</span>
-                                <input
-                                    type="range"
-                                    min="60"
-                                    max="200"
+                                <span>BPM: {selectedBpm[0]} - {selectedBpm[1]}</span>
+                                <Slider
+                                    range
+                                    min={60}
+                                    max={200}
                                     value={selectedBpm}
-                                    onChange={(e) => setSelectedBpm(parseInt(e.target.value))}
+                                    onChange={setSelectedBpm}
+                                    trackStyle={[{ backgroundColor: '#8C52FF' }]}
+                                    handleStyle={[{ borderColor: '#8C52FF' }, { borderColor: '#8C52FF' }]}
+                                    railStyle={{ backgroundColor: '#ccc' }}
                                     style={{ width: "80%" }}
                                 />
                             </div>
@@ -104,13 +109,16 @@ const Discover = () => {
                                 ))}
                             </div>
                             <div className="d-flex flex-column align-items-center text-white">
-                                <span>Precio: ${selectedPrice}</span>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="100"
+                                <span>Precio: ${selectedPrice[0]} - ${selectedPrice[1]}</span>
+                                <Slider
+                                    range
+                                    min={0}
+                                    max={100}
                                     value={selectedPrice}
-                                    onChange={(e) => setSelectedPrice(parseInt(e.target.value))}
+                                    onChange={setSelectedPrice}
+                                    trackStyle={[{ backgroundColor: '#FF5733' }]}
+                                    handleStyle={[{ borderColor: '#FF5733' }, { borderColor: '#FF5733' }]}
+                                    railStyle={{ backgroundColor: '#ccc' }}
                                     style={{ width: "80%" }}
                                 />
                             </div>
