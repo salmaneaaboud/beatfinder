@@ -6,19 +6,26 @@ import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { useGetSongByGenreQuery } from '/src/redux/services/shazamCore';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { filterSongsBySearchAndGenre } from '/src/utils/filterSongs';
 
 const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
     const searchTerm = useSelector((state) => state.search.searchTerm);
-    const { data, isFetching, error } = useGetSongByGenreQuery("POP");
+    const { data, isFetching, error } = useGetSongByGenreQuery();
 
     const [selectedGenres, setSelectedGenres] = useState([]);
-    const [selectedBpmRange, setSelectedBpmRange] = useState([60, 200]);
+    const [selectedBpm, setSelectedBpm] = useState(120);
     const [selectedKey, setSelectedKey] = useState([]);
-    const [selectedPriceRange, setSelectedPriceRange] = useState([0, 100]);
+    const [selectedPrice, setSelectedPrice] = useState(50);
 
-    const filteredSongs = filterSongsBySearchAndGenre(data || [], searchTerm, selectedGenres, selectedBpmRange, selectedKey, selectedPriceRange);
+    const filteredSongs = (data || []).filter(song => {
+        const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+        const matchesGenre = selectedGenres.length ? selectedGenres.includes(song.genre) : true;
+        const matchesBpm = Math.abs(song.bpm - selectedBpm) <= 20;
+        const matchesKey = selectedKey.length ? selectedKey.includes(song.key) : true;
+        const matchesPrice = song.price <= selectedPrice;
+
+        return matchesSearch && matchesGenre && matchesBpm && matchesKey && matchesPrice;
+    });
 
     const handleGenreFilter = (genre) => {
         setSelectedGenres(selectedGenres.includes(genre) ? selectedGenres.filter((g) => g !== genre) : [...selectedGenres, genre]);
@@ -63,13 +70,19 @@ const Discover = () => {
                             ))}
                         </div>
                         <div className="filter-section d-flex flex-column align-items-center mb-4">
-                            <div className="d-flex flex-column align-items-center mb-3">
-                                <label>BPM:</label>
-                                <input type="range" min="60" max="200" value={selectedBpmRange[0]} onChange={(e) => setSelectedBpmRange([parseInt(e.target.value), selectedBpmRange[1]])} />
-                                <input type="range" min="60" max="200" value={selectedBpmRange[1]} onChange={(e) => setSelectedBpmRange([selectedBpmRange[0], parseInt(e.target.value)])} />
+                            <div className="d-flex flex-column align-items-center mb-3 text-white">
+                                <span>BPM: {selectedBpm}</span>
+                                <input
+                                    type="range"
+                                    min="60"
+                                    max="200"
+                                    value={selectedBpm}
+                                    onChange={(e) => setSelectedBpm(parseInt(e.target.value))}
+                                    style={{ width: "80%" }}
+                                />
                             </div>
-                            <div className="d-flex flex-wrap justify-content-center mb-3">
-                                <label>Tonalidad:</label>
+                            <div className="d-flex flex-wrap justify-content-center mb-3 text-white">
+                                <span>Tonalidad:</span>
                                 {["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"].map(key => (
                                     <button
                                         key={key}
@@ -90,10 +103,16 @@ const Discover = () => {
                                     </button>
                                 ))}
                             </div>
-                            <div className="d-flex flex-column align-items-center">
-                                <label>Precio:</label>
-                                <input type="range" min="0" max="100" value={selectedPriceRange[0]} onChange={(e) => setSelectedPriceRange([parseInt(e.target.value), selectedPriceRange[1]])} />
-                                <input type="range" min="0" max="100" value={selectedPriceRange[1]} onChange={(e) => setSelectedPriceRange([selectedPriceRange[0], parseInt(e.target.value)])} />
+                            <div className="d-flex flex-column align-items-center text-white">
+                                <span>Precio: ${selectedPrice}</span>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={selectedPrice}
+                                    onChange={(e) => setSelectedPrice(parseInt(e.target.value))}
+                                    style={{ width: "80%" }}
+                                />
                             </div>
                         </div>
                         <div className="d-flex flex-wrap justify-flex-start gap-4">
