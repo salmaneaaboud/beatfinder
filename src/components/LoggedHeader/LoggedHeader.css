@@ -6,7 +6,6 @@
   padding: 8px 20px;
   height: 6vh;
   margin: 0 auto;
-  flex-grow: 1; /* Esto hace que el buscador ocupe el espacio disponible */
 }
 
 .search-bar {

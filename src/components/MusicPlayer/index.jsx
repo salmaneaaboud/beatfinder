@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { MdSkipNext, MdSkipPrevious } from 'react-icons/md';
+import { BsArrowRepeat, BsFillPauseFill, BsFillPlayFill, BsShuffle } from 'react-icons/bs';
+import { IoClose } from 'react-icons/io5';
 
-import { nextSong, prevSong, playPause } from '/src/redux/features/playerSlice';
+import { nextSong, prevSong, playPause, resetPlayer } from '../../redux/features/playerSlice';
 import Controls from './Controls';
 import Player from './Player';
 import Seekbar from './Seekbar';
 import Track from './Track';
 import VolumeBar from './VolumeBar';
-import { IoClose } from 'react-icons/io5';
-import { resetPlayer } from '../../redux/features/playerSlice';
 
 import './MusicPlayer.css';
 
@@ -57,15 +58,15 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className="music-player-container">
-      <div className="music-player-content">
+    <div className="music-player-container position-fixed bottom-0 w-100 p-3 bg-dark bg-opacity-75 shadow-lg z-index-10">
+      <div className="music-player-content d-flex flex-column flex-lg-row justify-content-between align-items-center container">
         {/* Track Info */}
-        <div className="track-section">
+        <div className="track-section d-flex align-items-center justify-content-center mb-3 mb-lg-0 col-12 col-lg-3">
           <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
         </div>
 
-        {/* Center Section with Controls */}
-        <div className="controls-section">
+        {/* Controls Section */}
+        <div className="controls-section d-flex flex-column align-items-center justify-content-center col-12 col-lg-6">
           <Controls
             isPlaying={isPlaying}
             isActive={isActive}
@@ -99,8 +100,8 @@ const MusicPlayer = () => {
           />
         </div>
 
-        {/* Volume Bar */}
-        <div className="volume-section">
+        {/* Volume Section */}
+        <div className="volume-section d-none d-lg-flex align-items-center col-12 col-lg-3 justify-content-end">
           <VolumeBar
             value={volume}
             min="0"
@@ -109,18 +110,16 @@ const MusicPlayer = () => {
             setVolume={setVolume}
           />
         </div>
-
-        
       </div>
-      <div>
-          <IoClose
-            size={24}
-            color="#FFF"
-            className="position-absolute top-0 end-0 me-3"
-            onClick={() => dispatch(resetPlayer())}
-            style={{ cursor: 'pointer' }}
-          />
-        </div>
+
+      {/* Close Button */}
+      <IoClose
+        size={24}
+        color="#FFF"
+        className="position-absolute top-0 end-0 m-3"
+        onClick={() => dispatch(resetPlayer())}
+        style={{ cursor: 'pointer' }}
+      />
     </div>
   );
 };

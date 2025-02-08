@@ -4,11 +4,14 @@ import api from "/src/services/api";
 import { LoggedHeader } from "../../../components/LoggedHeader/LoggedHeader";
 import "bootstrap/dist/css/bootstrap.min.css"; // Importar Bootstrap
 import "./PurchaseSummary.css";
+import useDownloadFile from "/src/hooks/useDownloadFile";
 
 const PurchaseSummary = () => {
   const { orderId } = useParams();
   const [beats, setBeats] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const downloadFile = useDownloadFile();
 
   useEffect(() => {
     fetchPurchasedBeats();
@@ -47,15 +50,15 @@ const PurchaseSummary = () => {
                     alt={beat.title}
                     className="card-img-top beat-cover"
                   />
-                  <div className="card-body">
-                    <h5 className="card-title text-white">{beat.title}</h5>
-                    <p className="text-secondary">
+                  <div className="card-body text-white">
+                    <h5 className="card-title text-center">{beat.title}</h5>
+                    <p>
                       <strong>Productor:</strong> {beat.producer}
                     </p>
-                    <p className="text-secondary">
+                    <p>
                       <strong>Licencia:</strong> {beat.license_type}
                     </p>
-                    <p className="text-success fw-bold">
+                    <p>
                       <strong>Precio:</strong>{" "}
                       {beat.price.toLocaleString("es-ES", {
                         minimumFractionDigits: 2,
@@ -63,30 +66,24 @@ const PurchaseSummary = () => {
                       €
                     </p>
                     <div className="download-buttons d-flex justify-content-between">
-                      <a
-                        href={beat.mp3_file}
-                        download
-                        className="btn btn-primary"
+                      <button
+                        className="btn btn-primary btn-sm me-2"
+                        onClick={() =>
+                          downloadFile(beat.mp3_file, `beat_${beat.id}.mp3`)
+                        }
                       >
                         Descargar MP3
-                      </a>
+                      </button>
 
-                      {beat.license_type === "Premium" ? (
-                        <a
-                          href={beat.wav_file}
-                          download
-                          className="btn btn-success" 
+                      {beat.license_type === "premium" && (
+                        <button
+                          className="btn btn-primary btn-sm me-2"
+                          onClick={() =>
+                            downloadFile(beat.wav_file, `beat_${beat.id}.wav`)
+                          }
                         >
                           Descargar WAV
-                        </a>
-                      ) : (
-                        <a
-                          href={beat.wav_file}
-                          download
-                          className="btn btn-secondary" 
-                        >
-                          Descargar WAV
-                        </a>
+                        </button>
                       )}
                     </div>
                   </div>

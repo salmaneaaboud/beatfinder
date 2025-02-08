@@ -19,6 +19,7 @@ import AuthContext from "/src/contexts/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../redux/features/cartSlice";
 import { setSearchTerm } from "/src/redux/features/searchSlice";
+import { RiMoneyEuroCircleLine } from "react-icons/ri";
 
 export function LoggedHeader() {
   const auth = useAuth();
@@ -70,35 +71,34 @@ export function LoggedHeader() {
         </Navbar.Toggle>
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="w-100 flex-column flex-lg-row">
+          <Nav className="w-100 flex-column flex-lg-row justify-content-around">
             {/* The search bar is shown unless the current route is one of the hidden routes */}
             {!ocultarBuscador && (
-              <Form className="search-bar-container col-12 col-lg-6 ms-lg-auto mx-0 my-lg-0 my-3">
+              <Form className="search-bar-container container-fluid col-12 col-lg-6 ms-lg-auto my-lg-0 my-3">
                 <FaSearch className="search-icon" />
                 <input
                   type="search"
                   value={searchTerm}
                   placeholder="Buscar productor, artista..."
-                  className="search-bar w-100"
+                  className="search-bar"
                   aria-label="Search"
                   onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                 />
               </Form>
             )}
 
-            {user && user.role === "client" && (
-              <div className="text-center h-100">
-                <p className="text-white font-bold text-center balance-text">
-                  Balance:{" "}
-                  {user.client.balance.toLocaleString("es-ES", {
-                    minimumFractionDigits: 2,
-                  })}
-                  €
-                </p>
-              </div>
-            )}
-
             <div className="d-flex align-items-center gap-4 ms-auto notifications">
+              {user && user.role === "client" && (
+                <div className="text-center h-100 my-auto d-flex flex-row justify-content-center align-items-center gap-2">
+                  <RiMoneyEuroCircleLine size={25} color={"white"} />
+                  <p className="text-white font-bold text-center my-auto fw-bold">
+                    {user.client.balance.toLocaleString("es-ES", {
+                      minimumFractionDigits: 2,
+                    })}
+                    €
+                  </p>
+                </div>
+              )}
               {user && user.role !== "admin" && (
                 <>
                   <div className="notification-item">

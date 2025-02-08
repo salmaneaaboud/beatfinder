@@ -1,6 +1,6 @@
 import React from 'react';
-import { MdSkipNext, MdSkipPrevious } from 'react-icons/md';
-import { BsArrowRepeat, BsFillPauseFill, BsFillPlayFill, BsShuffle } from 'react-icons/bs';
+import { FaPlay, FaPause, FaStepForward, FaStepBackward, FaRandom, FaVolumeUp, FaVolumeDown, FaVolumeMute } from 'react-icons/fa';
+import { FaRepeat } from "react-icons/fa6";
 import { useDispatch } from 'react-redux';
 
 const Controls = ({ 
@@ -19,17 +19,16 @@ const Controls = ({
   return (
     <div className="d-flex align-items-center justify-content-around w-100 position-relative">
 
-      {/* Controles existentes */}
-      <BsArrowRepeat 
+      {/* Icono de Repetir */}
+      <FaRepeat 
         size={20} 
-        color={repeat ? 'red' : 'white'} 
+        color={repeat ? '#FF6347' : '#FFF'} 
         onClick={() => setRepeat((prev) => !prev)} 
-        className="d-none d-sm-block" 
         style={{ cursor: 'pointer' }} 
       />
 
       {currentSongs?.length && (
-        <MdSkipPrevious 
+        <FaStepBackward 
           size={30} 
           color="#FFF" 
           onClick={handlePrevSong} 
@@ -38,14 +37,14 @@ const Controls = ({
       )}
 
       {isPlaying ? (
-        <BsFillPauseFill 
+        <FaPause 
           size={45} 
           color="#FFF" 
           onClick={handlePlayPause} 
           style={{ cursor: 'pointer' }} 
         />
       ) : (
-        <BsFillPlayFill 
+        <FaPlay 
           size={45} 
           color="#FFF" 
           onClick={handlePlayPause} 
@@ -54,7 +53,7 @@ const Controls = ({
       )}
 
       {currentSongs?.length && (
-        <MdSkipNext 
+        <FaStepForward 
           size={30} 
           color="#FFF" 
           onClick={handleNextSong} 
@@ -62,11 +61,10 @@ const Controls = ({
         />
       )}
 
-      <BsShuffle 
+      <FaRandom 
         size={20} 
-        color={shuffle ? 'red' : 'white'} 
+        color={shuffle ? '#FF6347' : '#FFF'} 
         onClick={() => setShuffle((prev) => !prev)} 
-        className="d-none d-sm-block" 
         style={{ cursor: 'pointer' }} 
       />
     </div>
