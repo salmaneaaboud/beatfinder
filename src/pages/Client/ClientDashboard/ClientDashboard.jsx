@@ -64,7 +64,7 @@ function ClientDashboard() {
             </Col>
             <Col md={12} lg={4} xl={4}>
               <h4 className="section-title">Popular y Trending</h4>
-              <CardList producers={popularProducers} />
+              <CardList trendingProducers={popularProducers} />
             </Col>
           </Row>
         </Container>
