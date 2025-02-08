@@ -5,11 +5,11 @@ import Sidebar from "/src/components/Sidebar/Sidebar";
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { Carrousel } from "/src/components/Carrousel/Carrousel";
 import { CardList } from "/src/components/CardList/CardList";
-import Card from "/src/components/Card/Card";
 import { CustomButton } from "/src/components/CustomButton/CustomButton";
 import "./ClientDashboard.css";
 import AuthContext from "/src/contexts/AuthContext";
 import { BASE_URL } from "/src/config";
+import Card from "/src/components/Card/Card";
 
 function ClientDashboard() {
   const { user } = useContext(AuthContext);
@@ -22,7 +22,7 @@ function ClientDashboard() {
       .then((data) => setTrendingBeats(data))
       .catch((err) => console.error(err));
 
-    fetch(`${BASE_URL}/producers/popular`)
+    fetch(`${BASE_URL}/producer/popular`)
       .then((res) => res.json())
       .then((data) => setPopularProducers(data))
       .catch((err) => console.error(err));
@@ -36,7 +36,9 @@ function ClientDashboard() {
         <Container className="dashboard-container">
           <Row>
             <Col md={12} lg={8} xl={8}>
-              <h2 className="welcome-text">¡Bienvenido, <span>{user?.name || "Usuario"}</span>!</h2>
+              <h2 className="welcome-text">
+                ¡Bienvenido, <span>{user?.name || "Usuario"}</span>!
+              </h2>
               <Carrousel />
               <div className="buttons-container container d-flex gap-3 my-4">
                 <CustomButton type="primary" value="Para ti" />
@@ -62,19 +64,7 @@ function ClientDashboard() {
             </Col>
             <Col md={12} lg={4} xl={4}>
               <h4 className="section-title">Popular y Trending</h4>
-              <div className="row d-flex flex-wrap justify-content-between g-3">
-                {popularProducers.map((producer, index) => (
-                  <Col key={index} xs={12} className="card-col">
-                    <Card
-                      title={producer.name}
-                      subtitle={`Beats: ${producer.beat_count}`}
-                      imageURL={producer.profile_picture}
-                      detailsURL={`/profile/${producer.id}`}
-                      className="custom-card"
-                    />
-                  </Col>
-                ))}
-              </div>
+              <CardList producers={popularProducers} />
             </Col>
           </Row>
         </Container>
