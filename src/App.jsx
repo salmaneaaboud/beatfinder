@@ -18,6 +18,7 @@ import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import BeatManagement from './pages/Admin/BeatManagement/BeatManagement';
 import UserProfile from './components/UserProfile/UserProfile';
 import Discover from './pages/Client/Discover/Discover';
+import PurchasedBeats from './pages/Client/PurchasedBeats/PurchasedBeats';
 import MusicPlayer from './components/MusicPlayer/index';
 import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -87,6 +88,14 @@ useEffect(() => {
             element={
               <ProtectedRoute requiredRole="client">
                 <ClientDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/purchased-beats"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <PurchasedBeats />
               </ProtectedRoute>
             }
           />

@@ -75,14 +75,11 @@ const Payment = () => {
           ) : (
             cart.map((beat) => (
               <div className="cart-item" key={beat.id}>
-                <img
-                  src={beat.cover}
-                  alt={beat.title}
-                  className="cart-item__cover"
-                />
+                <img src={beat.cover} alt={beat.title} className="cart-item__cover" />
                 <div className="cart-item__details">
                   <h3>{beat.title}</h3>
                   <p>{beat.user?.name || "Desconocido"}</p>
+                  <p><strong>Licencia: </strong>{beat.licenseName || "Básica"}</p>
                   <p className="cart-item__price">
                     {beat.price ? parseFloat(beat.price).toFixed(2) : "0.00"}€
                   </p>
