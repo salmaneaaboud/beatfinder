@@ -64,6 +64,10 @@ export function LoggedHeader() {
               </Form>
             )}
 
+            {user && user.role == "client" && (
+              <p>Balance: {user.client.balance.toLocaleString("es-ES", { minimumFractionDigits: 2 })}€</p>
+            )}
+
             <div className="d-flex align-items-center gap-4 ms-auto notifications">
 
               {user && user.role !== "admin" && (
@@ -114,7 +118,7 @@ export function LoggedHeader() {
                             />
                           </div>
                         ))}
-                        <Link to="/cart">
+                        <Link to="/payment">
                           <button className="btn btn-primary w-100 mt-2">Ir al carrito</button>
                         </Link>
                       </>
