@@ -6,7 +6,11 @@ export const shazamCoreApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
+      const token = localStorage.getItem('token');
       headers.set('Content-Type', 'application/json');
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
       return headers;
     },
   }),
@@ -19,10 +23,8 @@ export const shazamCoreApi = createApi({
         'Authorization': `Bearer ${token}`,
       },
     })}),
-    getSongRelated: builder.query({ query: ({ songid }) => `/tracks/related?track_id=${songid}` }),
-    getArtistDetails: builder.query({ query: (artistid) => `/artists/details?artist_id=${artistid}` }),
-    getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}` }),
-    getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` })
+    getSongByProducer: builder.query({ query: (producerid) => `/producers/${producerid}/beats` }),
+    getProducerDetails: builder.query({ query: (producerid) => `/producers/${producerid}` }),
   }),
 });
 
@@ -30,8 +32,6 @@ export const {
   useGetTopChartsQuery,
   useGetSongByGenreQuery,
   useGetUserLikesQuery,
-  useGetSongRelatedQuery,
-  useGetArtistDetailsQuery,
-  useGetSongsByCountryQuery,
-  useGetSongsBySearchQuery,
+  useGetSongByProducerQuery,
+  useGetProducerDetailsQuery,
 } = shazamCoreApi;
