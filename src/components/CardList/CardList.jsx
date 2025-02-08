@@ -14,7 +14,10 @@ export function CardList({trendingProducers}) {
                 <p className="producer-subtitle">{email}</p>
               </div>
               <div className="producer-arrow">
+              <a href={`/producer/${id}`}>
                 <span>&#x2794;</span>
+              </a>
+
               </div>
             </div>
           ))
