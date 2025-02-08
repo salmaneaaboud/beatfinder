@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import ReactPaginate from 'react-paginate';
 
 const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -18,6 +19,8 @@ const Discover = () => {
     const [selectedBpm, setSelectedBpm] = useState([60, 200]);
     const [selectedKey, setSelectedKey] = useState([]);
     const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const songsPerPage = 8;
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
@@ -38,6 +41,14 @@ const Discover = () => {
     };
 
     const uniqueGenres = [...new Set(data?.map(song => song.genre))];
+
+    const indexOfLastSong = (currentPage + 1) * songsPerPage;
+    const indexOfFirstSong = indexOfLastSong - songsPerPage;
+    const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     if (error) return <Error />;
 
@@ -123,8 +134,8 @@ const Discover = () => {
                                 />
                             </div>
                         </div>
-                        <div className="d-flex flex-wrap justify-flex-start gap-4">
-                            {filteredSongs?.map((song, i) => (
+                        <div className="d-flex flex-wrap justify-flex-start gap-4 mb-4">
+                            {currentSongs?.map((song, i) => (
                                 <SongCard
                                     key={song.id}
                                     song={song}
@@ -134,6 +145,23 @@ const Discover = () => {
                                     i={i}
                                 />
                             ))}
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <ReactPaginate
+                                previousLabel={"← Anterior"}
+                                nextLabel={"Siguiente →"}
+                                pageCount={Math.ceil(filteredSongs.length / songsPerPage)}
+                                onPageChange={handlePageChange}
+                                containerClassName={"pagination"}
+                                pageClassName={"page-item"}
+                                pageLinkClassName={"page-link"}
+                                previousClassName={"page-item"}
+                                previousLinkClassName={"page-link"}
+                                nextClassName={"page-item"}
+                                nextLinkClassName={"page-link"}
+                                activeClassName={"active"}
+                                disabledClassName={"disabled"}
+                            />
                         </div>
                     </div>
                 )}
