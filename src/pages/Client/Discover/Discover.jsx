@@ -17,7 +17,7 @@ const Discover = () => {
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedBpm, setSelectedBpm] = useState([60, 200]);
     const [selectedKey, setSelectedKey] = useState([]);
-    const [selectedPrice, setSelectedPrice] = useState([0, 100]);
+    const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
@@ -113,7 +113,7 @@ const Discover = () => {
                                 <Slider
                                     range
                                     min={0}
-                                    max={100}
+                                    max={1000}
                                     value={selectedPrice}
                                     onChange={setSelectedPrice}
                                     trackStyle={[{ backgroundColor: '#FF5733' }]}
