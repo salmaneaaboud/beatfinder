@@ -131,6 +131,14 @@ const BeatDetail = () => {
                     <li><strong>Género:</strong> {beat.genre}</li>
                     <li><strong>Estado:</strong> {beat.status}</li>
                   </ul>
+
+                  {/* Tags */}
+                  <h3 className="fs-5">Tags</h3>
+                  <div className="d-flex gap-2 flex-wrap">
+                    {beat.tags?.map((tag, index) => (
+                      <span key={index} className="badge bg-primary">{tag}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
