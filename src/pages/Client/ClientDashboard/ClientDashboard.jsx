@@ -13,12 +13,18 @@ import { BASE_URL } from "/src/config";
 
 function ClientDashboard() {
   const { user } = useContext(AuthContext);
-  const [beats, setBeats] = useState([]);
+  const [trendingBeats, setTrendingBeats] = useState([]);
+  const [popularProducers, setPopularProducers] = useState([]);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/beat`)
+    fetch(`${BASE_URL}/beats/trending`)
       .then((res) => res.json())
-      .then((data) => setBeats(data))
+      .then((data) => setTrendingBeats(data))
+      .catch((err) => console.error(err));
+
+    fetch(`${BASE_URL}/producers/popular`)
+      .then((res) => res.json())
+      .then((data) => setPopularProducers(data))
       .catch((err) => console.error(err));
   }, []);
 
@@ -40,13 +46,13 @@ function ClientDashboard() {
               <div className="trending-beats">
                 <h4 className="section-title">Trending Beats</h4>
                 <div className="row d-flex flex-wrap justify-content-between g-3">
-                  {beats.map((beat, index) => (
+                  {trendingBeats.map((beat, index) => (
                     <Col key={index} xs={12} sm={12} md={6} lg={6} xl={6} className="card-col">
                       <Card
                         title={beat.title}
-                        subtitle={beat.subtitle}
-                        imageURL={beat.imageURL}
-                        detailsURL={beat.detailsURL}
+                        subtitle={beat.user.name}
+                        imageURL={beat.cover}
+                        detailsURL={`/beat-detail/${beat.id}`}
                         className="custom-card"
                       />
                     </Col>
@@ -56,7 +62,19 @@ function ClientDashboard() {
             </Col>
             <Col md={12} lg={4} xl={4}>
               <h4 className="section-title">Popular y Trending</h4>
-              <CardList />
+              <div className="row d-flex flex-wrap justify-content-between g-3">
+                {popularProducers.map((producer, index) => (
+                  <Col key={index} xs={12} className="card-col">
+                    <Card
+                      title={producer.name}
+                      subtitle={`Beats: ${producer.beat_count}`}
+                      imageURL={producer.profile_picture}
+                      detailsURL={`/profile/${producer.id}`}
+                      className="custom-card"
+                    />
+                  </Col>
+                ))}
+              </div>
             </Col>
           </Row>
         </Container>
