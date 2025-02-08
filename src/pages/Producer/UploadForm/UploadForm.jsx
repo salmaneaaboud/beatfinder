@@ -173,6 +173,7 @@ const UploadForm = () => {
       key: formData.key,
       mp3_file: audioURL,
       wav_file: audioURL,
+      tags: formData.tags, 
       licenses: [
         { license_id: 1, price: formData.pricing.basic },
         { license_id: 2, price: formData.pricing.premium },
