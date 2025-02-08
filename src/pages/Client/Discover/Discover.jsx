@@ -109,7 +109,7 @@ const Discover = () => {
                                 ))}
                             </div>
                             <div className="d-flex flex-column align-items-center text-white">
-                                <span>Precio: ${selectedPrice[0]} - ${selectedPrice[1]}</span>
+                                <span>Precio: {selectedPrice[0]}€ - {selectedPrice[1]}€</span>
                                 <Slider
                                     range
                                     min={0}
