@@ -20,7 +20,7 @@ const Discover = () => {
     const [selectedKey, setSelectedKey] = useState([]);
     const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
     const [currentPage, setCurrentPage] = useState(0);
-    const songsPerPage = 10;
+    const songsPerPage = 8;
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
@@ -42,12 +42,13 @@ const Discover = () => {
 
     const uniqueGenres = [...new Set(data?.map(song => song.genre))];
 
-    const handlePageClick = ({ selected }) => {
+    const indexOfLastSong = (currentPage + 1) * songsPerPage;
+    const indexOfFirstSong = indexOfLastSong - songsPerPage;
+    const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
+    const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
     };
-
-    const pageCount = Math.ceil(filteredSongs.length / songsPerPage);
-    const displayedSongs = filteredSongs.slice(currentPage * songsPerPage, (currentPage + 1) * songsPerPage);
 
     if (error) return <Error />;
 
@@ -133,8 +134,8 @@ const Discover = () => {
                                 />
                             </div>
                         </div>
-                        <div className="d-flex flex-wrap justify-flex-start gap-4">
-                            {displayedSongs?.map((song, i) => (
+                        <div className="d-flex flex-wrap justify-flex-start gap-4 mb-4">
+                            {currentSongs?.map((song, i) => (
                                 <SongCard
                                     key={song.id}
                                     song={song}
@@ -145,17 +146,23 @@ const Discover = () => {
                                 />
                             ))}
                         </div>
-                        <ReactPaginate
-                            previousLabel={"Anterior"}
-                            nextLabel={"Siguiente"}
-                            breakLabel={"..."}
-                            pageCount={pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={handlePageClick}
-                            containerClassName={"pagination"}
-                            activeClassName={"active"}
-                        />
+                        <div className="d-flex justify-content-center">
+                            <ReactPaginate
+                                previousLabel={"← Anterior"}
+                                nextLabel={"Siguiente →"}
+                                pageCount={Math.ceil(filteredSongs.length / songsPerPage)}
+                                onPageChange={handlePageChange}
+                                containerClassName={"pagination"}
+                                pageClassName={"page-item"}
+                                pageLinkClassName={"page-link"}
+                                previousClassName={"page-item"}
+                                previousLinkClassName={"page-link"}
+                                nextClassName={"page-item"}
+                                nextLinkClassName={"page-link"}
+                                activeClassName={"active"}
+                                disabledClassName={"disabled"}
+                            />
+                        </div>
                     </div>
                 )}
             </div>
