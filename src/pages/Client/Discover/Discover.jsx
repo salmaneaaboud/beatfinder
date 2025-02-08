@@ -12,6 +12,7 @@ const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
     const searchTerm = useSelector((state) => state.search.searchTerm);
     const { data, isFetching, error } = useGetSongByGenreQuery("POP");
+    console.log(data);
 
     const [selectedGenres, setSelectedGenres] = useState([]); // Estado para géneros seleccionados
     const filteredSongs = filterSongsBySearchAndGenre(data || [], searchTerm, selectedGenres); // Usa la función

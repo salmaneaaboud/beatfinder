@@ -27,10 +27,10 @@ const PurchasedBeats = () => {
           <Loader title="Cargando beats comprados..." />
         ) : (
           <div className="container mt-4">
-            <h2 className="text-center mb-4">Mis Beats Comprados</h2>
+            <h2 className="text-center mb-4 text-white">Mis Beats Comprados</h2>
 
             {purchasedBeats.length === 0 ? (
-              <p className="text-center">
+              <p className="text-center text-white">
                 No has comprado ningún beat todavía.
               </p>
             ) : (

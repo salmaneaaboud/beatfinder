@@ -28,6 +28,7 @@ import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
 import Payment from './pages/Client/Payment/Payment';
 import ProducerProfile from './pages/Client/ProducerProfile/ProducerProfile';
+import PurchaseSummary from './pages/Client/PurchaseSummary/PurchaseSummary';
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -96,6 +97,14 @@ useEffect(() => {
             element={
               <ProtectedRoute requiredRole="client">
                 <PurchasedBeats />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/purchase-summary/:orderId"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <PurchaseSummary />
               </ProtectedRoute>
             }
           />

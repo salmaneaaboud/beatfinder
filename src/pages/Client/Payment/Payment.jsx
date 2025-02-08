@@ -52,10 +52,10 @@ const Payment = () => {
     try {
       const localCart = JSON.parse(localStorage.getItem("cart")) || [];
       await api.post("/cart/sync", { cart: localCart });
-      await api.post("/cart/checkout");
+      const response = await api.post("/cart/checkout");
       toast.success("Compra realizada con éxito");
-      dispatch(clearCart()); // Limpia el carrito en Redux
-      navigate("/discover");
+      dispatch(clearCart());
+      navigate(`/purchase-summary/${response.data.order_id}`);
     } catch (error) {
       console.error("Error en la compra", error);
       toast.error("Error al procesar la compra");
