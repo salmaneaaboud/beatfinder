@@ -15,9 +15,9 @@ const Discover = () => {
     const { data, isFetching, error } = useGetSongByGenreQuery();
 
     const [selectedGenres, setSelectedGenres] = useState([]);
-    const [selectedBpm, setSelectedBpm] = useState([50, 250]);
+    const [selectedBpm, setSelectedBpm] = useState([60, 200]);
     const [selectedKey, setSelectedKey] = useState([]);
-    const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
+    const [selectedPrice, setSelectedPrice] = useState([0, 100]);
 
     const filteredSongs = (data || []).filter(song => {
         const matchesSearch = searchTerm ? song.title.toLowerCase().includes(searchTerm.toLowerCase()) : true;
