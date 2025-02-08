@@ -9,8 +9,7 @@ import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { BASE_URL } from "./../../../config";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const BeatDetail = () => {
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -19,10 +18,9 @@ const BeatDetail = () => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
 
-  const dispatch = useDispatch();
-  const cart = useSelector(state => state.cart.cart);
-  const isInCart = beat ? cart.some(item => item.id === beat.id) : false;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBeat = async () => {
@@ -40,6 +38,11 @@ const BeatDetail = () => {
 
     fetchBeat();
   }, [id]);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setIsInCart(cart.some(item => item.id === beat?.id));
+  }, [beat]);
 
   const toggleLike = async () => {
     setIsLoading(true);
@@ -59,12 +62,37 @@ const BeatDetail = () => {
   };
 
   const handleCartToggle = () => {
-    if (beat) {
-      if (isInCart) {
-        dispatch(removeFromCart(beat));
+    if (beat && selectedLicense !== null) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const selectedBeatWithLicense = {
+        ...beat,
+        price: beat.licenses[selectedLicense].price,
+        licenseName: beat.licenses[selectedLicense].license_name
+      };
+
+      if (cart.some(item => item.id === selectedBeatWithLicense.id)) {
+        const updatedCart = cart.filter(item => item.id !== selectedBeatWithLicense.id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        setIsInCart(false);
       } else {
-        dispatch(addToCart(beat));
+        cart.push(selectedBeatWithLicense);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        setIsInCart(true);
       }
+    }
+  };
+
+  const handlePurchase = () => {
+    if (selectedLicense !== null) {
+      const selectedBeatWithLicense = {
+        ...beat,
+        price: beat.licenses[selectedLicense].price,
+        licenseName: beat.licenses[selectedLicense].license_name
+      };
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(selectedBeatWithLicense);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      navigate(`/payment`);
     }
   };
 
@@ -76,27 +104,6 @@ const BeatDetail = () => {
       day: 'numeric',
     });
   };
-
-  const licenses = [
-    {
-      id: 1,
-      name: "Licencia Básica",
-      price: "40€",
-      format: "MP3",
-    },
-    {
-      id: 2,
-      name: "Licencia Premium",
-      price: "80€",
-      format: "MP3, WAV",
-    },
-    {
-      id: 3,
-      name: "Licencia Exclusiva",
-      price: "Precio negociable",
-      format: "MP3, WAV",
-    },
-  ];
 
   const handleLicenseSelect = (licenseId) => {
     setSelectedLicense(licenseId);
@@ -158,23 +165,41 @@ const BeatDetail = () => {
 
               <div className="licenses">
                 <h3>Licencias</h3>
-                <div className="license-options">
-                  {licenses.map((license) => (
-                    <div
-                      key={license.id}
-                      className={`license-card ${selectedLicense === license.id ? "selected" : ""}`}
-                      onClick={() => handleLicenseSelect(license.id)}
-                    >
-                      <h4>{license.name}</h4>
-                      <p className="price">{license.price}</p>
-                      <p className="format">{license.format}</p>
+                {beat.licenses && beat.licenses.length > 0 && (
+                  <>
+                    <div className="selected-license">
+                      <h4>Licencia seleccionada</h4>
+                      <p>{beat.licenses[selectedLicense]?.license_name || "Ninguna seleccionada"}</p>
+                      <p>{beat.licenses[selectedLicense]?.price || "0€"}</p>
                     </div>
-                  ))}
-                </div>
+                    <div className="license-options">
+                      {beat.licenses.map((license, index) => (
+                        <div
+                          key={index}
+                          className={`license-card ${selectedLicense === index ? "selected" : ""} ${license.license_name === 'premium' ? 'premium' : 'basic'}`}
+                          onClick={() => handleLicenseSelect(index)}
+                        >
+                          <h4>{license.license_name === 'premium' ? 'Premium' : 'Básica'}</h4>
+                          <p className="price">{license.price}€</p>
+                          <p className="format">
+                            {license.license_name === 'premium' ? 'MP3 / WAV' : 'MP3'}
+                          </p>
+                          <span className={`license-type ${license.license_name}`}>{license.license_name === 'premium' ? 'Premium' : 'Básica'}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="comments">
                 <CommentBox />
+              </div>
+
+              <div className="purchase-button">
+                <button onClick={handlePurchase} className="btn-purchase">
+                  Comprar ahora
+                </button>
               </div>
             </div>
           </div>

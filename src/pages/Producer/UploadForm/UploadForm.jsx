@@ -18,11 +18,16 @@ const UploadForm = () => {
     mood: [],
     genre: "Hip-Hop",
     tags: [],
-    pricing: {
-      basic: "",
-      premium: "",
-      exclusive: "",
-    },
+    pricing: [
+      {
+        name: "Basic",
+        price: 0,
+      },
+      {
+        name: "Premium",
+        price: 0,
+      },
+    ],
   });
 
   const [currentTag, setCurrentTag] = useState("");
@@ -90,10 +95,11 @@ const UploadForm = () => {
       ...prevData,
       pricing: {
         ...prevData.pricing,
-        [name]: value,
+        [name]: parseInt(value, 10),
       },
     }));
   };
+  
 
   const handleAudioUpload = async () => {
     if (audioFile) {
@@ -158,7 +164,7 @@ const UploadForm = () => {
     e.preventDefault();
     const audioURL = await handleAudioUpload();
     const coverURL = await handleCoverUpload();
-
+  
     const beatData = {
       title: formData.title,
       cover: coverURL,
@@ -167,15 +173,21 @@ const UploadForm = () => {
       key: formData.key,
       mp3_file: audioURL,
       wav_file: audioURL,
+      licenses: [
+        { license_id: 1, price: formData.pricing.basic },
+        { license_id: 2, price: formData.pricing.premium },
+      ],
     };
-
+  
     try {
+      console.log("Datos del beat enviados a la API:", beatData);
       const response = await api.post("/beat-upload", beatData);
       console.log("Datos del beat subidos correctamente:", response.data);
     } catch (error) {
       console.error("Error al subir los datos del beat:", error);
     }
   };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -368,18 +380,9 @@ const UploadForm = () => {
                   onChange={handlePricingChange}
                 />
               </div>
-              <div className="col-md-3 mb-3">
-                <label className="form-label">Exclusiva:</label>
-                <input
-                  type="number"
-                  className="form-control form-control-sm"
-                  name="exclusive"
-                  value={formData.pricing.exclusive}
-                  onChange={handlePricingChange}
-                />
-              </div>
             </div>
           </div>
+
 
           <div className="d-flex justify-content-end gap-3">
             <CustomButton

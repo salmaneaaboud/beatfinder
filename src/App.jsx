@@ -25,8 +25,8 @@ import { Toaster } from 'sonner'
 import { useEffect } from 'react';
 import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
+import Payment from './pages/Client/Payment/Payment';
 import ProducerProfile from './pages/Client/ProducerProfile/ProducerProfile';
-
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -91,6 +91,7 @@ useEffect(() => {
             }
           />
           <Route path="/client/likes" element={<ClientLikes />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/email-verification/success" element={<EmailVerificationSuccess />} />
           <Route path="/email-verification/error" element={<EmailVerificationError />} />
           <Route

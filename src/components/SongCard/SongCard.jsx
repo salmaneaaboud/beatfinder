@@ -58,6 +58,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
           <p className="fw-bold text-white text-truncate">{song.title}</p>
           <p className="fw-semibold text-white text-truncate mt-1">{song.user.name}</p>
         </Link>
+        <p className="fw-bold text-white mt-1">{song.price}€</p>
         <button className="btn btn-primary mt-2 w-100" onClick={handleCartToggle}>
           {isInCart ? 'Eliminar del carrito' : 'Añadir al carrito'}
         </button>
