@@ -1,0 +1,91 @@
+.card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-width: 100%; /* Garantiza que la tarjeta no exceda el tamaño del contenedor */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.15);
+  }
+  
+  .card-img-top {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    object-fit: cover; /* Hace que la imagen se ajuste sin distorsionarse */
+    height: 180px; /* Ajusta la altura de las imágenes para mantener una consistencia */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor de la card */
+  }
+  
+  .card-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .text-secondary {
+    font-size: 0.9rem;
+  }
+  
+  .text-success {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .download-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Añade espacio entre los botones */
+  }
+  
+  .btn-primary {
+    background-color: #8C52FF !important;
+    border-color: #8C52FF !important;
+    color: white;
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:active {
+    background-color: white !important;
+    color: #7834ff !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  .btn-light-grey {
+    background-color: white !important;
+    color: gray;
+  }
+  
+  .btn-light-grey:hover,
+  .btn-light-grey:active {
+    background-color: white !important;
+    color: #7834ff !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  .btn-outline-light {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+    color: white;
+  }
+  
+  .btn-outline-light:hover,
+  .btn-outline-light:active {
+    background-color: white !important;
+    color: black !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  

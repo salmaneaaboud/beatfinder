@@ -1,14 +1,19 @@
 import { Nav, Navbar, Container, Form, Dropdown, Badge } from "react-bootstrap";
-import { FaSearch, FaRegCommentDots, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import {
+  FaSearch,
+  FaRegCommentDots,
+  FaRegHeart,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { BiMenuAltRight } from "react-icons/bi";
-import { Link, useLocation } from 'react-router-dom';  // Added useLocation here
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import clientAvatar from "/src/assets/avatar_temp.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LoggedHeader.css";
 import logo from "/src/assets/logo.png";
-import { useAuth } from '/src/hooks/useAuth';
+import { useAuth } from "/src/hooks/useAuth";
 import { useContext } from "react";
 import AuthContext from "/src/contexts/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +23,9 @@ import { setSearchTerm } from "/src/redux/features/searchSlice";
 export function LoggedHeader() {
   const auth = useAuth();
   const { user } = useContext(AuthContext);
-  const location = useLocation(); // Added the useLocation hook to get the current path
+  const location = useLocation();
 
-  const cart = useSelector(state => state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);
 
   const handleRemoveFromCart = (item) => {
     try {
@@ -36,14 +41,31 @@ export function LoggedHeader() {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.search.searchTerm);
 
+  // Define the dashboard route based on the user role
+  const dashboardRoute = () => {
+    if (user) {
+      if (user.role === "client") {
+        return "/client";
+      } else if (user.role === "producer") {
+        return "/producer";
+      } else if (user.role === "admin") {
+        return "/admin";
+      }
+    }
+    return "/";
+  };
+
   return (
     <Navbar expand="lg" className="custom-navbar w-100">
       <Container fluid className="px-3">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={Link} to={dashboardRoute()}>
           <img src={logo} alt="Logo" className="logo" />
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-toggler border-0">
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className="navbar-toggler border-0"
+        >
           <BiMenuAltRight color="white" size={35} />
         </Navbar.Toggle>
 
@@ -64,8 +86,19 @@ export function LoggedHeader() {
               </Form>
             )}
 
-            <div className="d-flex align-items-center gap-4 ms-auto notifications">
+            {user && user.role === "client" && (
+              <div className="text-center h-100">
+                <p className="text-white font-bold text-center balance-text">
+                  Balance:{" "}
+                  {user.client.balance.toLocaleString("es-ES", {
+                    minimumFractionDigits: 2,
+                  })}
+                  €
+                </p>
+              </div>
+            )}
 
+            <div className="d-flex align-items-center gap-4 ms-auto notifications">
               {user && user.role !== "admin" && (
                 <>
                   <div className="notification-item">
@@ -83,27 +116,43 @@ export function LoggedHeader() {
                 </>
               )}
 
-              {user && user.role == "client" && (
+              {user && user.role === "client" && (
                 <Dropdown align="end">
-                  <Dropdown.Toggle className="client-dropdown" id="cart-dropdown">
+                  <Dropdown.Toggle
+                    className="client-dropdown"
+                    id="cart-dropdown"
+                  >
                     <FaShoppingCart fontSize="20px" />
                     <Badge pill bg="danger" className="ms-1">
                       {cart.length}
                     </Badge>
                   </Dropdown.Toggle>
-                  <Dropdown.Menu className="custom-dropdown-menu" style={{ minWidth: "300px" }}>
+                  <Dropdown.Menu
+                    className="custom-dropdown-menu"
+                    style={{ minWidth: "300px" }}
+                  >
                     {cart.length > 0 ? (
                       <>
                         {cart.map((item) => (
-                          <div key={item.id} className="d-flex align-items-center p-2 border-bottom">
+                          <div
+                            key={item.id}
+                            className="d-flex align-items-center p-2 border-bottom"
+                          >
                             <img
                               src={item.cover}
                               alt={item.title}
                               className="cart-item-img"
-                              style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                              style={{
+                                width: "50px",
+                                height: "50px",
+                                objectFit: "cover",
+                              }}
                             />
                             <div className="ms-2 flex-grow-1">
-                              <p className="mb-1 text-truncate" style={{ maxWidth: "180px" }}>
+                              <p
+                                className="mb-1 text-truncate"
+                                style={{ maxWidth: "180px" }}
+                              >
                                 {item.title}
                               </p>
                             </div>
@@ -114,8 +163,10 @@ export function LoggedHeader() {
                             />
                           </div>
                         ))}
-                        <Link to="/cart">
-                          <button className="btn btn-primary w-100 mt-2">Ir al carrito</button>
+                        <Link to="/payment">
+                          <button className="btn btn-primary w-100 mt-2">
+                            Ir al carrito
+                          </button>
                         </Link>
                       </>
                     ) : (
@@ -126,17 +177,28 @@ export function LoggedHeader() {
               )}
 
               <Dropdown align="end">
-                <Dropdown.Toggle className="client-dropdown" id="dropdown-basic">
+                <Dropdown.Toggle
+                  className="client-dropdown"
+                  id="dropdown-basic"
+                >
                   <div className="d-flex align-items-center gap-2">
-                    <span className="client-name">{user?.name || "Usuario"}</span>
-                    <img src={user?.avatar || clientAvatar} alt="Avatar" className="avatar" />
+                    <span className="client-name">
+                      {user?.name || "Usuario"}
+                    </span>
+                    <img
+                      src={user?.avatar || clientAvatar}
+                      alt="Avatar"
+                      className="avatar"
+                    />
                   </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="custom-dropdown-menu">
                   <Dropdown.Item as={Link} to={`/edit-user`}>
                     Mi perfil
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={auth.logout}>Cerrar sesión</Dropdown.Item>
+                  <Dropdown.Item onClick={auth.logout}>
+                    Cerrar sesión
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>

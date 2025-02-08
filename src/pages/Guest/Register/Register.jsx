@@ -65,9 +65,7 @@ const Register = () => {
         toast.error("La contraseña debe tener al menos 8 caracteres");
         return;
       }
-      console.log(formData);
       const response = await api.post("/register", formData);
-      console.log(response.data);
       localStorage.setItem("token", response.data.token);
       toast.success("Usuario registrado exitosamente");
       navigate("/login");

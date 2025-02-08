@@ -25,6 +25,7 @@ export const shazamCoreApi = createApi({
     })}),
     getSongByProducer: builder.query({ query: (producerid) => `/producers/${producerid}/beats` }),
     getProducerDetails: builder.query({ query: (producerid) => `/producers/${producerid}` }),
+    getPurchasedBeats: builder.query({ query: () => `/client/purchased-beats` }),
   }),
 });
 
@@ -34,4 +35,5 @@ export const {
   useGetUserLikesQuery,
   useGetSongByProducerQuery,
   useGetProducerDetailsQuery,
+  useGetPurchasedBeatsQuery
 } = shazamCoreApi;

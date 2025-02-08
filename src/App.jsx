@@ -18,6 +18,7 @@ import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import BeatManagement from './pages/Admin/BeatManagement/BeatManagement';
 import UserProfile from './components/UserProfile/UserProfile';
 import Discover from './pages/Client/Discover/Discover';
+import PurchasedBeats from './pages/Client/PurchasedBeats/PurchasedBeats';
 import MusicPlayer from './components/MusicPlayer/index';
 import UserProfilePage from './pages/Client/UserProfile/UserProfilePage';
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -27,6 +28,7 @@ import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
 import Payment from './pages/Client/Payment/Payment';
 import ProducerProfile from './pages/Client/ProducerProfile/ProducerProfile';
+import PurchaseSummary from './pages/Client/PurchaseSummary/PurchaseSummary';
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -87,6 +89,22 @@ useEffect(() => {
             element={
               <ProtectedRoute requiredRole="client">
                 <ClientDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/purchased-beats"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <PurchasedBeats />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/purchase-summary/:orderId"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <PurchaseSummary />
               </ProtectedRoute>
             }
           />
