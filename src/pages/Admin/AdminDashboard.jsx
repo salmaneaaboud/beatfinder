@@ -6,9 +6,10 @@ import Chart from '/src/components/Chart/Chart';
 import './AdminDashboard.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import { useNavigate } from 'react-router-dom';
-import Loader from '/src/components/Loader/Loader';  
+import Loader from '/src/components/Loader/Loader';
 import { BASE_URL } from "./../../config";
 import TrafficByBrowser from '../../components/TrafficByBrowser/TrafficByBrowser';
+import TrafficByLocation from '../../components/TrafficByLocation/TrafficByLocation';
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ function AdminDashboard() {
             try {
                 const token = localStorage.getItem('token');
                 // Cambiar la URL de la API por la correcta
-                const response = await fetch(BASE_URL+'/admin/stats', {
+                const response = await fetch(BASE_URL + '/admin/stats', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -64,73 +65,82 @@ function AdminDashboard() {
         { title: 'Usuarios totales', value: stats.totalUsers, percentage: '+3% vs últimos 7 días', icon: <FaUsers size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
     ];
 
-    if (loading) {
-        return <Loader title="Cargando estadísticas..." />;  // Mostrar el Loader mientras los datos se cargan
-    }
-
     return (
-        <>
-            <LoggedHeader />
-            <div className="container-fluid">
-                <div className="row">
-                    <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                        <h1 className="mt-3 text-white">Admin Dashboard</h1>
-                        <div className="row mt-4">
-                            <div className="col-md-4">
-                                <div className="card text-white bg-warning mb-3">
-                                    <div className="card-body d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h5 className="card-title">{stats.totalBeats} Beats</h5>
-                                            <button onClick={() => navigate('/beat-management')} className="btn btn-light">Ver todos</button>
-                                        </div>
-                                        <FaMusic size={40} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="card text-white bg-primary mb-3">
-                                    <div className="card-body d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h5 className="card-title">{stats.totalUsers} Usuarios</h5>
-                                            <button onClick={() => navigate('/user-management')} className="btn btn-light">Ver todos</button>
-                                        </div>
-                                        <FaUsers size={40} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="row mt-4">
-                            {statsData.map((stat, index) => (
-                                <div className="col-md-4" key={index}>
-                                    <div className="stats-card text-white bg-white mb-3">
-                                        <div className="card-body text-dark d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h5 className="card-title">{stat.title}</h5>
-                                                <p className="card-text">{stat.value}</p>
-                                                <p className="fw-bold" style={{ color: "rgba(120, 52, 255, 0.5)" }}>
-                                                    {stat.percentage} {stat.percentageIcon}
-                                                </p>
+        <div className="d-flex w-100">
+            <div className="flex-grow-1">
+                <LoggedHeader />
+                <div className="container p-4">
+                    <h1 className="text-white mb-4">Admin Dashboard</h1>
+                    {loading ? (<Loader title="Cargando estadísticas..." />) : (
+                        <div className="row">
+                            <main className="col-12">
+                                <div className="row g-4 mb-4">
+                                    <div className="col-md-4">
+                                        <div className="card text-white bg-warning h-100">
+                                            <div className="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 className="card-title">{stats.totalBeats} Beats</h5>
+                                                    <button onClick={() => navigate('/beat-management')} className="btn btn-light">Ver todos</button>
+                                                </div>
+                                                <FaMusic size={40} />
                                             </div>
-                                            {stat.icon}
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card text-white bg-primary h-100">
+                                            <div className="card-body d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h5 className="card-title">{stats.totalUsers} Usuarios</h5>
+                                                    <button onClick={() => navigate('/user-management')} className="btn btn-light">Ver todos</button>
+                                                </div>
+                                                <FaUsers size={40} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
 
-                        <div className="row mt-4">
-                            <div className="col-md-6">
-                                <Chart />
-                            </div>
-                            <div className="col-md-6">
-                                <TrafficByBrowser />
-                            </div>
+                                <div className="row g-4 mb-4">
+                                    <div className='col-12 col-lg-6'>
+                                        <Chart />
+                                    </div>
+                                </div>
+
+                                <div className="container-fluid mb-4">
+                                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                                        {statsData.map((stat, index) => (
+                                            <div className="col d-flex" key={index}>
+                                                <div className="stats-card bg-white w-100">
+                                                    <div className="card-body text-dark d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <h5 className="card-title mb-2">{stat.title}</h5>
+                                                            <p className="card-text mb-2">{stat.value}</p>
+                                                            <p className="fw-bold mb-0" style={{ color: "rgba(120, 52, 255, 0.5)" }}>
+                                                                {stat.percentage} {stat.percentageIcon}
+                                                            </p>
+                                                        </div>
+                                                        {stat.icon}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="row g-4 mb-4">
+                                    <div className="col-md-6">
+                                        <TrafficByBrowser />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <TrafficByLocation />
+                                    </div>
+                                </div>
+                            </main>
                         </div>
-                    </main>
+                    )}
+
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

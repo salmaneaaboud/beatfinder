@@ -3,7 +3,7 @@ import SoundWave from "../../../components/SoundWave/SoundWave";
 import { FaHeart, FaPlus, FaShoppingCart } from "react-icons/fa";
 import "./BeatDetail.css";
 import CommentBox from "../../../components/CommentBox/CommentBox";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Loader from "/src/components/Loader/Loader";
 import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
@@ -123,7 +123,9 @@ const BeatDetail = () => {
                 <img src={beat.cover} alt="Beat cover" />
               </div>
               <h2>{beat.title}</h2>
-              <p>{beat.user.name}</p>
+              <Link to={`/producer/${beat.user.id}`}>
+                <p>{beat.user.name}</p>
+              </Link>
               <div className="action-buttons">
                 <button onClick={toggleLike} disabled={isLoading}>
                   {isLoading ? (

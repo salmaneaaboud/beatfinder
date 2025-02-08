@@ -38,9 +38,18 @@ const TrafficByBrowser = () => {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center h-auto" style={{ padding: '20px', backgroundColor: '#fff', borderRadius: '10px' }}>
-      <h2 className="text-black">Tráfico por navegador</h2>
-      <ReactApexChart options={options} series={series} type="pie" />
+    <div className="d-flex flex-column justify-content-start align-items-center w-100 h-100" 
+         style={{ 
+             padding: '20px', 
+             backgroundColor: '#fff', 
+             borderRadius: '10px'
+         }}>
+      <h2 className="text-black" style={{ marginBottom: '10px' }}>Tráfico por navegador</h2>
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="pie"
+      />
     </div>
   );
 };

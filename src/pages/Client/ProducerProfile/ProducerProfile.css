@@ -1,0 +1,15 @@
+.song-container {
+    display: flex;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.slide-left {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+.slide-right {
+    transform: translateX(50px);
+    opacity: 0;
+}
+

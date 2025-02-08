@@ -26,6 +26,7 @@ import { useEffect } from 'react';
 import { BASE_URL } from "./config";
 import ClientLikes from './pages/Client/ClientLikes/ClientLikes';
 import Payment from './pages/Client/Payment/Payment';
+import ProducerProfile from './pages/Client/ProducerProfile/ProducerProfile';
 
 function App() {
   const { activeSong } = useSelector((state) => state.player);
@@ -136,7 +137,7 @@ useEffect(() => {
               </ProtectedRoute>
             }
           />
-
+          <Route path="/producer/:id" element={<ProducerProfile />} />
         </Routes>
         {activeSong?.title && localStorage.getItem('token') && (
           <div className="music-player-fixed">
