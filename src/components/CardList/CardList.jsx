@@ -1,21 +1,23 @@
-import trendingProducers from "/src/assets/resources/trendingProducers/trending.json";
 import "./CardList.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export function CardList() {
+export function CardList({trendingProducers}) {
   return (
     <>
       <div className="trending-producers-list">
         {trendingProducers?.length > 0 ? (
-          trendingProducers.map(({ id, title, producer, image }) => (
+          trendingProducers.map(({ id, name, email, profile_picture }) => (
             <div className="producer-item" key={id}>
-              <img src={image} alt={`${producer}`} className="producer-img" />
+              <img src={profile_picture} alt={`${email}`} className="producer-img" />
               <div className="producer-text">
-                <h5 className="producer-title">{title}</h5>
-                <p className="producer-subtitle">{producer}</p>
+                <h5 className="producer-title">{name}</h5>
+                <p className="producer-subtitle">{email}</p>
               </div>
               <div className="producer-arrow">
+              <a href={`/producer/${id}`}>
                 <span>&#x2794;</span>
+              </a>
+
               </div>
             </div>
           ))
