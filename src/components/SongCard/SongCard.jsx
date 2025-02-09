@@ -4,6 +4,7 @@ import PlayPause from '../PlayPause/PlayPause';
 import { playPause, setActiveSong } from '/src/redux/features/playerSlice';
 import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
 import { useGetPurchasedBeatsQuery } from '/src/redux/services/shazamCore';
+import api from '../../services/api';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
@@ -17,9 +18,15 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
     dispatch(playPause(false));
   };
 
-  const handlePlayClick = () => {
+  const handlePlayClick = async () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
+
+    try {
+      await api.post(`/beat/${song.id}/listen`);
+    } catch (error) {
+      console.error("Error tracking listen:", error);
+    }
   };
 
   const handleCartToggle = () => {
