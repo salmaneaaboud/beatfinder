@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaMusic, FaUsers, FaDollarSign, FaChartLine } from 'react-icons/fa';
 import { FaArrowTrendUp } from "react-icons/fa6";
 import Chart from '/src/components/Chart/Chart';
+import AdminChart from '/src/components/AdminChart/AdminChart';
 import './AdminDashboard.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import { useNavigate } from 'react-router-dom';
@@ -101,7 +102,7 @@ function AdminDashboard() {
 
                                 <div className="row g-4 mb-4">
                                     <div className='col-12 col-lg-6'>
-                                        <Chart />
+                                        <AdminChart />
                                     </div>
                                 </div>
 
