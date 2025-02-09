@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import ReactPaginate from 'react-paginate';
-import { FaFilter, FaEye } from "react-icons/fa"; // Importar iconos
+import { FaFilter, FaEye } from "react-icons/fa";
 
 const Discover = () => {
     const { activeSong, isPlaying } = useSelector((state) => state.player);
@@ -21,7 +21,7 @@ const Discover = () => {
     const [selectedKey, setSelectedKey] = useState([]);
     const [selectedPrice, setSelectedPrice] = useState([0, 1000]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [filtersVisible, setFiltersVisible] = useState(false); // Estado para los filtros
+    const [filtersVisible, setFiltersVisible] = useState(false);
     const songsPerPage = 8;
 
     const filteredSongs = (data || []).filter(song => {

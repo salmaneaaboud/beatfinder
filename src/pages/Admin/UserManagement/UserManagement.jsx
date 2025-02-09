@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { CustomButton } from "/src/components/CustomButton/CustomButton";
 import { toast } from 'sonner';
 import api from "/src/services/api";
+import BackButton from "/src/components/BackButton/BackButton";
+
 
 const UserManagement = () => {
   const navigate = useNavigate();
@@ -253,6 +255,7 @@ const UserManagement = () => {
     <>
       <LoggedHeader />
       <div className="container mt-4">
+            <BackButton />
         <h4 className="text-light mb-5">Gestión de Usuarios</h4>
         <div className='mb-4'>
           <CustomButton
