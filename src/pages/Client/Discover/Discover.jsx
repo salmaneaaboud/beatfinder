@@ -5,7 +5,7 @@ import Sidebar from '/src/components/Sidebar/Sidebar';
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import { useGetSongByGenreQuery } from '/src/redux/services/shazamCore';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import ReactPaginate from 'react-paginate';
@@ -47,6 +47,11 @@ const Discover = () => {
     const indexOfLastSong = (currentPage + 1) * songsPerPage;
     const indexOfFirstSong = indexOfLastSong - songsPerPage;
     const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
+    useEffect(() => {
+        setCurrentPage(0); 
+    }, [selectedGenres, selectedBpm, selectedKey, selectedPrice, searchTerm]);
+    
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
