@@ -14,6 +14,7 @@ import './ProducerProfile.css';
 const ProducerProfile = () => {
     const { id } = useParams();
     const { data: beatsData, isFetching: isFetchingBeats, error: errorBeats } = useGetSongByProducerQuery(id);
+    console.log(beatsData);
     const { data: producerData, isFetching: isFetchingProducer, error: errorProducer } = useGetProducerDetailsQuery(id);
     const { activeSong, isPlaying } = useSelector((state) => state.player);
     console.log(producerData);
@@ -61,12 +62,12 @@ const ProducerProfile = () => {
             <Sidebar />
             <div className="flex-grow-1">
                 <LoggedHeader />
-                <div className="banner text-center text-white mb-4 p-5 position-relative" style={{ backgroundImage: `url(${producerData?.user.banner || '/default-banner.jpg'})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px' }}>
-                    <div className="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50" style={{ borderRadius: '10px' }}></div>
+                <div className="banner text-center text-white mb-4 p-5 position-relative" style={{ backgroundImage: `url(${producerData?.banner || '/default-banner.jpg'})`, backgroundSize: 'cover', backgroundPosition: 'center', borderRadius: '10px' }}>
+                    <div className="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-75" style={{ borderRadius: '10px' }}></div>
                     <div className="position-relative">
                         <img src={producerData?.user.avatar || '/default-avatar.png'} alt="Avatar" className="rounded-circle border border-light shadow-lg" width="120" height="120" />
                         <h1 className="fw-bold mt-3">{producerData?.user.name || 'Desconocido'}</h1>
-                        <p className="text-white-50">{producerData?.biografia || 'Sin descripción disponible'}</p>
+                        <p className="text-white">{producerData?.biografia || 'Sin descripción disponible'}</p>
                     </div>
                 </div>
                 {beatsData?.length > 0 ? (

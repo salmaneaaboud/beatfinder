@@ -117,7 +117,7 @@ function ProducerDashboard() {
                                 </div>
                                 <div className="d-flex justify-content-center mt-4">
                                     <Button variant="dark" disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>Anterior</Button>
-                                    <span className="mx-3" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{currentPage} / {totalPages}</span>
+                                    <span className="mx-3" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>{currentPage} / {totalPages}</span>
                                     <Button variant="dark" disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Siguiente</Button>
                                 </div>
                             </div>
