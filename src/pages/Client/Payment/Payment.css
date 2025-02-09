@@ -88,3 +88,8 @@
 .btn-primary:hover {
   background-color: #4B0082; /* Cambio a un morado más oscuro al pasar el mouse */
 }
+
+.backbutton {
+
+  margin-left: 200px;
+}

@@ -6,6 +6,7 @@ import './UserProfilePage.css';
 import AuthContext from '/src/contexts/AuthContext';
 import { toast } from 'sonner';
 import { BASE_URL } from "./../../../config";
+import BackButton from "/src/components/BackButton/BackButton";
 
 const UserProfilePage = () => {
     const { user, setUser } = useContext(AuthContext);
@@ -141,6 +142,9 @@ const UserProfilePage = () => {
     return (
         <>
             <LoggedHeader />
+            <div className="backbutton">
+            <BackButton  />
+            </div>
             <div className="user-profile-container">
                 <aside className="user-profile-sidebar">
                     <ul>

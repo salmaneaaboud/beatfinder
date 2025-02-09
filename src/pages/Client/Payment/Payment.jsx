@@ -8,6 +8,7 @@ import "./Payment.css";
 import { toast } from "sonner";
 import { LoggedHeader } from "../../../components/LoggedHeader/LoggedHeader";
 import AuthContext from "../../../contexts/AuthContext";
+import BackButton from "/src/components/BackButton/BackButton";
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,9 @@ const Payment = () => {
   return (
     <>
       <LoggedHeader />
+        <div className="backbutton">
+        <BackButton  />
+        </div>
       <div className="payment-container container row mx-auto">
         <div className="cart-section container-fluid col-12 col-lg-8">
           <h2 className="mb-4">Mi carrito</h2>
