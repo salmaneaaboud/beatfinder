@@ -3,44 +3,39 @@ import { Bar } from 'react-chartjs-2';
 import { CDBContainer } from 'cdbreact';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BASE_URL } from '/src/config'; // Asegúrate de importar BASE_URL correctamente
+import { BASE_URL } from '/src/config';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Chart = () => {
+const AdminChart = () => {
   const [chartData, setChartData] = useState(null);
 
-  // Obtener el id del productor desde localStorage
-  const userId = JSON.parse(localStorage.getItem('user')).id;
-
-  // Obtener el token de localStorage
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch(`${BASE_URL}/producer/${userId}/sales`, {
+    fetch(`${BASE_URL}/monthly-sales`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,  // Agregar el token al encabezado
-        'Content-Type': 'application/json', // Asegurarse de que se envíen datos en formato JSON
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       }
     })
       .then(response => response.json())
       .then(data => {
         const labels = data.map(item => item.month);
-        const ingresos = data.map(item => parseFloat(item.total_sales));
+        const sales = data.map(item => parseFloat(item.total_sales));
 
-        // Calcular el valor máximo de las ventas
-        const maxSales = Math.max(...ingresos);
+        const maxSales = Math.max(...sales);
 
         setChartData({
           labels,
           datasets: [
             {
-              label: 'Ingresos mensuales (€)',
-              backgroundColor: 'rgba(120, 52, 255, 0.5)',
-              borderColor: 'rgb(120, 52, 255)',
+              label: 'Ventas mensuales (€)',
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              borderColor: 'rgb(255, 99, 132)',
               borderWidth: 1,
-              data: ingresos,
+              data: sales,
             }
           ]
         });
@@ -51,7 +46,7 @@ const Chart = () => {
           scales: {
             y: {
               beginAtZero: true,
-              max: maxSales + 300,  // Añadir un margen adicional al valor máximo
+              max: maxSales + 300,
               ticks: {
                 callback: (value) => `${value}€`,
               }
@@ -64,21 +59,20 @@ const Chart = () => {
           }
         };
 
-        // Actualizar las opciones del gráfico
         setChartData(prevData => ({
           ...prevData,
           options
         }));
       })
       .catch(error => console.error('Error al obtener datos:', error));
-  }, [userId, token]);
+  }, [token]);
 
   return (
-    <div style={{ 
-      backgroundColor: '#fff', 
-      borderRadius: '10px', 
-      padding: '20px', 
-      height: '100%', 
+    <div style={{
+      backgroundColor: '#fff',
+      borderRadius: '10px',
+      padding: '20px',
+      height: '100%',
       width: '100%',
       display: 'flex',
       flexDirection: 'column'
@@ -91,4 +85,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default AdminChart;

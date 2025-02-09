@@ -2,91 +2,91 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  color: #FFFFFF; /* Color blanco */
+  color: #FFFFFF;
 }
 
-.cart-item {
-  background: rgba(231, 188, 241, 0.15); /* Fondo suave con algo de transparencia */
+.custom-cart-item {
+  background: rgba(231, 188, 241, 0.15);
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para un efecto más moderno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 15px;
   font-family: "Poppins", serif;
 }
 
-.cart-item__cover {
+.custom-cart-item__cover {
   width: 100%;
   height: auto;
-  border-radius: 8px; /* Bordes redondeados en la imagen */
+  border-radius: 8px;
 }
 
-.card-body {
-  padding: 20px; /* Mayor espaciado dentro del cuerpo de la tarjeta */
+.custom-card-body {
+  padding: 20px;
 }
 
-.card-title {
-  font-size: 20px; /* Aumenté el tamaño de la fuente para el título */
-  font-weight: 700; /* Aumenté el peso para hacerlo más destacable */
-  color: white; /* Color morado oscuro para el título */
-  margin-bottom: 10px; /* Agregué más espacio debajo */
+.custom-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.8px; /* Más espaciado entre letras */
+  letter-spacing: 0.8px;
 }
 
-.card-text {
-  font-size: 18px; /* Aumenté ligeramente el tamaño del texto */
+.custom-card-text {
+  font-size: 18px;
   line-height: 1.6;
-  color: #E2E2E2; /* Cambié el color a un gris más suave para mejor legibilidad */
-  margin-bottom: 8px; /* Agregué espacio entre los párrafos */
+  color: #E2E2E2;
+  margin-bottom: 8px;
 }
 
-.card-text strong {
-  font-weight: 700; /* Negrita para los textos importantes */
+.custom-card-text strong {
+  font-weight: 700;
 }
 
-.card .btn-danger {
+.custom-card .btn-danger {
   background-color: #FF4747;
   color: white;
   padding: 8px 12px;
-  font-size: 16px; /* Aumenté el tamaño del botón de eliminación */
+  font-size: 16px;
   border-radius: 50%;
   border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s;
 }
 
-.card .btn-danger:hover {
-  background-color: #FF0000; /* Rojo más fuerte al hacer hover */
+.custom-card .btn-danger:hover {
+  background-color: #FF0000;
 }
 
 .summary-section {
-  background: #F9F9F9; /* Fondo suave y claro */
+  background: #F9F9F9;
   color: black;
-  padding: 30px; /* Más espacio dentro del resumen */
+  padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   height: 40vh;
 }
 
 .summary-section h3 {
-  font-size: 24px; /* Aumenté el tamaño del encabezado */
+  font-size: 24px;
   font-weight: 700;
   color: #333333;
 }
 
 .summary-section p {
-  font-size: 18px; /* Aumenté el tamaño de los párrafos */
+  font-size: 18px;
   color: #555;
 }
 
-.title-price {
-  color: #6A1B9A; /* Morado para el precio total */
-  font-size: 28px; /* Aumenté el tamaño del precio total */
+.custom-title-price {
+  color: #6A1B9A;
+  font-size: 28px;
   font-weight: bold;
   margin-top: 20px;
 }
 
 .btn-primary:hover {
-  background-color: #4B0082; /* Cambio a un morado más oscuro al pasar el mouse */
+  background-color: #4B0082;
 }
 
 .backbutton {
