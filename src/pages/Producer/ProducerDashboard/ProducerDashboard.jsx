@@ -10,11 +10,16 @@ import { BASE_URL } from "./../../../config";
 function ProducerDashboard() {
     const { user } = useContext(AuthContext);
     const [beatsData, setBeatsData] = useState([]);
+    const [monthlySales, setMonthlySales] = useState({
+        totalSales: '0.00',
+        totalOrders: 0
+    });
+    const [monthlyListeners, setMonthlyListeners] = useState(0);
 
     useEffect(() => {
         const fetchBeats = async () => {
             if (user && user.role === 'producer') {
-                const response = await fetch(BASE_URL+'/beats/my', {
+                const response = await fetch(BASE_URL + '/beats/my', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json'
@@ -25,7 +30,40 @@ function ProducerDashboard() {
             }
         };
 
+        const fetchMonthlySales = async () => {
+            if (user && user.role === 'producer') {
+                const producerId = user.id;
+                const response = await fetch(BASE_URL + `/producer/${producerId}/month-sales`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                setMonthlySales({
+                    totalSales: data.total_sales,
+                    totalOrders: data.total_orders
+                });
+            }
+        };
+
+        const fetchMonthlyListeners = async () => {
+            if (user && user.role === 'producer') {
+                const producerId = user.id;
+                const response = await fetch(BASE_URL + `/producer/${producerId}/monthly-listeners`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                setMonthlyListeners(data.monthly_listeners);
+            }
+        };
+
         fetchBeats();
+        fetchMonthlySales();
+        fetchMonthlyListeners();
     }, [user]);
 
     return (
@@ -41,13 +79,12 @@ function ProducerDashboard() {
                         <Col xs={12} md={4} className="d-flex flex-column justify-content-around">
                             <div className="custom-card d-flex flex-column justify-content-center align-items-center p-4 bg-light shadow-sm rounded">
                                 <i className="fa fa-users fa-3x" aria-hidden="true" style={{ color: 'black' }}></i>
-                                <span className="mt-2" style={{ fontSize: '2rem', fontWeight: 'bold', color: '#343a40' }}>1500</span>
+                                <span className="mt-2" style={{ fontSize: '2rem', fontWeight: 'bold', color: '#343a40' }}>{monthlyListeners}</span>
                                 <p className="mt-2 mb-0" style={{ fontSize: '1.2rem', color: '#6c757d' }}>Oyentes Mensuales</p>
                             </div>
                             <div className="custom-card d-flex flex-column justify-content-center align-items-center p-4 bg-success text-white shadow-sm rounded">
-                                <i className="fa fa-euro-sign fa-3x" aria-hidden="true" style={{ color: '#fff' }}></i>
-                                <span className="mt-2" style={{ fontSize: '2rem', fontWeight: 'bold' }}>200</span> 
-                                <p className="mt-2 mb-0" style={{ fontSize: '1.2rem' }}>Ingresados este mes</p>
+                                <span className="mt-2" style={{ fontSize: '2rem', fontWeight: 'bold' }}>{monthlySales.totalSales}€</span>
+                                <p className="mt-2 mb-0" style={{ fontSize: '1.2rem' }}>Ingresados ultimo mes</p>
                             </div>
                         </Col>
                     </Row>

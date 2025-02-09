@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaMusic, FaUsers, FaDollarSign, FaChartLine } from 'react-icons/fa';
 import { FaArrowTrendUp } from "react-icons/fa6";
-import Chart from '/src/components/Chart/Chart';
 import AdminChart from '/src/components/AdminChart/AdminChart';
 import './AdminDashboard.css';
 import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
@@ -15,23 +14,21 @@ import TrafficByLocation from '../../components/TrafficByLocation/TrafficByLocat
 function AdminDashboard() {
     const navigate = useNavigate();
 
-    // Estado para almacenar las estadísticas
     const [stats, setStats] = useState({
         totalBeats: 0,
         totalUsers: 0,
-        totalSales: '225',
-        totalRevenue: '31.762€',
+        totalSales: '0.00',
+        totalRevenue: '0.00€',
+        salesPercentageChange: '0%', // Para el cambio porcentual
+        revenuePercentageChange: '0%', // Para el cambio porcentual
     });
 
-    // Estado para manejar el estado de carga
     const [loading, setLoading] = useState(true);
 
-    // Efecto para obtener las estadísticas de la API
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // Cambiar la URL de la API por la correcta
                 const response = await fetch(BASE_URL + '/admin/stats', {
                     method: 'GET',
                     headers: {
@@ -44,8 +41,10 @@ function AdminDashboard() {
                     setStats({
                         totalBeats: data.beats_count,
                         totalUsers: data.users_count,
-                        totalSales: '225',
-                        totalRevenue: '31.762€',
+                        totalSales: data.total_sales,
+                        totalRevenue: data.total_revenue,
+                        salesPercentageChange: data.sales_percentage_change,
+                        revenuePercentageChange: data.revenue_percentage_change,
                     });
                 } else {
                     console.error('Error al obtener las estadísticas');
@@ -53,7 +52,7 @@ function AdminDashboard() {
             } catch (error) {
                 console.error('Error:', error);
             } finally {
-                setLoading(false);  // Cuando termine la carga, cambiar el estado a falso
+                setLoading(false);
             }
         };
 
@@ -61,8 +60,8 @@ function AdminDashboard() {
     }, []);
 
     const statsData = [
-        { title: 'Ventas totales', value: stats.totalSales, percentage: '+40% vs últimos 7 días', icon: <FaChartLine size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
-        { title: 'Ingresos totales', value: stats.totalRevenue, percentage: '+16% vs últimos 7 días', icon: <FaDollarSign size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
+        { title: 'Ventas totales', value: stats.totalSales, percentage: stats.salesPercentageChange, icon: <FaChartLine size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
+        { title: 'Ingresos totales', value: stats.totalRevenue, percentage: stats.revenuePercentageChange, icon: <FaDollarSign size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
         { title: 'Usuarios totales', value: stats.totalUsers, percentage: '+3% vs últimos 7 días', icon: <FaUsers size={30} />, percentageIcon: <FaArrowTrendUp size={20} /> },
     ];
 
@@ -101,17 +100,20 @@ function AdminDashboard() {
                                 </div>
 
                                 <div className="row g-4 mb-4">
-                                    <div className='col-12 col-lg-6'>
+                                    <div className='col-12 col-lg-'>
                                         <AdminChart />
                                     </div>
                                 </div>
 
-                                <div className="container-fluid mb-4">
-                                    <div className="row row-cols-1 row-cols-md-3 g-4">
-                                        {statsData.map((stat, index) => (
-                                            <div className="col d-flex" key={index}>
-                                                <div className="stats-card bg-white w-100">
-                                                    <div className="card-body text-dark d-flex justify-content-between align-items-center">
+                                <div className="row row-cols-1 row-cols-md-3 g-4">
+                                    {statsData.map((stat, index) => (
+                                        <div className="col d-flex" key={index}>
+                                            <div className="stats-card bg-white w-100">
+                                                <div className="card-body text-dark d-flex justify-content-between align-items-center">
+                                                    <div className="d-flex align-items-center">
+                                                        <div className="me-3">
+                                                            {stat.icon}
+                                                        </div>
                                                         <div>
                                                             <h5 className="card-title mb-2">{stat.title}</h5>
                                                             <p className="card-text mb-2">{stat.value}</p>
@@ -119,13 +121,13 @@ function AdminDashboard() {
                                                                 {stat.percentage} {stat.percentageIcon}
                                                             </p>
                                                         </div>
-                                                        {stat.icon}
                                                     </div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
+                                        </div>
+                                    ))}
                                 </div>
+
 
                                 <div className="row g-4 mb-4">
                                     <div className="col-md-6">
@@ -138,7 +140,6 @@ function AdminDashboard() {
                             </main>
                         </div>
                     )}
-
                 </div>
             </div>
         </div>
