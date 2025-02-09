@@ -9,6 +9,7 @@ import { BASE_URL } from "./../../../config";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "/src/redux/features/cartSlice";
+import { useGetPurchasedBeatsQuery } from '/src/redux/services/shazamCore';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const BeatDetail = () => {
@@ -18,6 +19,7 @@ const BeatDetail = () => {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const { data: purchasedBeats, isFetching, error } = useGetPurchasedBeatsQuery();
 
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
@@ -40,7 +42,8 @@ const BeatDetail = () => {
     fetchBeat();
   }, [id]);
 
-  const isInCart = cart.some((item) => item.id === beat?.id);
+  const isInCart = beat ? cart.some((item) => item.id === beat.id) : false;
+  const isPurchased = beat ? purchasedBeats?.some(item => item.id === beat.id) : false;
 
   const toggleLike = async () => {
     setIsLoading(true);
@@ -70,6 +73,7 @@ const BeatDetail = () => {
 
       if (isInCart) {
         dispatch(removeFromCart(selectedBeatWithLicense));
+        setSelectedLicense(null);
       } else {
         dispatch(addToCart(selectedBeatWithLicense));
       }
@@ -89,6 +93,12 @@ const BeatDetail = () => {
     }
   };
 
+  const handleLicenseSelection = (index) => {
+    if (!isInCart) {
+      setSelectedLicense(index);
+    }
+  };
+
   return (
     <div style={{ display: "flex"}}>
       <Sidebar />
@@ -99,7 +109,6 @@ const BeatDetail = () => {
         ) : (
           <div className="container py-4">
             <div className="row g-4">
-              {/* Columna Izquierda */}
               <div className="col-md-4">
                 <div className="bg-dark text-white p-3 rounded shadow">
                   <img src={beat.cover} alt="Beat cover" className="img-fluid rounded mb-3" />
@@ -107,7 +116,7 @@ const BeatDetail = () => {
                   <Link to={`/producer/${beat.user.id}`} className="text-decoration-none text-secondary">
                     <p className="mb-3">{beat.user.name}</p>
                   </Link>
-                  {/* Botones */}
+
                   <div className="d-flex gap-3 my-3">
                     <button className="btn btn-outline-light rounded-circle position-relative" onClick={toggleLike} disabled={isLoading}>
                       {isLoading ? <ClipLoader size={24} color={"#3498db"} /> : <FaHeart className={liked ? "text-danger" : ""} />}
@@ -118,11 +127,11 @@ const BeatDetail = () => {
                     <button className="btn btn-outline-light rounded-circle">
                       <FaPlus />
                     </button>
-                    <button className="btn btn-outline-light rounded-circle" onClick={handleCartToggle}>
+                    <button className="btn btn-outline-light rounded-circle" onClick={handleCartToggle} disabled={isPurchased}>
                       <FaShoppingCart className={isInCart ? "text-danger" : ""} />
                     </button>
                   </div>
-                  {/* Información */}
+
                   <h3 className="fs-5">Información</h3>
                   <ul className="list-unstyled small">
                     <li><strong>Fecha:</strong> {new Date(beat.created_at).toLocaleDateString("es-ES")}</li>
@@ -132,7 +141,6 @@ const BeatDetail = () => {
                     <li><strong>Estado:</strong> {beat.status}</li>
                   </ul>
 
-                  {/* Tags */}
                   <h3 className="fs-5">Tags</h3>
                   <div className="d-flex gap-2 flex-wrap">
                     {beat.tags?.map((tag, index) => (
@@ -142,7 +150,6 @@ const BeatDetail = () => {
                 </div>
               </div>
 
-              {/* Columna Derecha */}
               <div className="col-md-8">
                 <div className="bg-dark text-white p-3 rounded shadow">
                   <SoundWave audioUrl={beat.mp3_file} />
@@ -153,8 +160,8 @@ const BeatDetail = () => {
                         <div className="col-md-4" key={index}>
                           <div
                             className={`p-3 rounded text-center ${selectedLicense === index ? "bg-light text-dark" : "bg-secondary"} shadow-sm`}
-                            onClick={() => setSelectedLicense(index)}
-                            style={{ cursor: "pointer" }}
+                            onClick={() => handleLicenseSelection(index)}
+                            style={{ cursor: "pointer", opacity: isInCart || isPurchased ? 0.5 : 1 }}
                           >
                             <h4 className="fs-6 mb-2">{license.license_name}</h4>
                             <p className="fs-5 fw-bold">{license.price}€</p>
@@ -164,9 +171,13 @@ const BeatDetail = () => {
                       ))}
                     </div>
                   </div>
-                  {/* Botón de compra */}
-                  <button className="btn btn-primary w-100 mt-4" onClick={handlePurchase}>
-                    Comprar ahora
+
+                  <button
+                    className="btn btn-primary w-100 mt-4"
+                    onClick={handlePurchase}
+                    disabled={isPurchased || selectedLicense === null}
+                  >
+                    {isPurchased ? "Ya comprado" : "Comprar ahora"}
                   </button>
                 </div>
               </div>
