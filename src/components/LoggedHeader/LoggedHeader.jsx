@@ -99,23 +99,6 @@ export function LoggedHeader() {
                   </p>
                 </div>
               )}
-              {user && user.role !== "admin" && (
-                <>
-                  <div className="notification-item">
-                    <FaRegCommentDots className="notification-icon" />
-                    <Badge pill bg="danger" className="notification-badge">
-                      5
-                    </Badge>
-                  </div>
-                  <div className="notification-item">
-                    <FaRegHeart className="notification-icon" />
-                    <Badge pill bg="danger" className="notification-badge">
-                      3
-                    </Badge>
-                  </div>
-                </>
-              )}
-
               {user && user.role === "client" && (
                 <Dropdown align="end">
                   <Dropdown.Toggle

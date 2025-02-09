@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Music, Edit, Shield, CheckCircle, XCircle } from 'lucide-react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Badge, Button, Modal } from 'react-bootstrap';
@@ -7,6 +7,8 @@ import { LoggedHeader } from '/src/components/LoggedHeader/LoggedHeader';
 import Loader from '/src/components/Loader/Loader';  
 import { BASE_URL } from "./../../../config";
 import { useSelector } from 'react-redux';
+import BackButton from "/src/components/BackButton/BackButton";
+import ReactPaginate from 'react-paginate';
 
 const BeatManagement = () => {
   const navigate = useNavigate();
@@ -15,6 +17,9 @@ const BeatManagement = () => {
   const [modalAction, setModalAction] = useState(''); 
   const [selectedBeat, setSelectedBeat] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const beatsPerPage = 10;
 
   const searchTerm = useSelector((state) => state.search.searchTerm) || '';
 
@@ -79,6 +84,12 @@ const BeatManagement = () => {
     setShowModal(true); 
   };
 
+  const indexOfLastBeat = (currentPage + 1) * beatsPerPage;
+  const indexOfFirstBeat = indexOfLastBeat - beatsPerPage;
+  const currentBeats = filteredBeats.slice(indexOfFirstBeat, indexOfLastBeat);
+
+  const paginate = ({ selected }) => setCurrentPage(selected);
+
   if (loading) {
     return (
       <>
@@ -92,6 +103,7 @@ const BeatManagement = () => {
     <>
       <LoggedHeader />
       <div className="container mt-4">
+        <BackButton />
         <h4 className="text-light mb-5">Gestión de Beats</h4>
         <Table bordered hover responsive variant="light" style={{ backgroundColor: 'white' }}>
           <thead>
@@ -105,7 +117,7 @@ const BeatManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredBeats.map(({ id, title, cover, genre, bpm, status, user }) => (
+            {currentBeats.map(({ id, title, cover, genre, bpm, status, user }) => (
               <tr key={id} className="align-middle">
                 <td>
                   <div className="d-flex align-items-center">
@@ -157,6 +169,24 @@ const BeatManagement = () => {
             ))}
           </tbody>
         </Table>
+
+        <ReactPaginate
+          previousLabel={'← Anterior'}
+          nextLabel={'Siguiente →'}
+          breakLabel={'...'}
+          pageCount={Math.ceil(filteredBeats.length / beatsPerPage)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={paginate}
+          containerClassName={'pagination justify-content-center'}
+          pageClassName={'page-item'}
+          pageLinkClassName={'page-link'}
+          previousClassName={'page-item'}
+          previousLinkClassName={'page-link'}
+          nextClassName={'page-item'}
+          nextLinkClassName={'page-link'}
+          activeClassName={'active'}
+        />
       </div>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>

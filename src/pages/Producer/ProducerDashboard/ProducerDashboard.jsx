@@ -1,15 +1,18 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { LoggedHeader } from "/src/components/LoggedHeader/LoggedHeader";
 import Card from "/src/components/Card/Card";
 import ProducerSidebar from "/src/components/ProducerSidebar/ProducerSidebar";
 import Chart from "/src/components/Chart/Chart";
 import { useEffect, useState, useContext } from "react";
-import AuthContext from "/src/contexts/AuthContext"; 
+import AuthContext from "/src/contexts/AuthContext";
 import { BASE_URL } from "./../../../config";
 
 function ProducerDashboard() {
     const { user } = useContext(AuthContext);
     const [beatsData, setBeatsData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const beatsPerPage = 4;
+
     const [monthlySales, setMonthlySales] = useState({
         totalSales: '0.00',
         totalOrders: 0
@@ -66,6 +69,12 @@ function ProducerDashboard() {
         fetchMonthlyListeners();
     }, [user]);
 
+    const indexOfLastBeat = currentPage * beatsPerPage;
+    const indexOfFirstBeat = indexOfLastBeat - beatsPerPage;
+    const currentBeats = beatsData.slice(indexOfFirstBeat, indexOfLastBeat);
+
+    const totalPages = Math.ceil(beatsData.length / beatsPerPage);
+
     return (
         <div style={{ display: "flex" }}>
             <ProducerSidebar />
@@ -93,17 +102,23 @@ function ProducerDashboard() {
                             <div className="trending-beats">
                                 <h4 className="section-title">Mis Beats</h4>
                                 <div className="row d-flex flex-wrap justify-content-between g-3">
-                                    {user && user.role === 'producer' && beatsData.map((beat, index) => (
+                                    {user && user.role === 'producer' && currentBeats.map((beat, index) => (
                                         <Col key={index} xs={12} sm={12} md={6} lg={6} xl={6} className="card-col">
                                             <Card
                                                 title={beat.title}
                                                 subtitle={beat.subtitle}
                                                 imageURL={beat.cover}
-                                                detailsURL={beat.detailsURL}
-                                                className="custom-card"
+                                                detailsURL={"/beat-detail/" + beat.id}
                                             />
+                                            {console.log(beat)}
+                                            
                                         </Col>
                                     ))}
+                                </div>
+                                <div className="d-flex justify-content-center mt-4">
+                                    <Button variant="dark" disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>Anterior</Button>
+                                    <span className="mx-3" style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>{currentPage} / {totalPages}</span>
+                                    <Button variant="dark" disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Siguiente</Button>
                                 </div>
                             </div>
                         </Col>

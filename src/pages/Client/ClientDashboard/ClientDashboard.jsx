@@ -40,11 +40,6 @@ function ClientDashboard() {
                 ¡Bienvenido, <span>{user?.name || "Usuario"}</span>!
               </h2>
               <Carrousel />
-              <div className="buttons-container container d-flex gap-3 my-4">
-                <CustomButton type="primary" value="Para ti" />
-                <CustomButton type="btn-light-grey" value="Shuffle" />
-                <CustomButton type="btn-light-grey" value="Siguiendo" />
-              </div>
               <div className="trending-beats">
                 <h4 className="section-title">Trending Beats</h4>
                 <div className="row d-flex flex-wrap justify-content-between g-3">
