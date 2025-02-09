@@ -63,7 +63,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
         </Link>
         <p className="fw-bold text-white mt-1">{song.price}€</p>
         {isFetching ? (
-          <p className="text-white mt-2">Verificando compra...</p>
+          <p className="text-white mt-2">Cargando...</p>
         ) : isPurchased ? (
           <button className="btn btn-success mt-2 w-100" disabled>Ya comprado</button>
         ) : (

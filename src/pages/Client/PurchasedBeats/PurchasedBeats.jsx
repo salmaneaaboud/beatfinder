@@ -8,6 +8,7 @@ import useDownloadFile from "/src/hooks/useDownloadFile";
 
 const PurchasedBeats = () => {
   const { data, isFetching, error } = useGetPurchasedBeatsQuery();
+  console.log(data);
 
   console.log("Raw API Response:", data); // Ver estructura completa
   console.log("First beat object:", data?.[0]); // Ver primer objeto en la lista
@@ -66,7 +67,9 @@ const PurchasedBeats = () => {
                             {new Date(beat.purchased_at).toLocaleDateString()}
                           </td>
                           <td>
-                            <p className="text-muted mb-0"><strong>{beat.license_type}</strong></p>
+                            <p className="text-muted mb-0">
+                              <strong>{beat.license_type}</strong>
+                            </p>
                           </td>
                           <td>
                             <button
@@ -80,17 +83,19 @@ const PurchasedBeats = () => {
                             >
                               MP3
                             </button>
-                            <button
-                              className="btn btn-secondary btn-sm"
-                              onClick={() =>
-                                downloadFile(
-                                  beat.wav_file,
-                                  `beat_${beat.id}.wav`
-                                )
-                              }
-                            >
-                              WAV
-                            </button>
+                            {beat.wav_file && ( 
+                              <button
+                                className="btn btn-secondary btn-sm"
+                                onClick={() =>
+                                  downloadFile(
+                                    beat.wav_file,
+                                    `beat_${beat.id}.wav`
+                                  )
+                                }
+                              >
+                                WAV
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ) : null
