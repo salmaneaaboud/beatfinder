@@ -1,15 +1,49 @@
 .music-player-container {
   width: 100%;
   padding: 1.5rem;
-  background: linear-gradient(180deg, rgba(18,18,18,0.95) 0%, rgba(0,0,0,0.95) 100%);
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
   backdrop-filter: blur(15px);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
   position: fixed;
   bottom: 0;
-  z-index: 100;
+  z-index: 9999;
+  border-radius: 20px 20px 0 0; /* Mejora de los bordes */
+  transform: translateY(100%); /* Inicialmente fuera de la vista */
+  opacity: 0; /* Inicia invisible */
+  animation: slideUp 0.5s ease-out forwards; /* Animación de apertura */
 }
 
+/* Animación de deslizamiento hacia arriba */
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%); /* Empieza fuera de la pantalla */
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); /* Llega a la posición normal */
+    opacity: 1; /* Se hace completamente visible */
+  }
+}
+
+/* Animación de deslizamiento hacia abajo (para la salida) */
+@keyframes slideDown {
+  0% {
+    transform: translateY(0); /* Empieza en la posición normal */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%); /* Se desplaza fuera de la pantalla */
+    opacity: 0; /* Se desvanece */
+  }
+}
+
+/* Estilo para el contenedor cuando el reproductor está cerrado (inicia la animación de salida) */
+.music-player-container.closed {
+  animation: slideDown 0.5s ease-out forwards; /* Animación de cierre */
+}
+
+/* Sección de contenido */
 .music-player-content {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -18,9 +52,11 @@
   position: relative;
   max-width: 1400px;
   margin: 0 auto;
+  color: #fff; /* Asegura que el texto sea blanco para mejor contraste */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Track Section */
+/* Sección de la pista */
 .track-section {
   min-width: 200px;
   display: flex;
@@ -30,24 +66,35 @@
 
 .track-section img {
   border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 80px;
+  width: 80px;
 }
 
 .track-section img:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Controls Section */
+/* Sección de controles */
 .controls-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1rem;
   padding: 0 1rem;
 }
 
-/* Volume Section */
+.controls-section button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Sección de volumen */
 .volume-section {
   display: flex;
   justify-content: flex-end;
@@ -55,7 +102,7 @@
   padding-right: 2rem;
 }
 
-/* Close Button */
+/* Botón de cerrar */
 .close-button {
   position: absolute;
   top: 1rem;
@@ -64,23 +111,23 @@
   cursor: pointer;
   z-index: 10;
   opacity: 0.7;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
 .close-button:hover {
   opacity: 1;
+  transform: rotate(45deg);
 }
 
-/* Responsive Design */
+/* Diseño responsive */
 @media (max-width: 768px) {
   .music-player-content {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 0.5rem;
+    padding: 1rem;
   }
 
   .track-section {
-    min-width: unset;
     justify-content: center;
   }
 
@@ -90,7 +137,6 @@
 
   .controls-section {
     order: -1;
-    padding: 0.5rem 0;
   }
 }
 
@@ -106,5 +152,9 @@
 
   .track-section {
     gap: 0.5rem;
+  }
+
+  .music-player-container {
+    border-radius: 20px 20px 0 0; /* Mantener bordes redondeados */
   }
 }

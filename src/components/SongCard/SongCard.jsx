@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import PlayPause from '../PlayPause/PlayPause';
 import { playPause, setActiveSong } from '/src/redux/features/playerSlice';
 import { addToCart, removeFromCart } from '/src/redux/features/cartSlice';
+import { useGetPurchasedBeatsQuery } from '/src/redux/services/shazamCore';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cart.cart); 
+  const { data: purchasedBeats, isFetching, error } = useGetPurchasedBeatsQuery();
 
   const isInCart = cart.some(item => item.id === song.id);
+  const isPurchased = purchasedBeats?.some(item => item.id === song.id);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -59,9 +62,15 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
           <p className="fw-semibold text-white text-truncate mt-1">{song.user.name}</p>
         </Link>
         <p className="fw-bold text-white mt-1">{song.price}€</p>
-        <button className="btn btn-primary mt-2 w-100" onClick={handleCartToggle}>
-          {isInCart ? 'Eliminar del carrito' : 'Añadir al carrito'}
-        </button>
+        {isFetching ? (
+          <p className="text-white mt-2">Cargando...</p>
+        ) : isPurchased ? (
+          <button className="btn btn-success mt-2 w-100" disabled>Ya comprado</button>
+        ) : (
+          <button className="btn btn-primary mt-2 w-100" onClick={handleCartToggle}>
+            {isInCart ? 'Eliminar del carrito' : 'Añadir al carrito'}
+          </button>
+        )}
       </div>
     </div>
   );
