@@ -37,7 +37,7 @@ const ProducerSidebar = () => {
               <CDBSidebarMenuItem icon="compass">Explorar</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/settings" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="cogs">Configuración</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="cogs">Mi perfil</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
