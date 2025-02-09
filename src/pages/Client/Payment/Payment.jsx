@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
-import { removeFromCart, clearCart } from "/src/redux/features/cartSlice"; // Acción de Redux para limpiar carrito
+import { removeFromCart, clearCart } from "/src/redux/features/cartSlice";
 import api from "/src/services/api";
 import "./Payment.css";
 import { toast } from "sonner";
@@ -12,7 +12,7 @@ import AuthContext from "../../../contexts/AuthContext";
 const Payment = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cart = useSelector((state) => state.cart.cart); // Obtener carrito desde Redux
+  const cart = useSelector((state) => state.cart.cart);
   const [loading, setLoading] = useState(false);
   const { user, setUser } = useContext(AuthContext);
   const balance = user?.client.balance || 0;
@@ -77,24 +77,24 @@ const Payment = () => {
             <p>No hay beats en el carrito.</p>
           ) : (
             cart.map((beat) => (
-              <div className="cart-item mb-4" key={beat.id}>
+              <div className="custom-cart-item mb-4" key={beat.id}>
                 <div className="row g-0 align-items-center">
                   <div className="col-4 col-md-3">
                     <img
                       src={beat.cover}
                       alt={beat.title}
-                      className="img-fluid rounded-start cart-item__cover px-2"
+                      className="img-fluid rounded-start custom-cart-item__cover px-2"
                     />
                   </div>
                   <div className="col-8 col-md-9">
-                    <div className="card-body p-3 text-dark">
-                      <h5 className="card-title">{beat.title}</h5>
-                      <p className="card-text mb-1">
+                    <div className="custom-card-body p-3 text-dark">
+                      <h5 className="custom-card-title">{beat.title}</h5>
+                      <p className="custom-card-text mb-1">
                         <small>
                           Productor: {beat.user?.name || "Desconocido"}
                         </small>
                       </p>
-                      <p className="card-text mb-2">
+                      <p className="custom-card-text mb-2">
                         <small>Licencia: 
                         {beat.licenseName || "Básica"}
                         </small>
@@ -128,7 +128,7 @@ const Payment = () => {
             {balance?.toLocaleString("es-ES", { minimumFractionDigits: 2 })}€
           </p>
           <p className="fs-5">Sub Total: {subTotal.toFixed(2)}€</p>
-          <h2 className="title-price fs-3 fw-bold">
+          <h2 className="custom-title-price fs-3 fw-bold">
             Total: {subTotal.toFixed(2)}€
           </h2>
           <button
